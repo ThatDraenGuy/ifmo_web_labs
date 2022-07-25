@@ -1,0 +1,95 @@
+<?php
+include_once 'logic.php';
+
+$table_header = '
+<tr>
+    <td>x</td>
+    <td>y</td>
+    <td>r</td>
+    <td>result</td>
+    <td>script time</td>
+    <td>current time</td>
+</tr>
+';
+
+function gen_response($x,$y,$r, string $message, string $time_of_script, string $current_time) {
+    global $table_header;
+    $table_row = gen_table_row($x,$y,$r,$message,$time_of_script,$current_time);
+    $res = '
+    <html>
+    <head>
+        <title>Response</title>
+        <link href="../front/response-style.css" rel="stylesheet">
+    </head>
+    <body>
+        <table class="response-table">
+            '. $table_header .'
+            '. $table_row .'
+        </table><br>
+        ' . gen_history_table() . '
+    </body>
+    </html>';
+    array_push($_SESSION['history'], $table_row);
+    return $res;
+}
+
+function gen_history_table() : string {
+    $history = $_SESSION['history'];
+    if (empty($history)) return '';
+    global $table_header;
+    $res = '<table class="history-table">';
+    $res .= $table_header;
+    foreach ($history as $i => $table_row) {
+        $res .= $table_row;
+    }
+    $res .= '</table>';
+    return $res;
+}
+
+function gen_table_row($x,$y,$r, string $message, string $time_of_script, string $current_time) : string {
+    return '
+    <tr>
+    <td>' . $x . '</td>
+    <td>' . $y . '</td>
+    <td>' . $r . '</td>
+    <td>' . $message . '</td>
+    <td>' . $time_of_script . '</td>
+    <td>' . $current_time . '</td>
+    </tr>';
+}
+
+
+function time_elapsed($secs){
+    $bit = array(
+        'y' => $secs / 31556926 % 12,
+        'w' => $secs / 604800 % 52,
+        'd' => $secs / 86400 % 7,
+        'h' => $secs / 3600 % 24,
+        'm' => $secs / 60 % 60,
+        's' => $secs % 60,
+        'ms' => floor($secs * 1000),
+        'mks' => floor($secs * 1000000)
+        );
+       
+    foreach($bit as $k => $v)
+        if($v > 0)$ret[] = $v . $k;
+       
+    return join(' ', $ret);
+}
+
+
+function gen_shooting_table() : string {
+    global $constraints;
+    $table = '<table id="shoot-table">';
+    foreach ($constraints as $param => $constraint) {
+        $table .= $constraint->gen_shooting_table_row($param);
+    }
+    $table .= '
+        <tr>
+            <td>
+                <input type="submit" name="shoot!">
+            </td>
+        </tr>
+    </table>';
+    return $table;
+}
