@@ -1,13 +1,17 @@
-
+import { update } from "./graph.js";
+window.paramChanged = paramChanged;
+window.validateSubmission = validateSubmission;
 const messageClass = "input-message";
 const inputClassesMap = new Map();
 inputClassesMap.set("text-input",validateTextInput);
 inputClassesMap.set("radio-input",validateRadioInput);
+const currentParams = new Map();
 
 function paramChanged(name) {
     var message = getElementOfClassByName(messageClass,name);
     message.style.visibility = 'hidden'
     checkParam(name);
+    update(currentParams);
 }
 
 function checkParam(name) {
@@ -52,6 +56,7 @@ function validateTextInput(textInput) {
         return false;
     }
     message("All good!",name)
+    currentParams.set(name, value);
     return true;
 }
 function validateRadioInput(radioInput) {
@@ -59,9 +64,11 @@ function validateRadioInput(radioInput) {
     var checkRadio = document.querySelector('input[name='+name+']:checked');
     if (checkRadio!=null) {
         message("All good!",name)
+        currentParams.set(name, checkRadio.value);
         return true;
     }
     message("No value inputted!",name);
+    currentParams.set(name, null);
     return false;
 }
 function message(message, name) {

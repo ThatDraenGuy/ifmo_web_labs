@@ -62,3 +62,7 @@ td.content-cell {
 #src-link:hover #tooltip {
     display: block;
 }
+#graph {
+    width: 400px;
+    height: 400px;
+}
