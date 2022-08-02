@@ -19,7 +19,7 @@ class Options implements Constraints {
             <td>
                 ' . strtoupper($param_name) . ': ';
         foreach ($this->options as $i => $option) {
-            $line = $option . ' <input type="radio" name="' . $param_name . '" value="' . $option . '" class="radio-input"  oninput="paramChanged(name)">';
+            $line =' ' . $option . '<input type="radio" name="' . $param_name . '" value="' . $option . '" class="radio-input"  oninput="paramChanged(name)">';
             $row .=$line;
         }
         $row .= '<br>
