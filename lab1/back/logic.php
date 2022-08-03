@@ -1,20 +1,10 @@
 <?php
-include 'constraints.php';
-include 'coordinates.php';
+include_once 'settings.php';
+include_once 'constraints.php';
+include_once 'coordinates.php';
 include_once 'HTML_gen.php';
 
-$constraints = array(
-    'x' => new Options([-4,-3,-2,-1,0,1,2,3,4]),
-    'y' => new Range(-3,3),
-    'r' => new Options([1, 1.5, 2, 2.5, 3])
-);
 
-$quadrants = array(
-    new CircleQuadrant(1,1),
-    new SquareQuadrant(-1,1),
-    new TriangleQuadrant(-1,-1),
-    new EmptyQuadrant
-);
 
 function shoot() {
     $start_time = microtime(true);

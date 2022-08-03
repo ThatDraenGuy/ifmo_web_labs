@@ -1,6 +1,6 @@
 <?php
 
-interface Constraints {
+interface Constraints extends JsonSerializable {
     public function check_value($value) : bool;
     public function gen_shooting_table_row(string $param_name) : string;
 }
@@ -28,6 +28,12 @@ class Options implements Constraints {
         </tr>';
         return $row;
     }
+    public function jsonSerialize() {
+        return [
+            'type' => "options",
+            'options' => $this->options
+        ];
+    }
 }
 
 class Range implements Constraints {
@@ -51,5 +57,12 @@ class Range implements Constraints {
             </td>
         </tr>';
         return $row;
+    }
+    public function jsonSerialize() {
+        return [
+            'type' => 'range',
+            'range_min' => $this->lower_bound,
+            'range_max' => $this->higher_bound
+        ];
     }
 }

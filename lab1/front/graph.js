@@ -1,7 +1,7 @@
-const graphVariants = new Map();
-graphVariants.set("11", getCircleQuadrant);
-graphVariants.set("-11", getSquareQuadrant);
-graphVariants.set("-1-1", getTriangleQuadrant);
+export const graphVariants = new Map();
+graphVariants.set("11", getEmptyQuadrant);
+graphVariants.set("-11", getEmptyQuadrant);
+graphVariants.set("-1-1", getEmptyQuadrant);
 graphVariants.set("1-1", getEmptyQuadrant);
 
 const quadrantsData = new Map();
@@ -128,6 +128,19 @@ function getCircleQuadrant(x,y) {
 
 function getEmptyQuadrant(x,y) {
     return "null";
+}
+
+export function getQuadrantByName(name) {
+    switch (name) {
+        case "triangle":
+            return getTriangleQuadrant;
+        case "square":
+            return getSquareQuadrant;
+        case "circle":
+            return getCircleQuadrant;
+        default:
+            return getEmptyQuadrant;
+    }
 }
 
 export function update(currentParams) {
