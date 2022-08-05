@@ -82,7 +82,7 @@ function gen_shooting_table() : string {
     global $constraints;
     $table = '<table id="shoot-table">';
     foreach ($constraints as $param => $constraint) {
-        $table .= $constraint->gen_shooting_table_row($param);
+        $table .= $constraint->genShootingTableRow($param);
     }
     $table .= '
         <tr>

@@ -8,33 +8,32 @@ include_once 'HTML_gen.php';
 
 function shoot() {
     $start_time = microtime(true);
-    $x = handle_value('x');
-    $y = handle_value('y');
-    $r = handle_value('r');
-    $hit_res = check_hit($x,$y,$r);
-    handle_result($x,$y,$r, $hit_res->get_message(), $start_time);
+    try {
+        $x = handle_value('x');
+        $y = handle_value('y');
+        $r = handle_value('r');
+        $hit_res = check_hit($x,$y,$r);
+        handle_result($x,$y,$r, $hit_res->getMessage(), $start_time);
+    } catch (ValueException $e) {
+        handle_result($x,$y,$r, $e->getMessage(), $start_time);
+
+    }
 }
 
 function handle_value(string $name) : float {
     $value = $_POST[$name];
-    $res = check_param($name, $value);
-    if ($res->is_success()) {
-        return floatval($value);
-    } else {
-        handle_error($res->get_message());
-        //TODO: think about how to catch error or smth
-    }
+    check_param($name, $value);
+    return floatval($value);
 }
-function check_param(string $name, $value) : Result {
-    if (is_null($value)) return new Result(false, 'Value ' . $name . ' wasn\'t inputted!');
-    if (is_numeric($value)) {
-        if (get_param_constraints($name)->check_value($value)) {
-            return new Result(true, '');
-        } else {
-            return new Result(false, 'Value of ' . $name . 'did not pass constraints check');
-        }
+function check_param(string $name, $value) {
+    if (is_null($value) || $value=='') throw new ValueException('Value ' . $name . ' wasn\'t inputted!');
+    if (!is_numeric($value)) {
+        throw new ValueException('value ' . $name . ' is not a number, but a "' . $value . '"');
+    }
+    if (get_param_constraints($name)->checkValue($value)) {
+        return;
     } else {
-        return new Result(false, 'value ' . $name . ' is not a number, but a "' . $value . '"');
+        throw new ValueException('Value of ' . $name . 'did not pass constraints check');
     }
 }
 
@@ -46,7 +45,7 @@ function get_param_constraints(string $name) : Constraints {
 function check_hit(float $x, float $y, float $r) : Result {
     global $quadrants;
     foreach ($quadrants as $i => $quadrant) {
-        if ($quadrant->check_hit($x,$y,$r)) {
+        if ($quadrant->checkHit($x,$y,$r)) {
             return new Result(true, 'that\'s a hit! ');
         };
     }
@@ -82,10 +81,16 @@ class Result {
         $this->res = $res;
         $this->message = $message;
     }
-    public function is_success() : bool {
+    public function isSuccess() : bool {
         return $this->res;
     }
-    public function get_message() : string {
+    public function getMessage() : string {
         return $this->message;
+    }
+}
+
+class ValueException extends Exception {
+    public function __construct(string $message) {
+        parent::__construct($message);
     }
 }

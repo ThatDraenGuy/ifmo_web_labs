@@ -1,8 +1,8 @@
 <?php
 
 interface Constraints extends JsonSerializable {
-    public function check_value($value) : bool;
-    public function gen_shooting_table_row(string $param_name) : string;
+    public function checkValue($value) : bool;
+    public function genShootingTableRow(string $param_name) : string;
 }
 
 class Options implements Constraints {
@@ -10,10 +10,10 @@ class Options implements Constraints {
     public function __construct(array $options) {
         $this->options = $options;
     }
-    public function check_value($value) : bool{
+    public function checkValue($value) : bool{
         return (in_array($value, $this->options));
     }
-    public function gen_shooting_table_row(string $param_name) : string {
+    public function genShootingTableRow(string $param_name) : string {
         $row = '
         <tr>
             <td>
@@ -44,10 +44,10 @@ class Range implements Constraints {
         $this->lower_bound = $lower_bound;
         $this->higher_bound = $higher_bound;
     }
-    public function check_value($value) : bool{
+    public function checkValue($value) : bool{
         return ($value >= $this->lower_bound && $value <= $this->higher_bound);
     }
-    public function gen_shooting_table_row(string $param_name) : string {
+    public function genShootingTableRow(string $param_name) : string {
         $row = '
         <tr>
             <td>
