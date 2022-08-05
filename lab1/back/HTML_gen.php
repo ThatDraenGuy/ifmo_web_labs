@@ -67,29 +67,12 @@ function time_elapsed($secs){
         'h' => $secs / 3600 % 24,
         'm' => $secs / 60 % 60,
         's' => $secs % 60,
-        'ms' => floor($secs * 1000),
-        'mks' => floor($secs * 1000000)
+        'ms' => $secs * 1000 % 1000,
+        'mks' => $secs * 1000000 % 1000
         );
        
     foreach($bit as $k => $v)
         if($v > 0)$ret[] = $v . $k;
        
     return join(' ', $ret);
-}
-
-
-function gen_shooting_table() : string {
-    global $constraints;
-    $table = '<table id="shoot-table">';
-    foreach ($constraints as $param => $constraint) {
-        $table .= $constraint->genShootingTableRow($param);
-    }
-    $table .= '
-        <tr>
-            <td>
-                <input type="submit" name="shoot!">
-            </td>
-        </tr>
-    </table>';
-    return $table;
 }

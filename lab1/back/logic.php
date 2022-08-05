@@ -57,20 +57,10 @@ function handle_error(string $message) {
 }
 
 function handle_result($x,$y,$r,$message,$start_time) {
-    $time = calc_time($start_time, microtime(true));
     $curr_time = date('Y-m-d H:i:s');
+    $time = time_elapsed(microtime(true) - $start_time);
     echo gen_response($x,$y,$r,$message,$time,$curr_time);
-
 }
-
-
-
-function calc_time(float $start, float $finish) : string {
-    $time = $finish - $start;
-    $microtime = floor($time * 1000000);
-    return $microtime . ' mks';
-}
-
 
 
 class Result {

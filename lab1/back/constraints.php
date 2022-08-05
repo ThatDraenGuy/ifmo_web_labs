@@ -2,7 +2,6 @@
 
 interface Constraints extends JsonSerializable {
     public function checkValue($value) : bool;
-    public function genShootingTableRow(string $param_name) : string;
 }
 
 class Options implements Constraints {
@@ -12,21 +11,6 @@ class Options implements Constraints {
     }
     public function checkValue($value) : bool{
         return (in_array($value, $this->options));
-    }
-    public function genShootingTableRow(string $param_name) : string {
-        $row = '
-        <tr>
-            <td>
-                ' . strtoupper($param_name) . ': ';
-        foreach ($this->options as $i => $option) {
-            $line =' ' . $option . '<input type="radio" name="' . $param_name . '" value="' . $option . '" class="radio-input"  oninput="paramChanged(name)">';
-            $row .=$line;
-        }
-        $row .= '<br>
-        <span class="input-message" name="'. $param_name . '" id="message" style="visibility: hidden;">message</span>
-        </td>
-        </tr>';
-        return $row;
     }
     public function jsonSerialize() {
         return [
@@ -46,17 +30,6 @@ class Range implements Constraints {
     }
     public function checkValue($value) : bool{
         return ($value >= $this->lower_bound && $value <= $this->higher_bound);
-    }
-    public function genShootingTableRow(string $param_name) : string {
-        $row = '
-        <tr>
-            <td>
-                ' . strtoupper($param_name) . ': 
-                <input type="text" name="' . $param_name . '" class="text-input" data-min="' . $this->lower_bound . '"; data-max="' . $this->higher_bound . '"; oninput="paramChanged(name)"><br>
-                <span class="input-message" name="' . $param_name . '" id="message" style="visibility: hidden;">message</span>
-            </td>
-        </tr>';
-        return $row;
     }
     public function jsonSerialize() {
         return [
