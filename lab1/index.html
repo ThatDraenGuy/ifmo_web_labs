@@ -34,7 +34,6 @@
                         <td></td>
                         <td>
                             <a href="https://github.com/ThatDraenGuy"><img class="contact-image" src="front/img/github.png"></a>
-                            <!-- <a href="https://web.telegram.org/k/#@ThatDraenGuy"><img class="contact-image" src="front/img/telegram.webp"></a> -->
                         </td>
                     </tr>
                 </table>
@@ -45,8 +44,13 @@
             <td class="center-cell">
                 <table class="content-table">
                     <tr>
-                        <td>
+                        <td colspan=3 class="header-row">
                             <h2 class="generic-header">Coordinates</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="margin"></td>
+                        <td class="general-row">
                             <form action="back/main.php" method="post" target="result" onsubmit="return validateSubmission()">
                                 <table id="shoot-table">
                                     <!-- <tr>
@@ -90,21 +94,34 @@
                                 </table>
                             </form>
                         </td>
+                        <td class="margin"></td>
                     </tr>
                     <tr>
-                        <td class="graph-cell">
-                            <h2 class="generic-header">Chart</h2>
-                            <canvas id="graph" width=100 height=100></canvas>
+                        <tr>
+                            <td colspan=3 class="header-row">
+                                <h2 class="generic-header">Chart</h2>
+                            </td>
+                        </tr>
+                        <td class="margin"></td>
+                        <td class="general-row">
+                            <div class="canvas"><canvas id="graph" width=300 height=300></canvas></div>
                             <script type="module" src="front/graph.js"></script>
                         </td>
+                        <td class="margin"></td>
                     </tr>
                     <tr>
-                        <td class="result-cell">
-                            <h2 class="generic-header">Results</h2>
+                        <tr>
+                            <td colspan=3 class="header-row">
+                                <h2 class="generic-header">Results</h2>
+                            </td>
+                        </tr>
+                        <td class="margin"></td>
+                        <td class="general-row">
                             <iframe name="result" id="result">
                                 stuff
                             </iframe>
                         </td>
+                        <td class="margin"></td>
                     </tr>
                 </table>
             </td>

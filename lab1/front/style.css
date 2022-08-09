@@ -9,24 +9,38 @@ table.content-table {
     width: 100%;
     padding-left: 5%;
     padding-right: 5%;
-    background: linear-gradient(to bottom, #ffcc99 0%, #ffff99 100%);
-    background-clip: content-box;
+    border-collapse: collapse;
 }
 
 table.main-table {
     width: 100%;
     height: 100%;
-    border: 1px solid black;
-    border-collapse: collapse;
 }
 table.header-table {
     margin-left: auto;
     margin-right: 0;
     height: auto;
 }
-th, td {
+/* th, td {
     border: 1px solid black;
     border-collapse: collapse;
+} */
+td.header-row {
+    background: linear-gradient(to bottom, #999966 0%, #996633 100%);
+    border-color: gray;
+    border-style: ridge;
+    border-width: 10px;
+}
+td.general-row {
+    width: auto;
+    background: linear-gradient(to bottom, #ffcc99 0%, #ffff99 100%);
+    border-color: gray;
+    border-style: ridge;
+    border-left-width: 10px;
+    border-right-width: 10px;
+}
+td.margin {
+    width: 1%;
 }
 #shoot-table {
     background-color: bisque;
@@ -59,10 +73,6 @@ td.center-cell {
     padding-top: 3%;
     font-size: medium;
 }
-td.graph-cell {
-    padding-left: 30%;
-    padding-right: 30%;
-}
 #tooltip {
     display: none;
     font-size: medium;
@@ -71,8 +81,13 @@ td.graph-cell {
     display: block;
 }
 #graph {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
+}
+div.canvas {
+    width: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
 }
 #result {
     display: block;
@@ -83,8 +98,5 @@ h2.generic-header {
     font: bold fantasy;
     font-size: large;
     color: cornsilk;
-    background: linear-gradient(to bottom, #999966 0%, #996633 100%);
-    border-color: gray;
-    border-style: ridge;
     text-align: center;
 }
