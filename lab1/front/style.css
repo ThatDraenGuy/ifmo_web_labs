@@ -9,8 +9,8 @@ table.content-table {
     width: 100%;
     padding-left: 5%;
     padding-right: 5%;
+    background: linear-gradient(to bottom, #ffcc99 0%, #ffff99 100%);
     background-clip: content-box;
-    background-color: blanchedalmond;
 }
 
 table.main-table {
@@ -19,13 +19,11 @@ table.main-table {
     border: 1px solid black;
     border-collapse: collapse;
 }
-/* table.inside-table {
-    width: 100%;
-    height: 100%;
-    border: 1px solid black;
-    border-collapse: collapse;
-    background-color: aqua;
-} */
+table.header-table {
+    margin-left: auto;
+    margin-right: 0;
+    height: auto;
+}
 th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -39,6 +37,16 @@ th, td {
     background-color: darkslateblue;
     color: cadetblue;
     font: italic 20pt fantasy;
+    text-align: right;
+    float: right;
+}
+#header-image {
+    width: auto;
+    height: 125px;
+}
+img.contact-image {
+    height: 50px;
+    width: auto;
 }
 td.side-cell {
     vertical-align: top;
@@ -55,21 +63,6 @@ td.graph-cell {
     padding-left: 30%;
     padding-right: 30%;
 }
-/* td.result-cell {
-    margin-left: auto;
-    margin-right: auto;
-} */
-/* td.content-cell {
-    width: 60%;
-    padding-bottom: 5%;
-    padding-top: 3%;
-    font-size: large;
-    background-color: aqua;
-} */
-/* td.iframe-cell {
-    margin-left: auto;
-    margin-right: auto;
-} */
 #tooltip {
     display: none;
     font-size: medium;
@@ -85,4 +78,13 @@ td.graph-cell {
     display: block;
     margin: 0 auto;
     width: auto;
+}
+h2.generic-header {
+    font: bold fantasy;
+    font-size: large;
+    color: cornsilk;
+    background: linear-gradient(to bottom, #999966 0%, #996633 100%);
+    border-color: gray;
+    border-style: ridge;
+    text-align: center;
 }
