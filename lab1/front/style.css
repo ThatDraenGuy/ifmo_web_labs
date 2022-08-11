@@ -21,6 +21,12 @@ table.header-table {
     margin-right: 0;
     height: auto;
 }
+#shoot-table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 /* th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -89,10 +95,15 @@ div.canvas {
     padding-left: 25%;
     padding-right: 25%;
 }
+/* div.result {
+    width: 100%;
+
+} */
 #result {
     display: block;
     margin: 0 auto;
-    width: auto;
+    width: 100%;
+    height: fit-content;
 }
 h2.generic-header {
     font: bold fantasy;

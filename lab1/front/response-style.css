@@ -1,5 +1,9 @@
 table.response-table {
     width: 100%;
+    
+}
+table.result-table {
+    width: 100%;
     height: 100%;
     border: 1px solid black;
     border-collapse: collapse;
@@ -12,7 +16,16 @@ table.history-table {
     border-collapse: collapse;
     background-color: darkslategray;
 }
-th, td {
+td.response-cell {
+    vertical-align: top;
+}
+h2.response-header {
+    font: bold fantasy;
+    font-size: large;
+    color: chocolate;
+    text-align: center;
+}
+/* th, td {
     border: 1px solid black;
     border-collapse: collapse;
-}
+} */

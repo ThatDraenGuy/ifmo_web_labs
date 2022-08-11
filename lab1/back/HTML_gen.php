@@ -18,15 +18,33 @@ function gen_response($x,$y,$r, string $message, string $time_of_script, string 
     $res = '
     <html>
     <head>
-        <title>Response</title>
+        title>Response</title>
         <link href="../front/response-style.css" rel="stylesheet">
     </head>
     <body>
         <table class="response-table">
-            '. $table_header .'
-            '. $table_row .'
-        </table><br>
-        ' . gen_history_table() . '
+            <tr>
+                <td>
+                    <h2 class="response-header">Result</h2>
+                </td>
+                <td>
+                    <h2 class="response-header">History</h2>
+                </td>
+            </tr>
+            <tr>
+                <td class="response-cell">
+                    <table class="result-table">
+                    '. $table_header .'
+                    '. $table_row .'
+                    </table>
+                </td>
+                <td class="response-cell">
+                    <table class="history-table">
+                    ' . gen_history_table() . '
+                    </table>
+                </td>
+            </tr>
+        </table>
     </body>
     </html>';
     array_push($_SESSION['history'], $table_row);
