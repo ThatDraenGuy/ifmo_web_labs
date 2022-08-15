@@ -18,6 +18,7 @@ table.history-table {
 }
 td.response-cell {
     vertical-align: top;
+    width: 50%;
 }
 h2.response-header {
     font: bold fantasy;

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <title>lab1</title>
-    <link href="front/style.css" rel="stylesheet">
+    <link href="front/style/style.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
-    <script type="module" src="front/connector.js"></script>
-    <script type="module" src="front/paramChecker.js"></script>
+    <script type="module" src="front/script/connector.js"></script>
+    <script type="module" src="front/script/paramChecker.js"></script>
     <!-- <script src="front/graph.js"></script> -->
 </head>
 <body>
@@ -105,7 +105,7 @@
                         <td class="margin"></td>
                         <td class="general-row">
                             <div class="canvas"><canvas id="graph" width=300 height=300></canvas></div>
-                            <script type="module" src="front/graph.js"></script>
+                            <script type="module" src="front/script/graph.js"></script>
                         </td>
                         <td class="margin"></td>
                     </tr>
@@ -121,6 +121,15 @@
                                 <iframe name="result" id="result">
                                     stuff
                                 </iframe>
+                                <script>
+                                    // Selecting the iframe element
+                                    var iframe = document.getElementById("result");
+                                    
+                                    // Adjusting the iframe height onload event
+                                    iframe.onload = function(){
+                                        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+                                    }
+                                    </script>
                             </div>
                         </td>
                         <td class="margin"></td>
