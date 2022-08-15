@@ -18,7 +18,6 @@ function gen_response($x,$y,$r, string $message, string $time_of_script, string 
     $res = '
     <html>
     <head>
-        title>Response</title>
         <link href="../front/style/response-style.css" rel="stylesheet">
     </head>
     <body>

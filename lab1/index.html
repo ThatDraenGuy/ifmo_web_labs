@@ -7,7 +7,7 @@
     <!-- <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
     <script type="module" src="front/script/connector.js"></script>
     <script type="module" src="front/script/paramChecker.js"></script>
-    <!-- <script src="front/graph.js"></script> -->
+    <script type="module" src="front/script/utils.js"></script>
 </head>
 <body>
     <table class="main-table">
@@ -118,18 +118,9 @@
                         <td class="margin"></td>
                         <td class="general-row">
                             <div class="result">
-                                <iframe name="result" id="result">
+                                <iframe name="result" id="result" onload="resizeIframe(this)">
                                     stuff
                                 </iframe>
-                                <script>
-                                    // Selecting the iframe element
-                                    var iframe = document.getElementById("result");
-                                    
-                                    // Adjusting the iframe height onload event
-                                    iframe.onload = function(){
-                                        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-                                    }
-                                    </script>
                             </div>
                         </td>
                         <td class="margin"></td>
