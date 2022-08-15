@@ -1,0 +1,45 @@
+table.header-table {
+    margin-left: auto;
+    margin-right: 0;
+    height: auto;
+}
+#header {
+    background-color: darkslateblue;
+    color: cadetblue;
+    font: italic 20pt fantasy;
+    text-align: right;
+    float: right;
+}
+#header-image {
+    width: auto;
+    height: 125px;
+}
+img.contact-image {
+    height: 50px;
+    width: auto;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    /* border-bottom: 1px dotted black; */
+}
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+}
+  
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 70%;
+}
