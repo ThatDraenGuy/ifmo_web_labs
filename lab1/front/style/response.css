@@ -1,6 +1,5 @@
 table.response-table {
     width: 100%;
-    
 }
 table.result-table {
     width: 100%;
@@ -26,7 +25,3 @@ h2.response-header {
     color: chocolate;
     text-align: center;
 }
-/* th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-} */
