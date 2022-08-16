@@ -13,9 +13,9 @@ function shoot() {
         $y = handle_value('y');
         $r = handle_value('r');
         $hit_res = check_hit($x,$y,$r);
-        handle_result($x,$y,$r, $hit_res->getMessage(), $start_time);
+        handle_result($x,$y,$r, $hit_res->isSuccess(), $hit_res->getMessage(), $start_time);
     } catch (ValueException $e) {
-        handle_result($x,$y,$r, $e->getMessage(), $start_time);
+        handle_result($x,$y,$r, false, $e->getMessage(), $start_time);
 
     }
 }
@@ -56,10 +56,10 @@ function handle_error(string $message) {
     echo $message;
 }
 
-function handle_result($x,$y,$r,$message,$start_time) {
+function handle_result($x,$y,$r, bool $result, string $message, float $start_time) {
     $curr_time = date('Y-m-d H:i:s');
     $time = time_elapsed(microtime(true) - $start_time);
-    echo gen_response($x,$y,$r,$message,$time,$curr_time);
+    echo gen_response($x,$y,$r,$result,$message,$time,$curr_time);
 }
 
 

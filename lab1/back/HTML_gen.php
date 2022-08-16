@@ -12,7 +12,7 @@ $table_header = '
 </tr>
 ';
 
-function gen_response($x,$y,$r, string $message, string $time_of_script, string $current_time) {
+function gen_response($x,$y,$r, bool $result, string $message, string $time_of_script, string $current_time) {
     global $table_header;
     $table_row = gen_table_row($x,$y,$r,$message,$time_of_script,$current_time);
     $res = '
@@ -21,7 +21,7 @@ function gen_response($x,$y,$r, string $message, string $time_of_script, string 
         <link href="../front/style/response.css" rel="stylesheet">
     </head>
     <body>
-        <table class="response-table">
+        <table class="response-table" id="response-table">
             <tr>
                 <td>
                     <h2 class="response-header">Result</h2>
@@ -35,7 +35,8 @@ function gen_response($x,$y,$r, string $message, string $time_of_script, string 
                     <table class="result-table">
                     '. $table_header .'
                     '. $table_row .'
-                    </table>
+                    </table><br>
+                    ' . gen_reaction_image($result) . '
                 </td>
                 <td class="response-cell">
                     <table class="history-table">
@@ -75,6 +76,15 @@ function gen_table_row($x,$y,$r, string $message, string $time_of_script, string
     </tr>';
 }
 
+function gen_reaction_image(bool $result) : string {
+    $dir = "../img/result/" . get_dir_name($result);
+    $images = scandir($dir);
+    return '<img class="result-image" src="' . $dir . '/' . $images[array_rand($images)] . '">';
+}
+
+function get_dir_name(bool $result) : string {
+    return $result ? "hit" : "miss";
+}
 
 function time_elapsed($secs){
     $bit = array(
