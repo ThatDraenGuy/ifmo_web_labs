@@ -11,7 +11,6 @@ quadrantsData.set("-1-1", []);
 quadrantsData.set("1-1", []);
 var shootingPoint = {x: null, y: null};
 
-var range = [];
 var max = 0;
 var min = -max;
 
@@ -69,11 +68,13 @@ generate(null,null);
 
 function generate(x,y, r = 1) {
     if (r!=max) {
+        // update max and min values and redraw the graph
         max = r;
         min = -max;
-        range = generateRange(x,r);
         quadrantsData.forEach((array, code) => {
+            //clear data arrays
             array.length=0;
+            //put new data in arrays
             array.push(...generateGraph(code));
         });
     }
@@ -81,53 +82,47 @@ function generate(x,y, r = 1) {
     shootingPoint.y = y;
     chart.update();
 }
-function generateData(value, i1, i2) {
-    const step = i2/16;
+function generateData(func, i1, i2) {
+    const step = (i2-i1)/8;
     var array = [];
     for (let x = i1; x <= i2; x += step) {
-    array.push(eval(value));
+        const y = eval(func);
+        array.push({x, y});
     };
     return array;
 }
 
-function generateLine(value, i1, i2) {
-    var array = [];
-    range.forEach(x => {
-        if (x>=i1 && x<=i2) {
-            const y = eval(value);
-            array.push({x, y});
-        }
-    });
-    return array;
+function generateQuadrantFromFunc(func, signX) {
+    return generateData(func,(signX>0 ? 0 : min), (signX>0 ? max : 0));
 }
 
 function generateGraph(code) {
+    //get this quadrant's function
     const quadrantFunction = graphVariants.get(code);
+    //get signs of this quadrant
     const signX = decoder.get(code).x;
     const signY = decoder.get(code).y;
-    const func = quadrantFunction(signX, signY);
-    return generateLine(func, (signX>0 ? 0 : min), (signX>0 ? max : 0));
-}
-function generateRange(x,r) {
-    return generateData("x",min,max);
+    //apply the function
+    return quadrantFunction(signX, signY);
 }
 
 function getTriangleQuadrant(x, y) {
     let signX = Math.sign(x);
     let signY = Math.sign(y);
-    return (signX==signY ? "-x+" : "x-") + "(" + signX + ")*max";
+    return generateQuadrantFromFunc((signX==signY ? "-x+" : "x-") + "(" + signX + ")*max",x);
 }
 
 function getSquareQuadrant(x,y) {
-    return (y>0 ? "max" : "min");
+    let func = (y>0 ? "max" : "min");
+    return generateQuadrantFromFunc(func,x);
 }
 
 function getCircleQuadrant(x,y) {
-    return (y>0 ? "Math.sqrt(max**2-x**2)" : "-Math.sqrt(max**2-x**2)")
+    return generateQuadrantFromFunc((y>0 ? "" : "-") + "Math.sqrt(max**2-x**2)",x);
 }
 
 function getEmptyQuadrant(x,y) {
-    return "null";
+    return generateQuadrantFromFunc("null",x);
 }
 
 export function getQuadrantByName(name) {
