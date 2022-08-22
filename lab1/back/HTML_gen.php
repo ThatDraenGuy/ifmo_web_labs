@@ -3,12 +3,12 @@ include_once 'logic.php';
 
 $table_header = '
 <tr>
-    <td>x</td>
-    <td>y</td>
-    <td>r</td>
-    <td>result</td>
-    <td>script time</td>
-    <td>current time</td>
+    <td class="content">x</td>
+    <td class="content">y</td>
+    <td class="content">r</td>
+    <td class="content">result</td>
+    <td class="content">script time</td>
+    <td class="content">current time</td>
 </tr>
 ';
 
@@ -36,7 +36,8 @@ function gen_response($x,$y,$r, bool $result, string $message, string $time_of_s
                     '. $table_header .'
                     '. $table_row .'
                     </table><br>
-                    ' . gen_reaction_image($result) . '
+                    <div class="scream">' . get_scream($result) . '</div><br>
+                    ' . gen_reaction_image($result) . '<br>
                 </td>
                 <td class="response-cell">
                     <table class="history-table">
@@ -67,23 +68,28 @@ function gen_history_table() : string {
 function gen_table_row($x,$y,$r, string $message, string $time_of_script, string $current_time) : string {
     return '
     <tr>
-    <td>' . $x . '</td>
-    <td>' . $y . '</td>
-    <td>' . $r . '</td>
-    <td>' . $message . '</td>
-    <td>' . $time_of_script . '</td>
-    <td>' . $current_time . '</td>
+    <td class="content">' . $x . '</td>
+    <td class="content">' . $y . '</td>
+    <td class="content">' . $r . '</td>
+    <td class="content">' . $message . '</td>
+    <td class="content">' . $time_of_script . '</td>
+    <td class="content">' . $current_time . '</td>
     </tr>';
 }
 
 function gen_reaction_image(bool $result) : string {
     $dir = "../img/result/" . get_dir_name($result);
     $images = scandir($dir);
+    $images = array_slice($images, 2);
     return '<img class="result-image" src="' . $dir . '/' . $images[array_rand($images)] . '">';
 }
 
 function get_dir_name(bool $result) : string {
     return $result ? "hit" : "miss";
+}
+
+function get_scream(bool $result) : string {
+    return $result ? "HIT!" : "MISS!";
 }
 
 function time_elapsed($secs){

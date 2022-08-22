@@ -43,12 +43,12 @@ function handleResponse(responseText) {
             let func = constraints.get(element[type]);
             handleVariant(func, key, element);
         });
-        
+        insertVariant('<tr><td><input type="submit" name="shoot!"></td></tr>');
     }
 }
 
 function handleVariant(func, name, data) {
-    let res = '<tr><td>' + name.toUpperCase()+":\n";
+    let res = '<tr class="shoot-row"><td>' + name.toUpperCase()+":\n";
     res += func(name, data);
     res += '<br><span class="input-message" name="' + name + '" id="message" style="visibility: hidden;">message</span></td></tr>';
     insertVariant(res);

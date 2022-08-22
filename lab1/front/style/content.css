@@ -37,6 +37,9 @@ td.margin {
     margin-left: auto;
     margin-right: auto;
 }
+tr.shoot-row {
+    border: 1px solid black;
+}
 #graph {
     width: 200px;
     height: 200px;
