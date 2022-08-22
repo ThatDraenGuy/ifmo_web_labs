@@ -1,10 +1,13 @@
 <?php
 include_once 'settings.php';
 include_once 'constraints.php';
-include_once 'coordinates.php';
 include_once 'HTML_gen.php';
 
 
+foreach (glob("coordinates/*.php") as $filename)
+{
+    include_once $filename;
+}
 
 function shoot() {
     $start_time = microtime(true);

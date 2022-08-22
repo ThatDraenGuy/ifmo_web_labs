@@ -1,7 +1,9 @@
 <?php
 include 'constraints.php';
-include 'coordinates.php';
-
+foreach (glob("coordinates/*.php") as $filename)
+{
+    include_once $filename;
+}
 // a point in program that defines the way user chooses parameters for his shot. Changing this "setting" will automatically update the html page.
 // Currently supported: Radio buttons, represented by Options class & Text field, represented by RAnge class.
 $constraints = array(
