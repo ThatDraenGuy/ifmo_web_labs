@@ -1,4 +1,4 @@
-import { graphVariants, getQuadrantByName } from "./graph.js";
+import { updateQuadrant } from "./graph.js";
 
 const quadrantsKey = "quadrants";
 const type = "type";
@@ -27,13 +27,11 @@ function handleResponse(responseText) {
     const obj = JSON.parse(responseText);
     console.log(obj);
     if (quadrantsKey in obj) {
-        console.log(obj[quadrantsKey]);
         obj[quadrantsKey].forEach(element => {
             if (type in element && x_sign in element && y_sign in element) {
-                graphVariants.set(""+element[x_sign]+element[y_sign], getQuadrantByName(element[type]));
+                updateQuadrant(element[type], element[x_sign], element[y_sign]);
             }
         });
-        console.log(graphVariants)
     }
     if (constraintsKey in obj) {
         console.log(obj[constraintsKey]);
