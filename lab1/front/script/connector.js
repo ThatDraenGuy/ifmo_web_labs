@@ -43,7 +43,7 @@ function handleResponse(responseText) {
             let func = constraints.get(element[type]);
             handleVariant(func, key, element);
         });
-        insertVariant('<tr><td><input type="submit" name="shoot!"></td></tr>');
+        insertVariant('<tr><td><input type="submit" value="shoot!"></td></tr>');
     }
 }
 

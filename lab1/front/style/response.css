@@ -27,6 +27,13 @@ td.content {
     color: red;
     text-align: center;
 }
+.clear-history {
+    text-align: center;
+}
+.clear-history-button {
+    background-color: lightseagreen;
+    align-self: center;
+}
 h2.response-header {
     font: bold fantasy;
     font-size: large;

@@ -8,5 +8,16 @@ if (!isset($_SESSION['history'])) {
 }
 
 if ($_POST) {
-    shoot();
+    if ($_POST["shoot"]=="true") {
+        shoot();        
+    }
+    if ($_POST["clearHistory"]=="true") {
+        clear_history();
+    }
+}
+
+
+
+function clear_history() {
+    $_SESSION['history'] = [];
 }
