@@ -10,8 +10,8 @@ const currentParams = new Map();
 function paramChanged(name) {
     var message = getElementOfClassByName(messageClass,name);
     message.style.visibility = 'hidden'
-    checkParam(name);
-    update(currentParams);
+    let res = checkParam(name);
+    if (res) update(currentParams);
 }
 
 function checkParam(name) {

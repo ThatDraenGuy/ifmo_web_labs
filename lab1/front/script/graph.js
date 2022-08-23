@@ -46,6 +46,49 @@ class Quadrant {
     }
 }
 
+class Point {
+    constructor(x,y, time) {
+        this.x = x;
+        this.y = y;
+        this.targetX = x;
+        this.targetY = y;
+        this.time = time;
+        this.counter = 0;
+    }
+    update(x,y) {
+        if (isNaN(x) || isNaN(y)) return;
+        window.cancelAnimationFrame(this.req);
+        this.targetX = x;
+        this.targetY = y;
+        this.stepX = (this.targetX-this.x)/(this.time);
+        this.stepY = (this.targetY-this.y)/(this.time);
+        this.counter = 0;
+        this.req = requestAnimationFrame(frame)
+    }
+    set(x,y) {
+        window.cancelAnimationFrame(this.req);
+        this.x = x;
+        this.y = y;
+        this.targetX = x;
+        this.targetY = y;
+        updatePoint(this.x,this.y);
+    }
+    frame() {
+        this.x = this.x + this.stepX;
+        this.y = this.y + this.stepY;
+        updatePoint(this.x,this.y);
+        this.counter++;
+        if (this.counter >= this.time) {
+            this.set(this.targetX, this.targetY);
+            return;
+        }
+        this.req = requestAnimationFrame(frame)
+    }
+}
+function frame() {
+    point.frame();
+}
+
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
@@ -60,6 +103,7 @@ const startX = (maxX+minX)/2;
 const startY = (maxY+minY)/2;
 
 var radius = null;
+const point = new Point(0,0,60);
 reDraw();
 
 export function reDraw() {
@@ -68,7 +112,7 @@ export function reDraw() {
     Quadrant.drawAll();
     drawAxis();
     updateLabels(radius);
-    ctx.save();
+    // ctx.save();
 }
 
 function drawAxis() {
@@ -94,8 +138,9 @@ function drawAxis() {
 }
 
 function updatePoint(x,y) {
-    ctx.restore();
-    ctx.save();
+    // ctx.restore();
+    // ctx.save();
+    reDraw();
     ctx.strokeStyle = 'rgba(200, 0, 0, 1)';
     ctx.beginPath();
     ctx.moveTo(x-7,y);
@@ -170,12 +215,14 @@ export function update(currentParams) {
     radius = r;
     let xCoord = startX + (maxX-startX)/radius*x;
     let yCoord = startY + (startY-maxY)/radius*y
-    updatePoint(xCoord,yCoord);
+    // updatePoint(xCoord,yCoord);
+    point.update(xCoord,yCoord);
 }
 export function updateQuadrant(name, x, y) {
     Quadrant.update(x,y,name);
 }
 
 canvas.onmousemove = (event) => {
-    updatePoint(event.offsetX, event.offsetY);
+    // updatePoint(event.offsetX, event.offsetY);
+    point.set(event.offsetX, event.offsetY);
 }
