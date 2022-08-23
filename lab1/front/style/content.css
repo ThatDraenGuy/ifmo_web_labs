@@ -41,13 +41,14 @@ tr.shoot-row {
     border: 1px solid black;
 }
 #graph {
-    width: 200px;
-    height: 200px;
+    border: 1px solid black;
+    margin: 10px;
 }
 div.canvas {
-    width: 50%;
+    /* width: 50%; */
     padding-left: 25%;
     padding-right: 25%;
+    text-align: center;
 }
 #result {
     display: block;

@@ -1,4 +1,4 @@
-import { updateQuadrant } from "./graph.js";
+import { reDraw, updateQuadrant } from "./graph.js";
 
 const quadrantsKey = "quadrants";
 const type = "type";
@@ -32,6 +32,7 @@ function handleResponse(responseText) {
                 updateQuadrant(element[type], element[x_sign], element[y_sign]);
             }
         });
+        reDraw();
     }
     if (constraintsKey in obj) {
         console.log(obj[constraintsKey]);

@@ -1,20 +1,9 @@
 class Quadrant {
-    constructor(name, xSign, ySign) {
-        this.xSign = xSign;
-        this.ySign = ySign;
-        this.drawFunc = getQuadrantByName(name);
-        this.graphData = [];
+    constructor(xSign, ySign) {
+        this.xSign = (xSign+1)/2;
+        this.ySign = (1-ySign)/2;
     }
-    draw() {
-        this.graphData.length = 0;
-        this.graphData.push(...this.drawFunc(this.xSign,this.ySign));
-    }
-    update(name) {
-        this.drawFunc = getQuadrantByName(name);
-    }
-    getGraphData() {
-        return this.graphData;
-    }
+    draw() {}
 
     static quadrants = [
         [
@@ -27,12 +16,28 @@ class Quadrant {
         ]
     ]
     static default(x,y) {
-        return new Quadrant("empty",x,y);
+        return new Quadrant(x,y);
     }
     static get(x,y) {
         return Quadrant.quadrants[+(x>0)][+(y>0)];
     }
-    static reDraw() {
+    static update(x,y,name) {
+        let quadrant = Quadrant.getByName(x,y,name);
+        Quadrant.quadrants[+(x>0)][+(y>0)] = quadrant;
+    }
+    static getByName(x,y,name) {
+        switch (name) {
+            case "triangle":
+                return new TriangleQuadrant(x,y);
+            case "square":
+                return new SquareQuadrant(x,y);
+            case "circle":
+                return new CircleQuadrant(x,y);
+            default:
+                return new Quadrant(x,y);
+        }
+    }
+    static drawAll() {
         Quadrant.quadrants.forEach(element => {
             element.forEach(quadrant => {
                 quadrant.draw();
@@ -41,108 +46,120 @@ class Quadrant {
     }
 }
 
-var shootingPoint = {x: null, y: null};
+const canvas = document.getElementById('graph');
+const ctx = canvas.getContext('2d');
 
-var max = 0;
-var min = -max;
+const width = canvas.width;
+const height = canvas.height;
+const margin = width/8;
+const minX = margin;
+const minY = margin;
+const maxX = width-margin;
+const maxY = height-margin;
+const startX = (maxX+minX)/2;
+const startY = (maxY+minY)/2;
 
-var chart  = new Chart("graph", {
-    type: "scatter",
-    data: {
-        datasets: [{
-            fill: true,
-            pointRadius: 1,
-            borderColor: "rgba(255,0,0,0.5)",
-            showLine: true,
-            data: Quadrant.get(-1,-1).getGraphData()
-        },{
-            fill: true,
-            pointRadius: 1,
-            borderColor: "rgba(255,0,0,0.5)",
-            showLine: true,
-            data: Quadrant.get(-1,1).getGraphData()
-        },{
-            fill: true,
-            pointRadius: 1,
-            borderColor: "rgba(255,0,0,0.5)",
-            showLine: true,
-            data: Quadrant.get(1,1).getGraphData()
-        },
-        {
-            fill: true,
-            pointRadius: 1,
-            borderColor: "rgba(255,0,0,0.5)",
-            showLine: true,
-            data: Quadrant.get(1,-1).getGraphData()
-        },{
-            type: "scatter",
-            borderColor: "rgba(0,0,255,1)",
-            pointRadius: 5,
-            pointStyle: 'cross',
-            data: [
-                shootingPoint
-            ]
-        }]
-    },
-    options: {
-        legend: {display: false},
-        elements: {line: {showLine: true}}
-    },
-    });
+var radius = null;
+reDraw();
 
-generate(null,null,0);
+export function reDraw() {
+    ctx.clearRect(0,0,width,height);
+    ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+    Quadrant.drawAll();
+    drawAxis();
+    updateLabels(radius);
+    ctx.save();
+}
 
-function generate(x,y,r) {
-    if (r!=max) {
-        max = r;
-        min = -max;
-        Quadrant.reDraw();
+function drawAxis() {
+    ctx.strokeStyle = '#000';
+    ctx.beginPath();
+    ctx.moveTo(0,startY);
+    ctx.lineTo(width, startY);
+    ctx.lineTo(width-10,startY-10);
+    ctx.moveTo(width,startY);
+    ctx.lineTo(width-10,startY+10);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(startX,0);
+    ctx.lineTo(startX-10,10);
+    ctx.moveTo(startX,0);
+    ctx.lineTo(startX+10,10);
+    ctx.moveTo(startX,0);
+    ctx.lineTo(startX, height);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+}
+
+function updatePoint(x,y) {
+    ctx.restore();
+    ctx.save();
+    ctx.strokeStyle = 'rgba(200, 0, 0, 1)';
+    ctx.beginPath();
+    ctx.moveTo(x-7,y);
+    ctx.lineTo(x+7,y);
+    ctx.moveTo(x,y-7);
+    ctx.lineTo(x,y+7);
+    ctx.stroke();
+}
+function updateLabels(r) {
+    if (r===null || r===undefined) return;
+    const labels = [-r, -r/2, '', r/2, r];
+    ctx.fillStyle = '#000';
+    ctx.font = "18px serif";
+    ctx.textAlign = 'center';
+    ctx.textBaseLine = 'bottom';
+    for (let i = 0; i < labels.length; i++) {
+        const text = labels[i];
+        const factor = labels.length-1;
+        const xStep = minX+(maxX-minX)/factor*i;
+        const yStep = minY+(maxY-minY)/factor*(factor-i);
+
+        ctx.beginPath();
+        ctx.arc(xStep,startY,3,0,2*Math.PI);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(startX,yStep,3,0,2*Math.PI);
+        ctx.fill();
+
+        ctx.fillText(text, xStep,startY+20);
+        ctx.fillText(text, startX-20, yStep);
     }
-    shootingPoint.x = x;
-    shootingPoint.y = y;
-    chart.update();
 }
-function generateData(func, i1, i2) {
-    const step = (i2-i1)/8;
-    var array = [];
-    for (let x = i1; x <= i2; x += step) {
-        const y = eval(func);
-        array.push({x, y});
-    };
-    return array;
+
+
+
+function getXMinMax(x) {
+    return x > 0 ? maxX : minX;
 }
-function getQuadrantByName(name) {
-    switch (name) {
-        case "triangle":
-            return getTriangleQuadrant;
-        case "square":
-            return getSquareQuadrant;
-        case "circle":
-            return getCircleQuadrant;
-        default:
-            return getEmptyQuadrant;
+function getYMinMax(y) {
+    return y >0 ? maxY : minY;
+}
+
+class SquareQuadrant extends Quadrant {
+    draw() {
+        ctx.fillRect(startX,startY,getXMinMax(this.xSign)-startX, getYMinMax(this.ySign)-startY);
     }
 }
-function getTriangleQuadrant(x, y) {
-    let signX = Math.sign(x);
-    let signY = Math.sign(y);
-    return generateQuadrantFromFunc((signX==signY ? "-x+" : "x-") + "(" + signX + ")*max",x);
+class TriangleQuadrant extends Quadrant {
+    draw() {
+        ctx.beginPath();
+        ctx.moveTo(startX,getYMinMax(this.ySign));
+        ctx.lineTo(getXMinMax(this.xSign),startY);
+        ctx.lineTo(startX,startY);
+        ctx.fill();
+    }
 }
-
-function getSquareQuadrant(x,y) {
-    let func = (y>0 ? "max" : "min");
-    return generateQuadrantFromFunc(func,x);
-}
-
-function getCircleQuadrant(x,y) {
-    return generateQuadrantFromFunc((y>0 ? "" : "-") + "Math.sqrt(max**2-x**2)",x);
-}
-
-function getEmptyQuadrant(x,y) {
-    return generateQuadrantFromFunc("null",x);
-}
-function generateQuadrantFromFunc(func, signX) {
-    return generateData(func,(signX>0 ? 0 : min), (signX>0 ? max : 0));
+class CircleQuadrant extends Quadrant {
+    draw() {
+        let orientation = this.xSign==this.ySign;
+        ctx.beginPath();
+        ctx.moveTo(startX,startY);
+        ctx.arc(startX,startY,getXMinMax(this.xSign)-startX,(2*this.ySign-1)*Math.PI/2,(1-this.xSign)*Math.PI, orientation);
+        ctx.fill();
+    }
 }
 
 
@@ -150,9 +167,15 @@ export function update(currentParams) {
     const x = currentParams.get('x');
     const y = currentParams.get('y');
     const r = currentParams.get('r');
-    generate(x,y,r);
+    radius = r;
+    let xCoord = startX + (maxX-startX)/radius*x;
+    let yCoord = startY + (startY-maxY)/radius*y
+    updatePoint(xCoord,yCoord);
+}
+export function updateQuadrant(name, x, y) {
+    Quadrant.update(x,y,name);
 }
 
-export function updateQuadrant(name, x, y) {
-    Quadrant.get(x,y).update(name);
+canvas.onmousemove = (event) => {
+    updatePoint(event.offsetX, event.offsetY);
 }
