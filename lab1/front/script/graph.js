@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
@@ -9,7 +8,8 @@ const POINT_COLOR = 'rgba(200, 0, 0, 1)'
 
 const width = canvas.width;
 const height = canvas.height;
-const margin = width/8;
+const margin = width/8; // margin between the actual graph and borders of canvas
+//min, max and start coordinates calculated
 const minX = margin;
 const minY = margin;
 const maxX = width-margin;
@@ -17,6 +17,7 @@ const maxY = height-margin;
 const startX = (maxX+minX)/2;
 const startY = (maxY+minY)/2;
 
+// parent class for all quadrant types + a point of referencing all of them
 class Quadrant {
     constructor(xSign, ySign) {
         this.xSign = (xSign+1)/2;
@@ -65,6 +66,7 @@ class Quadrant {
     }
 }
 
+// class for a point - handles its position & movement (animations included)
 class Point {
     constructor(x,y, time) {
         this.x = x;
@@ -112,17 +114,20 @@ var radius = null;
 const point = new Point(0,0,60);
 reDraw();
 
+//redraws quadrants & axis (basically all of the graph besides shooting point)
 export function reDraw() {
+    //clear full canvas
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = MAIN_COLOR;
+    //draw all quadrant graphs
     Quadrant.drawAll();
     drawAxis();
     updateLabels(radius);
-    // ctx.save();
 }
 
 function drawAxis() {
     ctx.strokeStyle = AXIS_COLOR;
+    //draw OX
     ctx.beginPath();
     ctx.moveTo(0,startY);
     ctx.lineTo(width, startY);
@@ -131,6 +136,7 @@ function drawAxis() {
     ctx.lineTo(width-10,startY+10);
     ctx.stroke();
     
+    //draw OY
     ctx.beginPath();
     ctx.moveTo(startX,0);
     ctx.lineTo(startX-10,10);
@@ -142,20 +148,28 @@ function drawAxis() {
 }
 
 function updatePoint(x,y) {
-    // ctx.restore();
-    // ctx.save();
     reDraw();
     ctx.strokeStyle = POINT_COLOR;
+    //draw crosshair
     ctx.beginPath();
     ctx.moveTo(x-7,y);
     ctx.lineTo(x+7,y);
     ctx.moveTo(x,y-7);
     ctx.lineTo(x,y+7);
     ctx.stroke();
+    // set coords of point in bottom-right corner
     ctx.fillText(xFromCoord(x).toFixed(2)+" "+yFromCoord(y).toFixed(2), maxX,maxY);
 }
 function updateLabels(r) {
-    if (r===null || r===undefined) return;
+    if (r===null || r===undefined) {
+        //if no radius say that there is none
+        ctx.fillStyle = POINT_COLOR;
+        ctx.font = "24px serif";
+        ctx.textAlign = 'center';
+        ctx.textBaseLine = 'bottom';
+        ctx.fillText("Radius not set!", startX, maxY+20);
+        return;
+    }
     const labels = [-r, -r/2, '', r/2, r];
     ctx.fillStyle = TEXT_COLOR;
     ctx.font = "18px serif";
@@ -166,7 +180,8 @@ function updateLabels(r) {
         const factor = labels.length-1;
         const xStep = minX+(maxX-minX)/factor*i;
         const yStep = minY+(maxY-minY)/factor*(factor-i);
-
+        
+        //draw points on axis
         ctx.beginPath();
         ctx.arc(xStep,startY,3,0,2*Math.PI);
         ctx.fill();
@@ -180,13 +195,15 @@ function updateLabels(r) {
 }
 
 
-
+// needed to get min or max depending on quadrant I'm in
 function getXMinMax(x) {
     return x > 0 ? maxX : minX;
 }
 function getYMinMax(y) {
     return y >0 ? maxY : minY;
 }
+
+//convert absolute canvas coords to meaningful ones
 function xFromCoord(xCoord) {
     return (xCoord-startX)*radius/(maxX-startX);
 }
@@ -233,6 +250,7 @@ export function updateQuadrant(name, x, y) {
     Quadrant.update(x,y,name);
 }
 
+//mouse stuff
 canvas.onmousemove = (event) => {
     if (radius===null || radius===undefined) return;
     point.set(event.offsetX, event.offsetY);
