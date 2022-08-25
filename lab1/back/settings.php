@@ -20,3 +20,6 @@ $quadrants = array(
     new TriangleQuadrant(-1,-1),
     new EmptyQuadrant(1, -1)
 );
+
+// if set to true back-end will check that given values pass the constraints check
+$check_constraints = false;

@@ -18,8 +18,7 @@ function shoot() {
         $hit_res = check_hit($x,$y,$r);
         handle_result($x,$y,$r, $hit_res->isSuccess(), $hit_res->getMessage(), $start_time);
     } catch (ValueException $e) {
-        handle_result($x,$y,$r, false, $e->getMessage(), $start_time);
-
+        handle_result($_POST['x'],$_POST['y'],$_POST['r'], false, $e->getMessage(), $start_time);
     }
 }
 
@@ -29,14 +28,13 @@ function handle_value(string $name) : float {
     return floatval($value);
 }
 function check_param(string $name, $value) {
+    global $check_constraints;
     if (is_null($value) || $value=='') throw new ValueException('Value ' . $name . ' wasn\'t inputted!');
     if (!is_numeric($value)) {
         throw new ValueException('value ' . $name . ' is not a number, but a "' . $value . '"');
     }
-    if (get_param_constraints($name)->checkValue($value)) {
-        return;
-    } else {
-        throw new ValueException('Value of ' . $name . 'did not pass constraints check');
+    if ($check_constraints && !get_param_constraints($name)->checkValue($value)) {
+        throw new ValueException('Value of ' . $name . ' did not pass constraints check');
     }
 }
 

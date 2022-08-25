@@ -1,3 +1,22 @@
+
+const canvas = document.getElementById('graph');
+const ctx = canvas.getContext('2d');
+
+const MAIN_COLOR = 'rgba(0, 0, 200, 0.5)';
+const AXIS_COLOR = '#000';
+const TEXT_COLOR = '#000';
+const POINT_COLOR = 'rgba(200, 0, 0, 1)'
+
+const width = canvas.width;
+const height = canvas.height;
+const margin = width/8;
+const minX = margin;
+const minY = margin;
+const maxX = width-margin;
+const maxY = height-margin;
+const startX = (maxX+minX)/2;
+const startY = (maxY+minY)/2;
+
 class Quadrant {
     constructor(xSign, ySign) {
         this.xSign = (xSign+1)/2;
@@ -89,26 +108,13 @@ function frame() {
     point.frame();
 }
 
-const canvas = document.getElementById('graph');
-const ctx = canvas.getContext('2d');
-
-const width = canvas.width;
-const height = canvas.height;
-const margin = width/8;
-const minX = margin;
-const minY = margin;
-const maxX = width-margin;
-const maxY = height-margin;
-const startX = (maxX+minX)/2;
-const startY = (maxY+minY)/2;
-
 var radius = null;
 const point = new Point(0,0,60);
 reDraw();
 
 export function reDraw() {
     ctx.clearRect(0,0,width,height);
-    ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+    ctx.fillStyle = MAIN_COLOR;
     Quadrant.drawAll();
     drawAxis();
     updateLabels(radius);
@@ -116,7 +122,7 @@ export function reDraw() {
 }
 
 function drawAxis() {
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = AXIS_COLOR;
     ctx.beginPath();
     ctx.moveTo(0,startY);
     ctx.lineTo(width, startY);
@@ -133,26 +139,25 @@ function drawAxis() {
     ctx.moveTo(startX,0);
     ctx.lineTo(startX, height);
     ctx.stroke();
-
-    ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
 }
 
 function updatePoint(x,y) {
     // ctx.restore();
     // ctx.save();
     reDraw();
-    ctx.strokeStyle = 'rgba(200, 0, 0, 1)';
+    ctx.strokeStyle = POINT_COLOR;
     ctx.beginPath();
     ctx.moveTo(x-7,y);
     ctx.lineTo(x+7,y);
     ctx.moveTo(x,y-7);
     ctx.lineTo(x,y+7);
     ctx.stroke();
+    ctx.fillText(xFromCoord(x).toFixed(2)+" "+yFromCoord(y).toFixed(2), maxX,maxY);
 }
 function updateLabels(r) {
     if (r===null || r===undefined) return;
     const labels = [-r, -r/2, '', r/2, r];
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = TEXT_COLOR;
     ctx.font = "18px serif";
     ctx.textAlign = 'center';
     ctx.textBaseLine = 'bottom';
@@ -182,6 +187,12 @@ function getXMinMax(x) {
 function getYMinMax(y) {
     return y >0 ? maxY : minY;
 }
+function xFromCoord(xCoord) {
+    return (xCoord-startX)*radius/(maxX-startX);
+}
+function yFromCoord(yCoord) {
+    return (yCoord-startY)*radius/(startY-maxY);
+}
 
 class SquareQuadrant extends Quadrant {
     draw() {
@@ -202,7 +213,7 @@ class CircleQuadrant extends Quadrant {
         let orientation = this.xSign==this.ySign;
         ctx.beginPath();
         ctx.moveTo(startX,startY);
-        ctx.arc(startX,startY,getXMinMax(this.xSign)-startX,(2*this.ySign-1)*Math.PI/2,(1-this.xSign)*Math.PI, orientation);
+        ctx.arc(startX,startY,Math.abs(getXMinMax(this.xSign)-startX),(2*this.ySign-1)*Math.PI/2,(1-this.xSign)*Math.PI, orientation);
         ctx.fill();
     }
 }
@@ -213,9 +224,9 @@ export function update(currentParams) {
     const y = currentParams.get('y');
     const r = currentParams.get('r');
     radius = r;
+    reDraw();
     let xCoord = startX + (maxX-startX)/radius*x;
     let yCoord = startY + (startY-maxY)/radius*y
-    // updatePoint(xCoord,yCoord);
     point.update(xCoord,yCoord);
 }
 export function updateQuadrant(name, x, y) {
@@ -223,6 +234,30 @@ export function updateQuadrant(name, x, y) {
 }
 
 canvas.onmousemove = (event) => {
-    // updatePoint(event.offsetX, event.offsetY);
+    if (radius===null || radius===undefined) return;
     point.set(event.offsetX, event.offsetY);
+}
+
+canvas.onmousedown = (event) => {
+    if (radius===null || radius===undefined) return;
+    const formData = new FormData();
+    const xCoord = event.offsetX;
+    const yCoord = event.offsetY;
+    let x = xFromCoord(xCoord).toFixed(2);
+    let y = yFromCoord(yCoord).toFixed(2);
+
+    formData.append('x',x);
+    formData.append('y',y);
+    formData.append('r',radius);
+    formData.append('shoot','true');
+
+    let req = new XMLHttpRequest();
+    req.onload = function() {
+        let resFrame = document.getElementById('result').contentWindow.document;
+        resFrame.open();
+        resFrame.write(this.responseText);
+        resFrame.close();
+    }
+    req.open('POST','back/main.php');
+    req.send(formData);
 }
