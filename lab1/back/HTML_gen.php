@@ -41,11 +41,8 @@ function gen_response($x,$y,$r, bool $result, string $message, string $time_of_s
                 </td>
                 <td class="response-cell">
                     <div class="clear-history">
-                    <form action="main.php" method="post">
-                        <input type="hidden" name="clearHistory" value="true">
-                        <input type="submit" value="Clear history" class="clear-history-button">
-                    </form>
-                    </div>
+                    <button class="clear-history-button type="button" onclick="clearHistory();">Clear history</button>
+                    </div><br>
                     <table class="history-table">
                     ' . gen_history_table() . '
                     </table>
