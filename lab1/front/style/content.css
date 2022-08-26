@@ -54,7 +54,6 @@ div.canvas {
     display: block;
     margin: 0 auto;
     width: 100%;
-    height: fit-content;
 }
 h2.generic-header {
     font: bold fantasy;

@@ -58,9 +58,7 @@ function handle_error(string $message) {
 }
 
 function handle_result($x,$y,$r, bool $result, string $message, float $start_time) {
-    $curr_time = date('Y-m-d H:i:s');
-    $time = time_elapsed(microtime(true) - $start_time);
-    echo gen_response($x,$y,$r,$result,$message,$time,$curr_time);
+    gen_response($x,$y,$r,$result,$message,$start_time);
 }
 
 

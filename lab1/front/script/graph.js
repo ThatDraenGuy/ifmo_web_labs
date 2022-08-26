@@ -1,3 +1,5 @@
+import { sendShootingReq } from "./connector.js";
+
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
@@ -258,24 +260,9 @@ canvas.onmousemove = (event) => {
 
 canvas.onmousedown = (event) => {
     if (radius===null || radius===undefined) return;
-    const formData = new FormData();
     const xCoord = event.offsetX;
     const yCoord = event.offsetY;
     let x = xFromCoord(xCoord).toFixed(2);
     let y = yFromCoord(yCoord).toFixed(2);
-
-    formData.append('x',x);
-    formData.append('y',y);
-    formData.append('r',radius);
-    formData.append('shoot','true');
-
-    let req = new XMLHttpRequest();
-    req.onload = function() {
-        let resFrame = document.getElementById('result').contentWindow.document;
-        resFrame.open();
-        resFrame.write(this.responseText);
-        resFrame.close();
-    }
-    req.open('POST','back/main.php');
-    req.send(formData);
+    sendShootingReq(x,y,radius);    
 }

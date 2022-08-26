@@ -12,9 +12,13 @@ $table_header = '
 </tr>
 ';
 
-function gen_response($x,$y,$r, bool $result, string $message, string $time_of_script, string $current_time) {
+function gen_response($x,$y,$r, bool $result, string $message, float $start_time) {
     global $table_header;
-    $table_row = gen_table_row($x,$y,$r,$message,$time_of_script,$current_time);
+    $history_table = gen_history_table();
+    $scream = get_scream($result);
+    $reaction_image = gen_reaction_image($result);
+    $info = new AttemptInfo($x,$y,$r,$result,$message,$start_time);
+    $table_row = gen_table_row($info);
     $res = '
     <html>
     <head>
@@ -36,47 +40,48 @@ function gen_response($x,$y,$r, bool $result, string $message, string $time_of_s
                     '. $table_header .'
                     '. $table_row .'
                     </table><br>
-                    <div class="scream">' . get_scream($result) . '</div><br>
-                    ' . gen_reaction_image($result) . '<br>
+                    <div class="scream">' . $scream . '</div><br>
+                    ' . $reaction_image . '<br>
                 </td>
                 <td class="response-cell">
-                    <div class="clear-history">
-                    <button class="clear-history-button type="button" onclick="clearHistory();">Clear history</button>
-                    </div><br>
-                    <table class="history-table">
-                    ' . gen_history_table() . '
-                    </table>
+                    ' . $history_table . '
                 </td>
             </tr>
         </table>
     </body>
     </html>';
-    array_push($_SESSION['history'], $table_row);
-    return $res;
+    array_push($_SESSION['history'], $info);
+    $_SESSION['last_attempt'] = $info;
+    echo $res;
 }
 
 function gen_history_table() : string {
     $history = $_SESSION['history'];
     if (empty($history)) return '';
     global $table_header;
-    $res = '<table class="history-table">';
+    $res = '
+    <div id="history">
+    <div class="clear-history">
+        <button class="clear-history-button type="button" onclick="clearHistory();">Clear history</button>
+    </div><br>
+    <table class="history-table">';
     $res .= $table_header;
-    foreach ($history as $i => $table_row) {
-        $res .= $table_row;
+    foreach ($history as $i => $info) {
+        $res .= gen_table_row($info);
     }
-    $res .= '</table>';
+    $res .= '</table></div>';
     return $res;
 }
 
-function gen_table_row($x,$y,$r, string $message, string $time_of_script, string $current_time) : string {
+function gen_table_row(AttemptInfo $info) : string {
     return '
     <tr>
-    <td class="content">' . $x . '</td>
-    <td class="content">' . $y . '</td>
-    <td class="content">' . $r . '</td>
-    <td class="content">' . $message . '</td>
-    <td class="content">' . $time_of_script . '</td>
-    <td class="content">' . $current_time . '</td>
+    <td class="content">' . $info->x . '</td>
+    <td class="content">' . $info->y . '</td>
+    <td class="content">' . $info->r . '</td>
+    <td class="content">' . $info->message . '</td>
+    <td class="content">' . $info->exec_time . '</td>
+    <td class="content">' . $info->curr_time . '</td>
     </tr>';
 }
 
@@ -111,4 +116,23 @@ function time_elapsed($secs){
         if($v > 0)$ret[] = $v . $k;
        
     return join(' ', $ret);
+}
+class AttemptInfo {
+    public string $x;
+    public string $y;
+    public string $r;
+    public bool $res;
+    public string $message;
+    public string $exec_time;
+    public string $curr_time;
+    
+    public function __construct(string $x, string $y, string $r, bool $res, string $message, float $start_time) {
+        $this->x = $x;
+        $this->y = $y;
+        $this->r = $r;
+        $this->res = $res;
+        $this->message = $message;
+        $this->exec_time = time_elapsed(microtime(true) - $start_time);
+        $this->curr_time = date('Y-m-d H:i:s');
+    }
 }

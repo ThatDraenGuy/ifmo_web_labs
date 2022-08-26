@@ -1,4 +1,5 @@
 import { reDraw, updateQuadrant } from "./graph.js";
+import { resizeIframe } from "./utils.js";
 
 const quadrantsKey = "quadrants";
 const type = "type";
@@ -72,4 +73,24 @@ function handleRange(name, data) {
 function insertVariant(text) {
     const place = document.querySelector('#shoot-table');
     place.insertAdjacentHTML('beforeend', text);
+}
+
+export function sendShootingReq(x,y,r) {
+    const formData = new FormData();
+    formData.append('x',x);
+    formData.append('y',y);
+    formData.append('r',r);
+    formData.append('shoot','true');
+
+    let req = new XMLHttpRequest();
+    req.onload = function() {
+        let resFrame = document.getElementById('result');
+        let res = resFrame.contentWindow.document;
+        res.open();
+        res.write(this.responseText);
+        res.close();
+        resizeIframe(resFrame);
+    }
+    req.open('POST','back/main.php');
+    req.send(formData);
 }
