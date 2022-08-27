@@ -7,10 +7,10 @@ if (!isset($_SESSION['history'])) {
 }
 
 if ($_POST) {
-    if ($_POST["shoot"]=="true") {
+    if (isset($_POST["shoot"])) {
         shoot();        
     }
-    if ($_POST["clearHistory"]=="true") {
+    if (isset($_POST["clearHistory"])) {
         clear_history();
     }
 }

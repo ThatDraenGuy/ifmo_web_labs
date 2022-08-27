@@ -4,11 +4,35 @@ table.header-table {
     height: auto;
 }
 #header {
-    background-color: darkslateblue;
+    /* background-color: darkslateblue; */
+    text-align: right;
+    position: relative;
+    float: right;
+}
+#header::before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: opacity 1s;
+    background: linear-gradient(90deg, rgba(72,61,139,1) 0%, rgba(22,116,135,1) 100%);
+    opacity: 0;
+}
+#header:hover::before {
+    opacity: 1;
+}
+#header:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+.header-text {
     color: cadetblue;
     font: italic 20pt fantasy;
-    text-align: right;
-    float: right;
+}
+.header-text::first-line {
+    color: red;
 }
 #header-image {
     width: auto;
@@ -21,7 +45,6 @@ img.contact-image {
 .tooltip {
     position: relative;
     display: inline-block;
-    /* border-bottom: 1px dotted black; */
 }
 .tooltip .tooltip-text {
     visibility: hidden;
