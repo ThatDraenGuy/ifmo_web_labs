@@ -3,7 +3,8 @@ import { sendShootingReq } from "./connector.js";
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
-const MAIN_COLOR = 'rgba(0, 0, 200, 0.5)';
+const GRAPH_COLOR = 'rgba(0, 0, 200, 0.5)';
+const BACK_COLOR = 'rgba(150,150,150,1)';
 const AXIS_COLOR = '#000';
 const TEXT_COLOR = '#000';
 const POINT_COLOR = 'rgba(200, 0, 0, 1)'
@@ -114,17 +115,23 @@ function frame() {
 
 var radius = null;
 const point = new Point(0,0,60);
+const oldPoints = [];
 reDraw();
 
 //redraws quadrants & axis (basically all of the graph besides shooting point)
 export function reDraw() {
     //clear full canvas
     ctx.clearRect(0,0,width,height);
-    ctx.fillStyle = MAIN_COLOR;
+    ctx.fillStyle = BACK_COLOR;
+    ctx.fillRect(0,0,width,height);
+    ctx.fillStyle = GRAPH_COLOR;
     //draw all quadrant graphs
     Quadrant.drawAll();
     drawAxis();
     updateLabels(radius);
+    oldPoints.forEach(point => {
+        drawPoint(coordFromX(point.x),coordFromY(point.y),point.style);
+    })
 }
 
 function drawAxis() {
@@ -133,17 +140,17 @@ function drawAxis() {
     ctx.beginPath();
     ctx.moveTo(0,startY);
     ctx.lineTo(width, startY);
-    ctx.lineTo(width-10,startY-10);
+    ctx.lineTo(width-10,startY-5);
     ctx.moveTo(width,startY);
-    ctx.lineTo(width-10,startY+10);
+    ctx.lineTo(width-10,startY+5);
     ctx.stroke();
     
     //draw OY
     ctx.beginPath();
     ctx.moveTo(startX,0);
-    ctx.lineTo(startX-10,10);
+    ctx.lineTo(startX-5,10);
     ctx.moveTo(startX,0);
-    ctx.lineTo(startX+10,10);
+    ctx.lineTo(startX+5,10);
     ctx.moveTo(startX,0);
     ctx.lineTo(startX, height);
     ctx.stroke();
@@ -153,14 +160,19 @@ function updatePoint(x,y) {
     reDraw();
     ctx.strokeStyle = POINT_COLOR;
     //draw crosshair
+    drawPoint(x,y);
+    // set coords of point in bottom-right corner
+    ctx.fillText(xFromCoord(x).toFixed(2)+" "+yFromCoord(y).toFixed(2), maxX-10,maxY);
+}
+function drawPoint(x,y,style = POINT_COLOR) {
+    ctx.strokeStyle = style;
+    //draw crosshair
     ctx.beginPath();
     ctx.moveTo(x-7,y);
     ctx.lineTo(x+7,y);
     ctx.moveTo(x,y-7);
     ctx.lineTo(x,y+7);
     ctx.stroke();
-    // set coords of point in bottom-right corner
-    ctx.fillText(xFromCoord(x).toFixed(2)+" "+yFromCoord(y).toFixed(2), maxX,maxY);
 }
 function updateLabels(r) {
     if (r===null || r===undefined) {
@@ -212,6 +224,13 @@ function xFromCoord(xCoord) {
 function yFromCoord(yCoord) {
     return (yCoord-startY)*radius/(startY-maxY);
 }
+//do the revert convertion
+function coordFromX(x) {
+    return startX + (maxX-startX)/radius*x;
+}
+function coordFromY(y) {
+    return startY + (startY-maxY)/radius*y;
+}
 
 class SquareQuadrant extends Quadrant {
     draw() {
@@ -238,20 +257,26 @@ class CircleQuadrant extends Quadrant {
 }
 
 
-export function update(currentParams) {
+export function update(currentParams, shouldShoot = false) {
     const x = currentParams.get('x');
     const y = currentParams.get('y');
     const r = currentParams.get('r');
     radius = r;
     reDraw();
-    let xCoord = startX + (maxX-startX)/radius*x;
-    let yCoord = startY + (startY-maxY)/radius*y
+    let xCoord = coordFromX(x);
+    let yCoord = coordFromY(y);
     point.update(xCoord,yCoord);
+    if (shouldShoot) shoot(x,y);
 }
 export function updateQuadrant(name, x, y) {
     Quadrant.update(x,y,name);
 }
-
+function shoot(x,y) {
+    oldPoints.push({x:x,y:y,style:oldPointStyle()});
+}
+function oldPointStyle() {
+    return "rgba("+(Math.random()*100+100)+", "+(200+Math.random()*155)+", "+(Math.random()*100+100)+",1)";
+}
 //mouse stuff
 canvas.onmousemove = (event) => {
     if (radius===null || radius===undefined) return;
@@ -264,5 +289,6 @@ canvas.onmousedown = (event) => {
     const yCoord = event.offsetY;
     let x = xFromCoord(xCoord).toFixed(2);
     let y = yFromCoord(yCoord).toFixed(2);
+    shoot(x,y);
     sendShootingReq(x,y,radius);    
 }

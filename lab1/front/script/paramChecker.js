@@ -26,7 +26,7 @@ function checkParams() {
     for (const[className,validationFunction] of inputClassesMap) {
         if (!checkInputs(className,validationFunction)) result = false;
     }
-    if (result) update(currentParams);
+    if (result) update(currentParams, true);
     return result;
 }
 
