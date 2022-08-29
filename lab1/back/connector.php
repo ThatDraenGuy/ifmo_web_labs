@@ -1,11 +1,12 @@
 <?php
-include 'settings.php';
-sendQuadrantData();
-function sendQuadrantData() {
+include_once 'settings.php';
+function sendData() {
     global $quadrants;
     global $constraints;
+    $history = $_SESSION['history'];
     echo json_encode([
         'quadrants' => $quadrants,
-        'constraints' => $constraints
+        'constraints' => $constraints,
+        'history' => $history
     ]);
 }

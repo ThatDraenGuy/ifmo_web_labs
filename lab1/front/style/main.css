@@ -1,24 +1,42 @@
 body {
-    background-image: url("https://64.media.tumblr.com/88a77a6e025bd356fbb23b1c2c469514/9b70497cc2682c30-7f/s640x960/159560ce36deaefe3a39720fadbb530762620ecf.gifv");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url(../../img/back.jpg);
+    background-repeat: repeat;
 }
 table.main-table {
     width: 100%;
     height: 100%;
 }
-td.side-cell {
-    vertical-align: top;
-    width: 20%;
-    padding-top: 1%;
+col.left {
+    /* background-color: aqua; */
+    width: 30%;
 }
-td.center-cell {
-    width: 60%;
-    padding-bottom: 5%;
-    padding-top: 3%;
-    font-size: medium;
+col.middle {
+    /* background-color: burlywood; */
+    width: 40%;
 }
+col.right {
+    /* background-color: darkorchid; */
+    width: 30%;
+}
+
+tr.header-row {
+    height: 20vh;
+}
+tr.content-row {
+    height: 35vh;
+}
+
+div.blob {
+    background-color: rgba(128, 128, 128, 0.9);
+    border-color: darkorchid;
+    border-width: 7px;
+    border-style: ridge;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+
 /* th, td {
-    border: 1px solid black;
+    border: 1px solid white;
     border-collapse: collapse;
 } */

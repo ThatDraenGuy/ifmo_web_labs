@@ -1,4 +1,4 @@
-import { reDraw, updateQuadrant } from "./graph.js";
+import { reDraw, setOldPoints, updateQuadrant } from "./graph.js";
 import { resizeIframe } from "./utils.js";
 
 const quadrantsKey = "quadrants";
@@ -15,13 +15,17 @@ const rangeMax = "range_max";
 constraints.set(options, handleOptions);
 constraints.set(range, handleRange);
 
+const historyKey = "history";
+
+const formData = new FormData();
+formData.append("getData", "true");
 var oReq = new XMLHttpRequest();
 oReq.onload = function() {
     console.log(this.responseText);
     handleResponse(this.responseText);  
 }
-oReq.open("get", "back/connector.php", true);
-oReq.send();
+oReq.open("post", "back/main.php", true);
+oReq.send(formData);
 
 
 function handleResponse(responseText) {
@@ -36,21 +40,23 @@ function handleResponse(responseText) {
         reDraw();
     }
     if (constraintsKey in obj) {
-        console.log(obj[constraintsKey]);
         let constraintsReq = obj[constraintsKey];
         Object.keys(constraintsReq).forEach(key => {
             let element = constraintsReq[key];
             let func = constraints.get(element[type]);
             handleVariant(func, key, element);
         });
-        insertVariant('<tr><td><input type="submit" value="shoot!"></td></tr>');
+        insertVariant('<tr><td colspan="2" class="button-coord-cell"><input class="shoot-button" type="submit" value="shoot!"></td></tr>');
+    }
+    if (historyKey in obj) {
+        setOldPoints(obj[historyKey]);
     }
 }
 
 function handleVariant(func, name, data) {
-    let res = '<tr class="shoot-row"><td>' + name.toUpperCase()+":\n";
+    let res = '<tr class="shoot-row"><td class="name-coord-cell">' + name.toUpperCase()+':</td><td class="choice-coord-cell">';
     res += func(name, data);
-    res += '<br><span class="input-message" name="' + name + '" id="message" style="visibility: hidden;">message</span></td></tr>';
+    res += '</td><tr class="message-row"><td colspan="2"><span class="message-coord-cell input-message" name="' + name + '" id="message" style="visibility: hidden;">message</span></td></tr>';
     insertVariant(res);
 }
 

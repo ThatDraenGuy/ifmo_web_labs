@@ -3,133 +3,53 @@
 <head>
     <title>lab1</title>
     <link href="front/style/main.css" rel="stylesheet">
-    <link href="front/style/header.css" rel="stylesheet">
     <link href="front/style/content.css" rel="stylesheet">
-    <!-- <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
     <script type="module" src="front/script/connector.js"></script>
     <script type="module" src="front/script/paramChecker.js"></script>
     <script type="module" src="front/script/utils.js"></script>
 </head>
 <body>
     <table class="main-table">
-        <tr>
-            <th></th>
-            <th></th>
-            <th id="header">
-                <table id="header-table">
-                    <tr>
-                        <td class="header-text">
-                            Haikin Oleg<br>
-                            P3231<br>
-                            var 3116<br>
-                        </td>
-                        <td>
-                            <img id="header-image" src="img/chihuahua-spin.gif">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <div class="tooltip">
-                                <a href="https://github.com/ThatDraenGuy/weblab"><img class="contact-image" src="img/github.png"></a>
-                                <span class="tooltip-text">Source</span>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </th>
-        </tr>
-        <tr>
-            <td class="side-cell"></td>
-            <td class="center-cell">
-                <table class="content-table">
-                    <tr>
-                        <td colspan=3 class="header-row">
-                            <h2 class="generic-header">Coordinates</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="margin"></td>
-                        <td class="general-row">
-                            <form id="shooting-form" action="back/main.php" method="post" target="result" onsubmit="return validateSubmission()">
-                                <input type="hidden" name="shoot" value="true">
-                                <table id="shoot-table">
-                                    <!-- <tr>
-                                        <td>
-                                            X:
-                                            -4<input type="radio" name="x" value="-4" class="radio-input"  oninput="paramChanged(name)">
-                                            -3<input type="radio" name="x" value="-3" class="radio-input"  oninput="paramChanged(name)">
-                                            -2<input type="radio" name="x" value="-2" class="radio-input"  oninput="paramChanged(name)">
-                                            -1<input type="radio" name="x" value="-1" class="radio-input"  oninput="paramChanged(name)">
-                                            0<input type="radio" name="x" value="0" class="radio-input"  oninput="paramChanged(name)">
-                                            1<input type="radio" name="x" value="1" class="radio-input"  oninput="paramChanged(name)">
-                                            2<input type="radio" name="x" value="2" class="radio-input"  oninput="paramChanged(name)">
-                                            3<input type="radio" name="x" value="3" class="radio-input"  oninput="paramChanged(name)">
-                                            4<input type="radio" name="x" value="4" class="radio-input"  oninput="paramChanged(name)"><br>
-                                            <span class="input-message" name="x" id="message" style="visibility: hidden;">message</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Y:
-                                            <input type="text" name="y" class="text-input" data-min="-3"; data-max="3"; oninput="paramChanged(name)"><br>
-                                            <span class="input-message" name="y" id="message" style="visibility: hidden;">message</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            R:
-                                            1<input type="radio" name="r" value="1" class="radio-input"  oninput="paramChanged(name)">
-                                            1.5<input type="radio" name="r" value="1.5" class="radio-input"  oninput="paramChanged(name)">
-                                            2<input type="radio" name="r" value="2" class="radio-input"  oninput="paramChanged(name)">
-                                            2.5<input type="radio" name="r" value="2.5" class="radio-input"  oninput="paramChanged(name)">
-                                            3<input type="radio" name="r" value="3" class="radio-input"  oninput="paramChanged(name)"><br>
-                                            <span class="input-message" name="r" id="message" style="visibility: hidden;">message</span>
-                                        </td>
-                                    </tr> -->
-                                    <!-- <tr>
-                                        <td>
-                                            <input type="submit" name="shoot!">
-                                        </td>
-                                    </tr> -->
-                                </table>
-                            </form>
-                        </td>
-                        <td class="margin"></td>
-                    </tr>
-                    <tr>
-                        <tr>
-                            <td colspan=3 class="header-row">
-                                <h2 class="generic-header">Chart</h2>
-                            </td>
-                        </tr>
-                        <td class="margin"></td>
-                        <td class="general-row">
-                            <div class="canvas"><canvas id="graph" width=300 height=300></canvas></div>
-                            <script type="module" src="front/script/graph.js"></script>
-                        </td>
-                        <td class="margin"></td>
-                    </tr>
-                    <tr>
-                        <tr>
-                            <td colspan=3 class="header-row">
-                                <h2 class="generic-header">Results</h2>
-                            </td>
-                        </tr>
-                        <td class="margin"></td>
-                        <td class="general-row ending-row">
-                            <div class="result">
-                                <iframe name="result" id="result" onload="resizeIframe(this)">
-                                    stuff
-                                </iframe>
-                            </div>
-                        </td>
-                        <td class="margin"></td>
-                    </tr>
-                </table>
+        <colgroup>
+            <col class="left">
+            <col class="middle">
+            <col class="right">
+        </colgroup>
+        <tr class="header-row">
+            <td class="empty"></td>
+            <td class="graph-cell" rowspan="2">
+                <div class="blob graph">
+                    <canvas id="graph" width=400 height=400></canvas>
+                </div>
             </td>
-            <td class="side-cell"></td>
+            <td class="empty"></td>
+        </tr>
+        <tr class="content-row">
+            <td class="coord-choosing-cell">
+                <div class="blob coord-chooser">
+                    <form id="shooting-form" action="back/main.php" method="post" target="result" onsubmit="return validateSubmission()">
+                        <input type="hidden" name="shoot" value="true">
+                        <table id="shoot-table">
+                            <!-- generated in run-time -->
+                        </table>
+                    </form>
+                </div>
+            </td>
+            <td class="slide-cell">
+
+            </td>
+        </tr>
+        <tr class="content-row">
+            <td>
+
+            </td>
+            <td class="response-cell" colspan="2">
+                <div class="result blob" hidden="true">
+                    <iframe name="result" scrolling="no" id="result" onload="resizeIframe(this)">
+                        stuff
+                    </iframe>
+                </div>
+            </td>
         </tr>
     </table>
 </body>
-</html>

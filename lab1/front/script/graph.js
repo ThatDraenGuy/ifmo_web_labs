@@ -4,7 +4,7 @@ const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
 const GRAPH_COLOR = 'rgba(0, 0, 200, 0.5)';
-const BACK_COLOR = 'rgba(150,150,150,1)';
+const BACK_COLOR = 'rgba(150,150,150,0)';
 const AXIS_COLOR = '#000';
 const TEXT_COLOR = '#000';
 const POINT_COLOR = 'rgba(200, 0, 0, 1)'
@@ -270,6 +270,15 @@ export function update(currentParams, shouldShoot = false) {
 }
 export function updateQuadrant(name, x, y) {
     Quadrant.update(x,y,name);
+}
+export function setOldPoints(points) {
+    oldPoints.length = 0;
+    points.forEach(point => {
+        if ('x' in point && 'y' in point) {
+            oldPoints.push({x:point.x,y:point.y,style:oldPointStyle()});
+        }
+    });
+    reDraw();
 }
 function shoot(x,y) {
     oldPoints.push({x:x,y:y,style:oldPointStyle()});

@@ -1,45 +1,83 @@
 table.response-table {
     width: 100%;
 }
-table.result-table {
+col.result {
+    width: 20%;
+}
+col.history {
+    width: 80%;
+}
+tr.header {
+    height: 20vh;
+}
+tr.content {
+    height: 70vh;
+}
+
+.result-scream-cell {
+    text-align: center;
+    font-size: xx-large;
+    color: cyan;
+    background-color: blueviolet;
+    border-radius: 10px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+.history-header-cell {
+    padding: 0 0 0 0;
+}
+table.history-header-table {
     width: 100%;
     height: 100%;
-    border: 1px solid black;
-    border-collapse: collapse;
-    background-color: darkgray;
 }
-table.history-table {
-    width: 100%;
+table.history-header-table>tr>td {
     height: 100%;
-    border: 1px solid black;
-    border-collapse: collapse;
-    background-color: lightseagreen;
 }
-td.response-cell {
-    vertical-align: top;
-    width: 50%;
+.history-table-name {
+    background-color: azure;
+    color: gray;
+    border-radius: 5px;
+    width: fit-content;
+    font-size: larger;
 }
-td.content {
-    border: 1px solid black;
-}
-.scream {
-    font-size: x-large;
-    color: red;
-    text-align: center;
-}
-.clear-history {
-    text-align: center;
+.clear-history-button-cell {
+    text-align: right;
 }
 .clear-history-button {
-    background-color: lightseagreen;
-    align-self: center;
+    background-color: rgba(50, 50, 50, 0.9);
+    font-size: larger;
+    color: aqua;
+    border-radius: 10px;
 }
-h2.response-header {
-    font: bold fantasy;
-    font-size: large;
-    color: chocolate;
-    text-align: center;
+
+.result-reaction-cell {
+    vertical-align: top;
 }
-img.result-image {
+.result-image {
     width: 100%;
 }
+
+.history-table-cell {
+    vertical-align: top;
+}
+.history-table {
+    width: 100%;
+}
+[class*='history-cell'] {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: azure;
+    border-radius: 5px;
+}
+.header-history-cell {
+    text-align: center;
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 5px;
+}
+
+/* td,tr {
+    border: 1px solid white;
+    border-collapse: collapse;
+} */

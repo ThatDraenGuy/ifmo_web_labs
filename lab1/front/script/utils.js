@@ -1,3 +1,4 @@
+import { setOldPoints } from "./graph.js";
 
 
 window.resizeIframe = resizeIframe;
@@ -5,8 +6,9 @@ window.clearHistory = clearHistory;
 
 export function resizeIframe(iframe) {
     iframe.style.height = 0;
-    iframe.style.height = iframe.contentWindow.document.body.scrollHeight+10 + 'px';
+    iframe.style.height = iframe.contentWindow.document.body.scrollHeight+20 + 'px';
     iframe.contentWindow.clearHistory = clearHistory;
+    iframe.parentElement.hidden = false;
 }
 
 function clearHistory() {
@@ -17,6 +19,7 @@ function clearHistory() {
         let resFrame = document.getElementById('result').contentWindow.document;
         let history = resFrame.getElementById('history');
         history.remove();
+        setOldPoints([]);
         // resFrame.open();
         // resFrame.write(this.responseText);
         // resFrame.close();

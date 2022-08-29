@@ -1,87 +1,99 @@
 <?php
 include_once 'logic.php';
 
-$table_header = '
-<tr>
-    <td class="content">x</td>
-    <td class="content">y</td>
-    <td class="content">r</td>
-    <td class="content">result</td>
-    <td class="content">script time</td>
-    <td class="content">current time</td>
-</tr>
-';
-
 function gen_response($x,$y,$r, bool $result, string $message, float $start_time) {
-    global $table_header;
+    $info = new AttemptInfo($x,$y,$r,$result,$message,$start_time);
+    array_push($_SESSION['history'], $info);
+    $_SESSION['last_attempt'] = $info;
+    gen_html();
+}
+
+function gen_html() {
+    $result = $_SESSION['last_attempt']->res;
     $history_table = gen_history_table();
     $scream = get_scream($result);
     $reaction_image = gen_reaction_image($result);
-    $info = new AttemptInfo($x,$y,$r,$result,$message,$start_time);
-    $table_row = gen_table_row($info);
     $res = '
     <html>
     <head>
         <link href="../front/style/response.css" rel="stylesheet">
     </head>
     <body>
-        <table class="response-table" id="response-table">
-            <tr>
-                <td>
-                    <h2 class="response-header">Result</h2>
-                </td>
-                <td>
-                    <h2 class="response-header">History</h2>
-                </td>
-            </tr>
-            <tr>
-                <td class="response-cell">
-                    <table class="result-table">
-                    '. $table_header .'
-                    '. $table_row .'
-                    </table><br>
-                    <div class="scream">' . $scream . '</div><br>
-                    ' . $reaction_image . '<br>
-                </td>
-                <td class="response-cell">
-                    ' . $history_table . '
-                </td>
-            </tr>
-        </table>
+        <table class="response-table">
+        <colgroup>
+            <col class="result">
+            <col class="history">
+        </colgroup>
+        <tr class="header">
+            <td>
+                <div class="result-scream-cell">
+                    ' . $scream . '
+                </div>
+            </td>
+            <td class="history-header-cell">
+                <table class="history-header-table">
+                    <tr>
+                        <td>
+                            <div class="history-table-name">
+                                HISTORY
+                            </div>
+                        </td>
+                        <td>
+                            <div class="clear-history-button-cell">
+                                <button class="clear-history-button" type="button" onclick="clearHistory();">Clear</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="content">
+            <td class="result-reaction-cell">
+                ' . $reaction_image . '
+            </td>
+            <td class="history-table-cell">
+                ' . $history_table . '
+            </td>
+        </tr>
+    </table>
     </body>
     </html>';
-    array_push($_SESSION['history'], $info);
-    $_SESSION['last_attempt'] = $info;
     echo $res;
 }
 
 function gen_history_table() : string {
     $history = $_SESSION['history'];
     if (empty($history)) return '';
-    global $table_header;
     $res = '
     <div id="history">
-    <div class="clear-history">
-        <button class="clear-history-button type="button" onclick="clearHistory();">Clear history</button>
-    </div><br>
     <table class="history-table">';
-    $res .= $table_header;
+    $res .= '
+    <tr>
+        <td class="header-history-cell">Attempt №</td>
+        <td class="header-history-cell">X</td>
+        <td class="header-history-cell">Y</td>
+        <td class="header-history-cell">R</td>
+        <td class="header-history-cell">Result</td>
+        <td class="header-history-cell">Execution time</td>
+        <td class="header-history-cell">Attempt time</td>
+    </tr>';
     foreach ($history as $i => $info) {
-        $res .= gen_table_row($info);
+        $res .= gen_table_row($info, $i+1);
     }
     $res .= '</table></div>';
     return $res;
 }
 
-function gen_table_row(AttemptInfo $info) : string {
+function gen_table_row(AttemptInfo $info, int $attempt) : string {
     return '
     <tr>
-    <td class="content">' . $info->x . '</td>
-    <td class="content">' . $info->y . '</td>
-    <td class="content">' . $info->r . '</td>
-    <td class="content">' . $info->message . '</td>
-    <td class="content">' . $info->exec_time . '</td>
-    <td class="content">' . $info->curr_time . '</td>
+    <td class="history-cell">' . $attempt . '</td>
+    <td class="history-cell">' . $info->x . '</td>
+    <td class="history-cell">' . $info->y . '</td>
+    <td class="history-cell">' . $info->r . '</td>
+    <td class="history-cell">' . $info->message . '</td>
+    <td class="history-cell">' . $info->exec_time . '</td>
+    <td class="history-cell">' . $info->curr_time . '</td>
     </tr>';
 }
 

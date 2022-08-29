@@ -1,58 +1,67 @@
-table.content-table {
+/* COORD CHOOSER */
+div.coord-chooser {
     margin-left: auto;
-    margin-right: auto;
-    width: 1000px;
-    border-collapse: collapse;
+    margin-right: 10px;
+    /* width: 60%;
+    height: 100%; */
 }
-td[class*="row"] {
-    border-color: gray;
-    border-style: ridge;
-}
-td.header-row {
-    background: linear-gradient(to bottom, #999966 0%, #996633 100%);
-    border-width: 10px;
-}
-td.general-row {
-    background: linear-gradient(to bottom, #ffcc99 0%, #ffff99 100%);
-    border-left-width: 10px;
-    border-right-width: 10px;
-}
-td.ending-row {
-    border-bottom-width: 10px;
-}
-td.margin {
-    width: 1%;
-}
+
 #shoot-table {
-    border-collapse: collapse;
-    border: 1px solid black;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    background-color: bisque;
+    border-spacing: 5px;
+}
+[class*='coord-cell'] {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: aliceblue;
+    text-align: center;
+    border-radius: 5px;
+    /* border-color: aqua;
+    border-width: 3px;
+    border-style: solid; */
+    padding: 3px 3px 3px 3px;
+}
+
+.message-coord-cell {
+    padding: 5px;
+}
+.button-coord-cell {
+    background-color: transparent;
+    border-width: 0;
+}
+tr.message-row>td {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.shoot-button {
+    background-color: cyan;
+    border-radius: 5px;
+    font-size: large;
+    font-family: sans-serif;
+    color: darkmagenta;
+}
+.text-input {
+    background-color: lightskyblue;
+    border-color: rgba(50, 50, 50, 0.9);
+}
+
+/* GRAPH */
+.graph {
     margin-left: auto;
     margin-right: auto;
-}
-tr.shoot-row {
-    border: 1px solid black;
+    padding: 5px;
 }
 #graph {
-    border: 1px solid black;
-    margin: 10px;
+    width: 400px;
+    height: 400px;
 }
-div.canvas {
-    /* width: 50%; */
-    padding-left: 25%;
-    padding-right: 25%;
-    text-align: center;
+
+/* RESULT */
+div.result {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
 }
 #result {
-    display: block;
-    margin: 0 auto;
     width: 100%;
-}
-h2.generic-header {
-    font: bold fantasy;
-    font-size: large;
-    color: cornsilk;
-    text-align: center;
+    height: 100%;
+    border: none;
 }
