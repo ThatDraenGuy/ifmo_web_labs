@@ -3,6 +3,7 @@ import { setOldPoints } from "./graph.js";
 
 window.resizeIframe = resizeIframe;
 window.clearHistory = clearHistory;
+window.showHeader = showHeader;
 
 export function resizeIframe(iframe) {
     iframe.style.height = 0;
@@ -26,4 +27,16 @@ function clearHistory() {
     }
     req.open('POST','back/main.php');
     req.send(formData);
+}
+
+function showHeader(checkbox) {
+    let header = document.getElementById('header');
+    // let headerBlob = document.getElementById('header-blob');
+    if (checkbox.checked) {
+        header.className = 'blob header header-active';
+        // headerBlob.className = 'header-blob header-blob-active';
+    } else {
+        header.className = 'blob header';
+        // headerBlob.className = 'header-blob';
+    }
 }

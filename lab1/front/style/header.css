@@ -1,0 +1,106 @@
+/* BUTTON */
+div.header-button-blob {
+    width: fit-content;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: 0;
+    padding-right: 20px;
+}
+
+#header-button {
+    display: none;
+}
+.header-button {
+    background: none;
+    border: none;
+    position: relative;
+    left: -100px;
+    top: -50px;
+}
+.header-button-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    border-color: azure;
+    border-style: outset;
+    border-width: 5px;
+    position: absolute;
+}
+.arrow-button-img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 15px; 
+    top:  15px;
+    transition: transform 1s;
+}
+
+#header-button:checked + label > img.arrow-button-img {
+    transform: rotate(180deg);
+}
+
+/* HEADER */
+.header-blob {
+    margin-left: auto;
+    margin-right: auto;
+    width: max;
+    height: fit-content;
+    position: relative;
+    overflow: hidden;
+}
+.header {
+    margin-right: 0;
+    margin-left: auto;
+    width: fit-content;
+    transform: translateX(+600px);
+    transition: transform 1s;
+
+    /* background-color: aqua; */
+}
+.header-active {
+    transform: translateX(-0px);
+}
+
+.header-table {
+    padding: 10px;
+    column-gap: 10px;
+}
+
+.header-img {
+    width: 100px;
+    height: 100px;
+    border-color: burlywood;
+    border-width: 5px;
+    border-style: groove;
+}
+.source-img {
+    width:75px;
+    height: 75px;
+}
+.header-table td {
+    padding: 10px;
+}
+.header-table h1 {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: azure;
+    border-radius: 10px;
+    border-color: rgba(40, 40, 40, 1);
+    border-width: 3px;
+    border-style: ridge;
+    padding: 5px;
+    transition: transform 1s;
+}
+.header-table h1:hover {
+    transform: scale(1.05);
+}
+.header-table h2 {
+    color: indigo;
+    text-decoration: underline;
+}
+.labInfo {
+    text-align: center;
+}
+.header-table h3 {
+    color: antiquewhite;
+}
+  
