@@ -1,4 +1,4 @@
-import { ajax, resizeIframe } from "./utils.js";
+import { sendShootingReq } from "./utils.js";
 
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
@@ -257,7 +257,7 @@ class CircleQuadrant extends Quadrant {
 }
 
 
-export function update(currentParams, shouldShoot = false) {
+export function updateGraph(currentParams, shouldShoot = false) {
     const x = currentParams.get('x');
     const y = currentParams.get('y');
     const r = currentParams.get('r');
@@ -266,7 +266,10 @@ export function update(currentParams, shouldShoot = false) {
     let xCoord = coordFromX(x);
     let yCoord = coordFromY(y);
     point.update(xCoord,yCoord);
-    if (shouldShoot) shoot(x,y);
+    if (shouldShoot) {
+        shoot(x,y);
+        sendShootingReq(x,y,r);        
+    } 
 }
 export function updateQuadrant(name, x, y) {
     Quadrant.update(x,y,name);
@@ -301,18 +304,4 @@ canvas.onmousedown = (event) => {
     shoot(x,y);
     sendShootingReq(x,y,radius);    
 }
-function sendShootingReq(x,y,r) {
-    const formData = new FormData();
-    formData.append('x',x);
-    formData.append('y',y);
-    formData.append('r',r);
-    formData.append('shoot','true');
-    ajax(formData, function(responseText) {
-        let resFrame = document.getElementById('result');
-        let res = resFrame.contentWindow.document;
-        res.open();
-        res.write(responseText);
-        res.close();
-        resizeIframe(resFrame);
-    })
-}
+

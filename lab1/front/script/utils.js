@@ -46,3 +46,19 @@ function showHeader(checkbox) {
         header.className = 'blob header';
     }
 }
+
+export function sendShootingReq(x,y,r) {
+    const formData = new FormData();
+    formData.append('x',x);
+    formData.append('y',y);
+    formData.append('r',r);
+    formData.append('shoot','true');
+    ajax(formData, function(responseText) {
+        let resFrame = document.getElementById('result');
+        let res = resFrame.contentWindow.document;
+        res.open();
+        res.write(responseText);
+        res.close();
+        resizeIframe(resFrame);
+    })
+}

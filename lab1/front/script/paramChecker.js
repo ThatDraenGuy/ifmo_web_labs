@@ -1,4 +1,5 @@
-import { update } from "./graph.js";
+import { updateGraph } from "./graph.js";
+import { sendShootingReq } from "./utils.js";
 window.paramChanged = paramChanged;
 window.validateSubmission = validateSubmission;
 // functions for handling validation
@@ -14,7 +15,7 @@ function paramChanged(name) {
     var message = getElementOfClassByName(messageClass,name);
     message.style.visibility = 'hidden'
     let res = checkParam(name);
-    if (res) update(currentParams);
+    if (res) updateGraph(currentParams);
 }
 //finds needed validation function and checks param
 function checkParam(name) {
@@ -30,7 +31,7 @@ function checkParams() {
     for (const[className,validationFunction] of inputClassesMap) {
         if (!checkInputs(className,validationFunction)) result = false;
     }
-    if (result) update(currentParams, true);
+    if (result) updateGraph(currentParams, true);
     return result;
 }
 function checkInputs(inputClass, validationFunction) {
@@ -82,9 +83,10 @@ function message(message, name) {
     field.style.visibility = 'visible';
 }
 
-// function called by submit button
+// function called by submit button. Always returns false because form submission and response handloing is done by js, specifically - by graph.js & utils.js
 function validateSubmission() {
-    return checkParams();
+    checkParams();
+    return false;
 }
 
 //util functions for getting elements
