@@ -1,19 +1,22 @@
 import { update } from "./graph.js";
 window.paramChanged = paramChanged;
 window.validateSubmission = validateSubmission;
+// functions for handling validation
 const messageClass = "input-message";
 const inputClassesMap = new Map();
 inputClassesMap.set("text-input",validateTextInput);
 inputClassesMap.set("radio-input",validateRadioInput);
+//mpa for currently chosen params
 const currentParams = new Map();
 
+// function called when input is changed
 function paramChanged(name) {
     var message = getElementOfClassByName(messageClass,name);
     message.style.visibility = 'hidden'
     let res = checkParam(name);
     if (res) update(currentParams);
 }
-
+//finds needed validation function and checks param
 function checkParam(name) {
     for (const[className,validationFunction] of inputClassesMap) {
         var input = getElementOfClassByName(className,name);
@@ -21,6 +24,7 @@ function checkParam(name) {
     }
     return false;
 }
+//check all params; if everything is okay update graph
 function checkParams() {
     var result = true;
     for (const[className,validationFunction] of inputClassesMap) {
@@ -29,7 +33,6 @@ function checkParams() {
     if (result) update(currentParams, true);
     return result;
 }
-
 function checkInputs(inputClass, validationFunction) {
     var inputs = getElementsOfClass(inputClass);
     var result = true;
@@ -72,16 +75,19 @@ function validateRadioInput(radioInput) {
     currentParams.set(name, null);
     return false;
 }
+// function to report status of validation
 function message(message, name) {
     var field = getElementOfClassByName(messageClass,name)
     field.innerText = message;
     field.style.visibility = 'visible';
 }
 
+// function called by submit button
 function validateSubmission() {
     return checkParams();
 }
 
+//util functions for getting elements
 function getElementsOfClass(className) {
     return document.getElementsByClassName(className);
 }

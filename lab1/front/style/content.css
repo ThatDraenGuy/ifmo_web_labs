@@ -14,9 +14,6 @@ div.coord-chooser {
     color: aliceblue;
     text-align: center;
     border-radius: 5px;
-    /* border-color: aqua;
-    border-width: 3px;
-    border-style: solid; */
     padding: 3px 3px 3px 3px;
 }
 
@@ -42,6 +39,42 @@ tr.message-row>td {
     background-color: azure;
     border-color: rgba(50, 50, 50, 0.9);
 }
+.text-input::placeholder {
+    font-style: italic;
+}
+.radio-input {
+    margin-right: 10px;
+}
+/* custom radio-input */
+.radio-input:after {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+.radio-input:checked:after {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    left: -1px;
+    position: relative;
+    background-color: blueviolet;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+.placeholder {
+    width: 200px;
+    margin-bottom: -5px;
+}
 
 /* GRAPH */
 .graph {
@@ -58,7 +91,7 @@ tr.message-row>td {
 div.result {
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 1000px;
 }
 #result {
     width: 100%;

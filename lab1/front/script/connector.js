@@ -1,6 +1,7 @@
 import { reDraw, setOldPoints, updateQuadrant } from "./graph.js";
-import { resizeIframe } from "./utils.js";
+import { ajax, resizeIframe } from "./utils.js";
 
+// constatnts for getting info from server
 const quadrantsKey = "quadrants";
 const type = "type";
 const x_sign = "x_sign";
@@ -17,20 +18,17 @@ constraints.set(range, handleRange);
 
 const historyKey = "history";
 
+// request data from server
 const formData = new FormData();
 formData.append("getData", "true");
-var oReq = new XMLHttpRequest();
-oReq.onload = function() {
-    console.log(this.responseText);
+ajax(formData, function() {
     handleResponse(this.responseText);  
-}
-oReq.open("post", "back/main.php", true);
-oReq.send(formData);
+})
 
 
 function handleResponse(responseText) {
     const obj = JSON.parse(responseText);
-    console.log(obj);
+    // get quadrants info and pass them to graph.js
     if (quadrantsKey in obj) {
         obj[quadrantsKey].forEach(element => {
             if (type in element && x_sign in element && y_sign in element) {
@@ -39,6 +37,7 @@ function handleResponse(responseText) {
         });
         reDraw();
     }
+    // get constraints info and insert them into document
     if (constraintsKey in obj) {
         let constraintsReq = obj[constraintsKey];
         Object.keys(constraintsReq).forEach(key => {
@@ -47,20 +46,20 @@ function handleResponse(responseText) {
             handleVariant(func, key, element);
         });
         insertVariant('<tr><td colspan="2" class="button-coord-cell"><input class="shoot-button" type="submit" value="shoot!"></td></tr>');
+        clearPlaceholder();
     }
+    // get history info and update points on graph
     if (historyKey in obj) {
         setOldPoints(obj[historyKey]);
     }
 }
-
+// functions for inserting constraints in document
 function handleVariant(func, name, data) {
     let res = '<tr class="shoot-row"><td class="name-coord-cell">' + name.toUpperCase()+':</td><td class="choice-coord-cell">';
     res += func(name, data);
     res += '</td><tr class="message-row"><td colspan="2"><span class="message-coord-cell input-message" name="' + name + '" id="message" style="visibility: hidden;">message</span></td></tr>';
     insertVariant(res);
 }
-
-
 function handleOptions(name, data) {
     let optionsArray = data[options];
     let res = "";
@@ -69,34 +68,17 @@ function handleOptions(name, data) {
     });
     return res;
 }
-
 function handleRange(name, data) {
     let min = data[rangeMin];
     let max = data[rangeMax];
-    return '<input type="text" name="' + name + '" class="text-input" data-min="' + min + '"; data-max="' + max + '"; oninput="paramChanged(name)">\n';
+    return '<input type="text" name="' + name + '" class="text-input" placeholder="number from '+min+' to '+max+'" data-min="' + min + '"; data-max="' + max + '"; oninput="paramChanged(name)">\n';
 }
 
 function insertVariant(text) {
     const place = document.querySelector('#shoot-table');
     place.insertAdjacentHTML('beforeend', text);
 }
-
-export function sendShootingReq(x,y,r) {
-    const formData = new FormData();
-    formData.append('x',x);
-    formData.append('y',y);
-    formData.append('r',r);
-    formData.append('shoot','true');
-
-    let req = new XMLHttpRequest();
-    req.onload = function() {
-        let resFrame = document.getElementById('result');
-        let res = resFrame.contentWindow.document;
-        res.open();
-        res.write(this.responseText);
-        res.close();
-        resizeIframe(resFrame);
-    }
-    req.open('POST','back/main.php');
-    req.send(formData);
+function clearPlaceholder() {
+    const placeholder = document.querySelector('#shoot-load');
+    placeholder.hidden = 'true';
 }

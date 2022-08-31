@@ -43,6 +43,7 @@
                     <form id="shooting-form" action="back/main.php" method="post" target="result" onsubmit="return validateSubmission()">
                         <input type="hidden" name="shoot" value="true">
                         <table id="shoot-table">
+                            <img class="placeholder" id="shoot-load" src="img/load.gif">
                             <!-- generated in run-time -->
                         </table>
                     </form>
@@ -50,33 +51,31 @@
             </td>
             <!-- header -->
             <td class="header-cell">
-                <div class="header-blob" id="header-blob">
-                    <div class="blob header" id="header">
-                        <table class="header-table">
-                            <colgroup>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tr>
-                                <td class="contacts">
-                                    <h1>Хайкин Олег Игоревич</h1>
-                                    <a href="https://github.com/ThatDraenGuy"><h2>@ThatDraenGuy</h2></a>
-                                </td>
-                                <td class="fun">
-                                    <img class="header-img" src="img/chihuahua-spin.gif">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="labInfo">
-                                    <h3>group 32312</h3>
-                                    <h3>var 3116</h3>
-                                </td>
-                                <td class="source">
-                                    <a href="https://github.com/ThatDraenGuy/webLab"><img class="source-img" src="img/github.png"></a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="blob header" id="header">
+                    <table class="header-table">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td class="contacts">
+                                <h1>Хайкин Олег Игоревич</h1>
+                                <a href="https://github.com/ThatDraenGuy"><h2>@ThatDraenGuy</h2></a>
+                            </td>
+                            <td class="fun">
+                                <img class="header-img" src="img/chihuahua-spin.gif">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labInfo">
+                                <h3>group 32312</h3>
+                                <h3>var 3116</h3>
+                            </td>
+                            <td class="source">
+                                <a href="https://github.com/ThatDraenGuy/webLab"><img class="source-img" src="img/github.png"></a>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </td>
         </tr>

@@ -1,4 +1,4 @@
-import { sendShootingReq } from "./connector.js";
+import { ajax, resizeIframe } from "./utils.js";
 
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
@@ -300,4 +300,19 @@ canvas.onmousedown = (event) => {
     let y = yFromCoord(yCoord).toFixed(2);
     shoot(x,y);
     sendShootingReq(x,y,radius);    
+}
+function sendShootingReq(x,y,r) {
+    const formData = new FormData();
+    formData.append('x',x);
+    formData.append('y',y);
+    formData.append('r',r);
+    formData.append('shoot','true');
+    ajax(formData, function() {
+        let resFrame = document.getElementById('result');
+        let res = resFrame.contentWindow.document;
+        res.open();
+        res.write(this.responseText);
+        res.close();
+        resizeIframe(resFrame);
+    })
 }

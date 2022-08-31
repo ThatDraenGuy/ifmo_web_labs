@@ -12,31 +12,31 @@ export function resizeIframe(iframe) {
     iframe.parentElement.hidden = false;
 }
 
+//libs are for the weak (not really, just decided to make this the most vanilla js I could)
+export function ajax(formData, onLoad) {
+    let req = new XMLHttpRequest();
+    req.onload = onLoad;
+    req.open('POST', 'back/main.php');
+    req.send(formData);
+}
+
 function clearHistory() {
     const formData = new FormData();
     formData.append('clearHistory','true');
-    let req = new XMLHttpRequest();
-    req.onload = function() {
+    ajax(formData, function() {
         let resFrame = document.getElementById('result').contentWindow.document;
         let history = resFrame.getElementById('history');
         history.remove();
         setOldPoints([]);
-        // resFrame.open();
-        // resFrame.write(this.responseText);
-        // resFrame.close();
-    }
-    req.open('POST','back/main.php');
-    req.send(formData);
+    })
 }
 
+// don't have time to implement a normal solution
 function showHeader(checkbox) {
     let header = document.getElementById('header');
-    // let headerBlob = document.getElementById('header-blob');
     if (checkbox.checked) {
         header.className = 'blob header header-active';
-        // headerBlob.className = 'header-blob header-blob-active';
     } else {
         header.className = 'blob header';
-        // headerBlob.className = 'header-blob';
     }
 }

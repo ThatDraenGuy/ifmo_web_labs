@@ -1,8 +1,17 @@
 
 
 # Лабораторная работа №1
-## Check out this site live: (screw you I'm lazy and not done with the lab yet) ##
+## Check out this site live: (гелиос мёртв, да здравствует анархия) ##
 <img src="img/result/miss/crying-emoji-dies.gif" alt="cry about it" width="50"/>
+
+## но я расскажу как захостить это самому ##
+<img src="img/README/thumbUp.gif" alt="wahooo" width="50"/>
+
+1. качаем/клонируем/перепечатываем побуквенно этот репозиторий
+2. открываем консоль
+3. переходим в папку lab1 (где index.html лежит)
+4. делаем "php -S localhost:8080" (у меня версия php 7.4.3)
+5. радостно открываем в браузере localhost:8080  и смотрим на это убожество
 
 ## Вариант: 3116 ##
 ![Task graph](/lab1/img/README/areas.jpg)
