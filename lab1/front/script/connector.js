@@ -21,13 +21,19 @@ const historyKey = "history";
 // request data from server
 const formData = new FormData();
 formData.append("getData", "true");
-ajax(formData, function() {
-    handleResponse(this.responseText);  
+ajax(formData, function(responseText) {
+    handleResponse(responseText);  
 })
 
 
 function handleResponse(responseText) {
-    const obj = JSON.parse(responseText);
+    console.log(responseText);
+    try {
+        var obj = JSON.parse(responseText);
+    } catch (e) {
+        alert('server is stoopid and sent non-valid JSON');
+        return;
+    }
     // get quadrants info and pass them to graph.js
     if (quadrantsKey in obj) {
         obj[quadrantsKey].forEach(element => {
@@ -64,14 +70,14 @@ function handleOptions(name, data) {
     let optionsArray = data[options];
     let res = "";
     optionsArray.forEach(element => {
-        res +=' ' + element + '<input type="radio" name="' + name + '" value="' + element + '" class="radio-input"  oninput="paramChanged(name)">\n'
+        res += ` ${element} <input type="radio" name="${name}" value="${element}" class="radio-input"  oninput="paramChanged(name)">\n`
     });
     return res;
 }
 function handleRange(name, data) {
     let min = data[rangeMin];
     let max = data[rangeMax];
-    return '<input type="text" name="' + name + '" class="text-input" placeholder="number from '+min+' to '+max+'" data-min="' + min + '"; data-max="' + max + '"; oninput="paramChanged(name)">\n';
+    return `<input type="text" name="${name}" class="text-input" placeholder="number from ${min} to ${max}" data-min="${min}"; data-max="${max}"; oninput="paramChanged(name)">\n`;
 }
 
 function insertVariant(text) {

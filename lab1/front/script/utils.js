@@ -12,18 +12,24 @@ export function resizeIframe(iframe) {
     iframe.parentElement.hidden = false;
 }
 
-//libs are for the weak (not really, just decided to make this the most vanilla js I could)
-export function ajax(formData, onLoad) {
-    let req = new XMLHttpRequest();
-    req.onload = onLoad;
-    req.open('POST', 'back/main.php');
-    req.send(formData);
+// yes, it would be better to use GET not POST in a bunch of situations, but the task said POST
+export function ajax(formData, successFunc) {
+    superagent
+        .post('back/main.php')
+        .send(formData)
+        .end((err,res) => {
+            if  (err || !res.ok) {
+                alert('oh no, ajax problem');
+            } else {
+                successFunc(res.text);
+            }
+        })
 }
 
 function clearHistory() {
     const formData = new FormData();
     formData.append('clearHistory','true');
-    ajax(formData, function() {
+    ajax(formData, function(responseText) {
         let resFrame = document.getElementById('result').contentWindow.document;
         let history = resFrame.getElementById('history');
         history.remove();

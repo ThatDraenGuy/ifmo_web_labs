@@ -307,11 +307,11 @@ function sendShootingReq(x,y,r) {
     formData.append('y',y);
     formData.append('r',r);
     formData.append('shoot','true');
-    ajax(formData, function() {
+    ajax(formData, function(responseText) {
         let resFrame = document.getElementById('result');
         let res = resFrame.contentWindow.document;
         res.open();
-        res.write(this.responseText);
+        res.write(responseText);
         res.close();
         resizeIframe(resFrame);
     })
