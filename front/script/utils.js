@@ -1,21 +1,35 @@
+import superagent from 'superagent';
 import { setOldPoints } from "./graph.js";
 
+// import '../style/content.css';
+// import '../style/header.css';
+// import '../style/main.css';
+
+// import '../../img/arrow.png';
+// import '../../img/chihuahua-spin.gif';
+// import '../../img/giphy.gif';
+// import '../../img/github.png';
+// import '../../img/load.gif';
 
 window.resizeIframe = resizeIframe;
 window.clearHistory = clearHistory;
 window.showHeader = showHeader;
-
+let counter = 0;
 export function resizeIframe(iframe) {
     iframe.style.height = 0;
     iframe.style.height = iframe.contentWindow.document.body.scrollHeight+20 + 'px';
     iframe.contentWindow.clearHistory = clearHistory;
+    if (counter==0) {
+        counter++;
+        return;
+    }
     iframe.parentElement.hidden = false;
 }
 
 // yes, it would be better to use GET not POST in a bunch of situations, but the task said POST
 export function ajax(formData, successFunc) {
     superagent
-        .post('back/main.php')
+        .post('../back/main.php')
         .send(formData)
         .end((err,res) => {
             if  (err || !res.ok) {
