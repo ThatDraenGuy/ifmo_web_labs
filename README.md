@@ -1,8 +1,8 @@
 
 
 # Лабораторная работа №1
-## Check out this site live: (гелиос ожил?? -> [click](https://se.ifmo.ru/~s336765/index.html)) ##
-<img src="img/result/miss/crying-emoji-dies.gif" alt="cry about it" width="50"/>
+## Check out this site live: (гелиос ожил! сайт тут, на гелиосе -> [click](https://se.ifmo.ru/~s336765/lab1/index.html)) ##
+<img src="img/README/crying-emoji-dies.gif" alt="cry about it" width="50"/>
 
 ## но я ещё и расскажу как захостить это самому - **webpack edition** ##
 <img src="img/README/thumbUp.gif" alt="wahooo" width="50"/>
