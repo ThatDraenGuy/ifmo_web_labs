@@ -8,10 +8,10 @@ col.history {
     width: 80%;
 }
 tr.header {
-    height: 20vh;
+    height: 70px;
 }
 tr.content {
-    height: 70vh;
+    height: fit-content;
 }
 
 .result-scream-cell {

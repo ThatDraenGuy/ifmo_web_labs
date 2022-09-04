@@ -16,7 +16,7 @@ window.clearHistory = clearHistory;
 window.showHeader = showHeader;
 let counter = 0;
 export function resizeIframe(iframe) {
-    iframe.style.height = 0;
+    iframe.style.height = '300px';
     iframe.style.height = iframe.contentWindow.document.body.scrollHeight+20 + 'px';
     iframe.contentWindow.clearHistory = clearHistory;
     if (counter==0) {
