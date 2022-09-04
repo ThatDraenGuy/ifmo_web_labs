@@ -1,17 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-//   entry: [
-//     './front/script/connector.js',
-//     './front/script/graph.js',
-//     './front/script/paramChecker.js',
-//     './front/script/utils.js'
-//   ],
   entry: './front/script/index.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'front/bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'img/[hash][ext][query]',
     clean: true
   },
   module: {
@@ -25,7 +21,7 @@ module.exports = {
         },
         {
             test: /\.(png|svg|jpg|jpeg|gif)$/i,
-            type: 'asset/resource'
+            type: 'asset/resource',
         },
         {
             test: /\.html$/,
@@ -41,5 +37,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.html'
     }),
+    // move php-realted stuff unchanged to be able to use 'dist' folder as a complete final product
+    new CopyWebpackPlugin({
+        patterns: [
+            { from: 'back', to: 'back' },
+            { from: 'img/result', to: 'img/result'},
+            { from: 'front/style/response.css', to: 'back/style/response.css'}
+        ]
+    })
   ]
 };

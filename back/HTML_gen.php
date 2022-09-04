@@ -16,7 +16,7 @@ function gen_html() {
     $res = '
     <html>
     <head>
-        <link href="../front/style/response.css" rel="stylesheet">
+        <link href="back/style/response.css" rel="stylesheet">
     </head>
     <body>
         <table class="response-table">
@@ -98,13 +98,17 @@ function gen_table_row(AttemptInfo $info, int $attempt) : string {
 }
 
 function gen_reaction_image(bool $result) : string {
-    $dir = "../img/result/" . get_dir_name($result);
-    $images = scandir($dir);
-    $images = array_slice($images, 2);
-    return '<img class="result-image" src="' . $dir . '/' . $images[array_rand($images)] . '">';
+    $file = fopen('./reactions.json', 'r');
+    $reactions = fread($file, filesize('./reactions.json'));
+    $parsed = json_decode($reactions, true);
+    if (isset($parsed[get_section_name($result)])) {
+        $array = $parsed[get_section_name($result)];
+        return $array[array_rand($array, 1)];
+    }
+    return '';
 }
 
-function get_dir_name(bool $result) : string {
+function get_section_name(bool $result) : string {
     return $result ? "hit" : "miss";
 }
 

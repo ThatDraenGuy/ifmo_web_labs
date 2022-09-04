@@ -1,17 +1,17 @@
 
 
 # Лабораторная работа №1
-## Check out this site live: (гелиос мёртв, да здравствует анархия) ##
+## Check out this site live: (гелиос ожил?? -> [click](https://se.ifmo.ru/~s336765/index.html)) ##
 <img src="img/result/miss/crying-emoji-dies.gif" alt="cry about it" width="50"/>
 
-## но я расскажу как захостить это самому ##
+## но я ещё и расскажу как захостить это самому - **webpack edition** ##
 <img src="img/README/thumbUp.gif" alt="wahooo" width="50"/>
 
-1. качаем/клонируем/перепечатываем побуквенно этот репозиторий
-2. открываем консоль
-3. переходим в папку lab1 (где index.html лежит)
-4. делаем "php -S localhost:8080" (у меня версия php 7.4.3)
-5. радостно открываем в браузере localhost:8080  и смотрим на это убожество
+1. качаем npm
+2. ???
+3. выполняем *npm run build*
+4. теперь собранный сайт лежит в папке dist. Переходим туда и выполняем *php -S localhost:8080*
+5. радостно заходим на localhost:8080 и смотрим на это убожество
 
 ## Вариант: 3116 ##
 ![Task graph](/img/README/areas.jpg)
