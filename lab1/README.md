@@ -1,7 +1,7 @@
 
 
 # Лабораторная работа №1
-## Check out this site live: (гелиос мёртв, да здравствует анархия) ##
+## Check out this site live: гелиос живой, сайт тут -> [click](https://se.ifmo.ru/~s336765/lab1/index.html)) ##
 <img src="img/result/miss/crying-emoji-dies.gif" alt="cry about it" width="50"/>
 
 ## но я расскажу как захостить это самому ##
