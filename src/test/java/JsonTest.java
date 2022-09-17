@@ -44,23 +44,23 @@ public class JsonTest {
                   "quadrants":[
                     {
                       "type":"circle",
-                      "xSign":1,
-                      "ySign":1
+                      "xMul":1,
+                      "yMul":1
                     },
                     {
                       "type":"square",
-                      "xSign":-1,
-                      "ySign":1
+                      "xMul":-1,
+                      "yMul":1
                     },
                     {
                       "type":"triangle",
-                      "xSign":-1,
-                      "ySign":-1
+                      "xMul":-1,
+                      "yMul":-1
                     },
                     {
                       "type":"empty",
-                      "xSign":1,
-                      "ySign":-1
+                      "xMul":1,
+                      "yMul":-1
                     }],
                   "constraints":{
                     "x":{

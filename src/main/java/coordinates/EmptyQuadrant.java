@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EmptyQuadrant extends AbstractQuadrant {
     @JsonCreator
-    public EmptyQuadrant(@JsonProperty("xSign") int xSign, @JsonProperty("ySign") int ySign) {
-        super(xSign, ySign);
+    public EmptyQuadrant(@JsonProperty("xMul") int xMul, @JsonProperty("yMul") int yMul) {
+        super(xMul, yMul);
     }
 
     @Override

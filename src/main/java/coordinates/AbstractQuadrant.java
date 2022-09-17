@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class AbstractQuadrant implements Quadrant {
     @JsonProperty
-    private final int xSign;
+    protected final int xMul;
     @JsonProperty
-    private final int ySign;
+    protected final int yMul;
     @JsonCreator
-    public AbstractQuadrant(@JsonProperty("xSign") int xSign, @JsonProperty("ySign") int ySign) {
-        this.xSign = xSign;
-        this.ySign = ySign;
+    public AbstractQuadrant(@JsonProperty("xMul") int xMul, @JsonProperty("yMul") int yMul) {
+        this.xMul = xMul;
+        this.yMul = yMul;
     }
     @Override
     public boolean checkHit(double x, double y, double r) {
@@ -19,9 +19,10 @@ public abstract class AbstractQuadrant implements Quadrant {
         return false;
     }
     private boolean checkSign(double x, double y) {
-        return (sign(x)==xSign || x==0) && (sign(y)==ySign || y==0);
+        return (sign(x)==sign(xMul) || x==0) && (sign(y)==sign(yMul) || y==0);
     }
     protected abstract boolean calcHit(double x, double y, double r);
+
 
     protected int sign(int num) {
         return num>0 ? 1 : -1;
@@ -29,12 +30,21 @@ public abstract class AbstractQuadrant implements Quadrant {
     protected int sign(double num) {
         return num>0 ? 1 : -1;
     }
+    protected double rX(double r) {
+        return r*abs(this.xMul);
+    }
+    protected double rY(double r) {
+        return r*abs(this.yMul);
+    }
+    protected static double abs(double num) {
+        return Math.abs(num);
+    }
 
     @Override
     public String toString() {
         return "AbstractQuadrant{" +
-                "xSign=" + xSign +
-                ", ySign=" + ySign +
+                "xMul=" + xMul +
+                ", yMul=" + yMul +
                 '}';
     }
 }
