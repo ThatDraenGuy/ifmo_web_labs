@@ -1,4 +1,7 @@
-
+# WARNING!! ЭТО СТАРАЯ ВЕРСИЯ ЛАБЫ
+## полная версия обитает тут (в другой ветке):
+## [click](https://github.com/ThatDraenGuy/webLab/tree/lab1-webpack)
+![rat](img/rat.gif)
 
 # Лабораторная работа №1
 ## Check out this site live: гелиос живой, сайт тут -> [click](https://se.ifmo.ru/~s336765/lab1/index.html)) ##
