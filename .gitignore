@@ -1,4 +1,10 @@
+#lab1
 node_modules
 dist
 package-lock.json
 report/.~*
+
+#lab2
+.gradle
+.idea
+build
