@@ -1,4 +1,4 @@
-import superagent from 'superagent';
+// import superagent from 'superagent';
 import { setOldPoints } from "./graph.js";
 
 // import '../style/content.css';
@@ -28,8 +28,8 @@ export function resizeIframe(iframe) {
 
 // yes, it would be better to use GET not POST in a bunch of situations, but the task said POST
 export function ajax(formData, successFunc) {
-    superagent
-        .post('./back/main.php')
+    window.superagent
+        .post('/')
         .send(formData)
         .end((err,res) => {
             if  (err || !res.ok) {

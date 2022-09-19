@@ -1,7 +1,7 @@
 import { reDraw, setOldPoints, updateQuadrant } from "./graph.js";
 import { ajax, resizeIframe } from "./utils.js";
 
-// constatnts for getting info from server
+// constants for getting info from server
 const quadrantsKey = "quadrants";
 const type = "type";
 const x_sign = "x_sign";

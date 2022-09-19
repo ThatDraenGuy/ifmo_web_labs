@@ -1,5 +1,5 @@
 body {
-    background-image: url(../../img/back.jpg);
+    background-image: url('../img/back.jpg');
     background-repeat: repeat;
 }
 table.main-table {
