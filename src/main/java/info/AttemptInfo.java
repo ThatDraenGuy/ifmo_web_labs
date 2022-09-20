@@ -1,12 +1,16 @@
 package info;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public record AttemptInfo(String x, String y, String r, boolean res, String message, Duration execTime, LocalDateTime currTime) {
+public record AttemptInfo(@JsonProperty("x") String x, @JsonProperty("y") String y, @JsonProperty("r") String r,
+                          @JsonProperty("res") boolean res, @JsonProperty("message") String message, @JsonIgnore Duration execTime,@JsonIgnore LocalDateTime currTime) {
 
     public static AttemptInfo fromHit(HttpServletRequest req, double x, double y, double r, boolean res, String message) {
         return new AttemptInfo(String.valueOf(x), String.valueOf(y), String.valueOf(r), res, message, getDiff(req), LocalDateTime.now());
@@ -32,6 +36,20 @@ public record AttemptInfo(String x, String y, String r, boolean res, String mess
         }
     }
 
+    public void toHtmlRow(StringBuilder builder, int num) {
+        builder.append("<tr>");
+        toDataCell(builder, num);
+        toDataCell(builder, x);
+        toDataCell(builder, y);
+        toDataCell(builder, r);
+        toDataCell(builder, message);
+        toDataCell(builder, execTime.toNanos()/1000 +" mks");
+        toDataCell(builder, currTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm")));
+        builder.append("</tr>");
+    }
+    private void toDataCell(StringBuilder builder, Object value) {
+        builder.append("<td class=\"history-cell\">").append(value).append("</td>");
+    }
 
     @Override
     public String toString() {

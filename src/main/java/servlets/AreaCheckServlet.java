@@ -26,7 +26,7 @@ public class AreaCheckServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        info = AppInfo.getInstance().getInfo();
+        info = AppInfo.getInstance().getSharedInfo();
     }
 
     @Override

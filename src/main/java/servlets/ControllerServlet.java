@@ -24,6 +24,7 @@ public class ControllerServlet extends HttpServlet {
         servletData.add(new GetFileServlet.Data());
         servletData.add(new GetDataServlet.Data());
         servletData.add(new AreaCheckServlet.Data());
+        servletData.add(new ClearHistoryServlet.Data());
     }
 
     @Override

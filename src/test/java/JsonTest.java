@@ -6,9 +6,13 @@ import coordinates.CircleQuadrant;
 import coordinates.EmptyQuadrant;
 import coordinates.SquareQuadrant;
 import coordinates.TriangleQuadrant;
+import info.AttemptInfo;
 import info.SharedInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class JsonTest {
     @Test
@@ -22,6 +26,8 @@ public class JsonTest {
         sharedInfo.getConstraints().put("x",new Options(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
         sharedInfo.getConstraints().put("y",new Range(-3,3));
         sharedInfo.getConstraints().put("r",new Options(new double[]{1, 1.5, 2, 2.5, 3}));
+
+        sharedInfo.getHistory().add(new AttemptInfo("1","1","1",true,"hit", Duration.ZERO, LocalDateTime.now()));
 
         ObjectMapper mapper = new ObjectMapper();
 //        mapper.registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES));

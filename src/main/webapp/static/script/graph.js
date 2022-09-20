@@ -256,7 +256,6 @@ class CircleQuadrant extends Quadrant {
         return this.yMul >= 0 ? -1 : 1;
     }
     draw() {
-        console.log(this.xMul, this.yMul, this.ySign()*Math.PI/2, this.xSign()*Math.PI);
         let orientation = (this.xMul >= 0)!==(this.yMul >= 0);
         ctx.beginPath();
         ctx.moveTo(startX,startY);

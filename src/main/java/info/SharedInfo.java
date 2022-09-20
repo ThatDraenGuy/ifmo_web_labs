@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import constraints.Constraint;
 import coordinates.Quadrant;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,10 @@ public class SharedInfo {
     @JsonProperty("constraints")
     @Getter
     private Map<String, Constraint> constraints = new HashMap<>(3);
-
+    @JsonProperty("history")
+    @Getter
+    @Setter
+    private List<AttemptInfo> history = new ArrayList<>();
 
     @Override
     public String toString() {

@@ -4,12 +4,12 @@ import lombok.Getter;
 
 public class AppInfo {
     @Getter
-    private final SharedInfo info;
+    private final SharedInfo sharedInfo;
     @Getter
     private final boolean checkingConstraints = false;
 
     private AppInfo() {
-        this.info = AppInfo.infoProvider.get();
+        this.sharedInfo = AppInfo.infoProvider.get();
     }
 
 
