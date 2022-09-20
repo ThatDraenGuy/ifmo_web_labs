@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class AbstractQuadrant implements Quadrant {
     @JsonProperty
-    protected final int xMul;
+    protected final double xMul;
     @JsonProperty
-    protected final int yMul;
+    protected final double yMul;
     @JsonCreator
-    public AbstractQuadrant(@JsonProperty("xMul") int xMul, @JsonProperty("yMul") int yMul) {
+    public AbstractQuadrant(@JsonProperty("xMul") double xMul, @JsonProperty("yMul") double yMul) {
         this.xMul = xMul;
         this.yMul = yMul;
     }

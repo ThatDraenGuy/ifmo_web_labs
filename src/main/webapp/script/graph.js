@@ -22,9 +22,9 @@ const startY = (maxY+minY)/2;
 
 // parent class for all quadrant types + a point of referencing all of them
 class Quadrant {
-    constructor(xSign, ySign) {
-        this.xSign = (xSign+1)/2;
-        this.ySign = (1-ySign)/2;
+    constructor(xMul, yMul) {
+        this.xMul = xMul;
+        this.yMul = yMul;
     }
     draw() {}
 
@@ -113,7 +113,7 @@ function frame() {
     point.frame();
 }
 
-var radius = null;
+let radius = null;
 const point = new Point(0,0,60);
 const oldPoints = [];
 reDraw();
@@ -210,11 +210,13 @@ function updateLabels(r) {
 
 
 // needed to get min or max depending on quadrant I'm in
-function getXMinMax(x) {
-    return x > 0 ? maxX : minX;
+function xMulled(xMul) {
+    if (xMul>=0) return startX + (maxX-startX)*xMul;
+    return startX + xMul*(startX-minX);
 }
-function getYMinMax(y) {
-    return y >0 ? maxY : minY;
+function yMulled(yMul) {
+    if (yMul>=0) return startY + (startY-maxY)*yMul;
+    return startY + yMul*(minY-startY);
 }
 
 //convert absolute canvas coords to meaningful ones
@@ -224,7 +226,7 @@ function xFromCoord(xCoord) {
 function yFromCoord(yCoord) {
     return (yCoord-startY)*radius/(startY-maxY);
 }
-//do the revert convertion
+//do the revert conversion
 function coordFromX(x) {
     return startX + (maxX-startX)/radius*x;
 }
@@ -234,24 +236,31 @@ function coordFromY(y) {
 
 class SquareQuadrant extends Quadrant {
     draw() {
-        ctx.fillRect(startX,startY,getXMinMax(this.xSign)-startX, getYMinMax(this.ySign)-startY);
+        ctx.fillRect(startX,startY,xMulled(this.xMul)-startX, yMulled(this.yMul)-startY);
     }
 }
 class TriangleQuadrant extends Quadrant {
     draw() {
         ctx.beginPath();
-        ctx.moveTo(startX,getYMinMax(this.ySign));
-        ctx.lineTo(getXMinMax(this.xSign),startY);
+        ctx.moveTo(startX,yMulled(this.yMul));
+        ctx.lineTo(xMulled(this.xMul),startY);
         ctx.lineTo(startX,startY);
         ctx.fill();
     }
 }
 class CircleQuadrant extends Quadrant {
+    xSign() {
+        return this.xMul >=0 ? 0 : 1;
+    }
+    ySign() {
+        return this.yMul >= 0 ? -1 : 1;
+    }
     draw() {
-        let orientation = this.xSign==this.ySign;
+        console.log(this.xMul, this.yMul, this.ySign()*Math.PI/2, this.xSign()*Math.PI);
+        let orientation = (this.xMul >= 0)!==(this.yMul >= 0);
         ctx.beginPath();
         ctx.moveTo(startX,startY);
-        ctx.arc(startX,startY,Math.abs(getXMinMax(this.xSign)-startX),(2*this.ySign-1)*Math.PI/2,(1-this.xSign)*Math.PI, orientation);
+        ctx.arc(startX,startY,Math.abs(xMulled(this.xMul)-startX),this.ySign()*Math.PI/2,this.xSign()*Math.PI, orientation);
         ctx.fill();
     }
 }

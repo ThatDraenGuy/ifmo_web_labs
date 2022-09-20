@@ -14,10 +14,10 @@ public class JsonTest {
     @Test
     public void doTest() throws JsonProcessingException {
         Info info = new Info();
-        info.getQuadrants().add(new CircleQuadrant(1,1));
-        info.getQuadrants().add(new SquareQuadrant(-1,1));
-        info.getQuadrants().add(new TriangleQuadrant(-1,-1));
-        info.getQuadrants().add(new EmptyQuadrant(1,-1));
+        info.getQuadrants().add(new CircleQuadrant(0.5,0.5));
+        info.getQuadrants().add(new SquareQuadrant(-0.5,0.5));
+        info.getQuadrants().add(new TriangleQuadrant(-0.5,-0.5));
+        info.getQuadrants().add(new EmptyQuadrant(0.5,-0.5));
 
         info.getConstraints().put("x",new Options(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
         info.getConstraints().put("y",new Range(-3,3));

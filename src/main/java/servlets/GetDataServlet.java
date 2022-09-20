@@ -13,24 +13,24 @@ public class GetDataServlet extends HttpServlet {
                 {
                   "quadrants":[
                     {
-                      "type":"circle",
+                      "type":"triangle",
                       "xMul":1,
-                      "yMul":1
+                      "yMul":0.5
                     },
                     {
                       "type":"square",
-                      "xMul":-1,
-                      "yMul":1
+                      "xMul":1,
+                      "yMul":-1
                     },
                     {
-                      "type":"triangle",
-                      "xMul":-1,
-                      "yMul":-1
+                      "type":"circle",
+                      "xMul":-0.5,
+                      "yMul":-0.5
                     },
                     {
                       "type":"empty",
-                      "xMul":1,
-                      "yMul":-1
+                      "xMul":-1,
+                      "yMul":1
                     }],
                   "constraints":{
                     "x":{

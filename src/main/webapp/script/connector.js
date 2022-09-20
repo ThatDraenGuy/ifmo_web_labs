@@ -4,15 +4,15 @@ import { ajax, resizeIframe } from "./utils.js";
 // constants for getting info from server
 const quadrantsKey = "quadrants";
 const type = "type";
-const x_sign = "x_sign";
-const y_sign = "y_sign";
+const xMul = "xMul";
+const yMul = "yMul";
 
 const constraintsKey = "constraints";
 const constraints = new Map();
 const options = "options";
 const range = "range";
-const rangeMin = "range_min";
-const rangeMax = "range_max";
+const rangeMin = "min";
+const rangeMax = "max";
 constraints.set(options, handleOptions);
 constraints.set(range, handleRange);
 
@@ -37,8 +37,8 @@ function handleResponse(responseText) {
     // get quadrants info and pass them to graph.js
     if (quadrantsKey in obj) {
         obj[quadrantsKey].forEach(element => {
-            if (type in element && x_sign in element && y_sign in element) {
-                updateQuadrant(element[type], element[x_sign], element[y_sign]);
+            if (type in element && xMul in element && yMul in element) {
+                updateQuadrant(element[type], element[xMul], element[yMul]);
             }
         });
         reDraw();

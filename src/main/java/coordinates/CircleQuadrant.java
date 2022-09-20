@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 // Only supports circles, no ellipses
 public class CircleQuadrant extends AbstractQuadrant {
     @JsonCreator
-    public CircleQuadrant(@JsonProperty("xMul") int xMul, @JsonProperty("yMul") int yMul) {
+    public CircleQuadrant(@JsonProperty("xMul") double xMul, @JsonProperty("yMul") double yMul) {
         super(xMul, yMul);
     }
 
