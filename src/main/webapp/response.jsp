@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link href="${pageContext.request.contextPath}/style/response.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/style/response.css" rel="stylesheet">
     <title>Response</title>
 </head>
 <%

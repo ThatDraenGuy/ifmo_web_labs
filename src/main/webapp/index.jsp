@@ -3,15 +3,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/img/favicon.ico">
     <title>lab2</title>
-    <link href="style/main.css" rel="stylesheet">
-    <link href="style/content.css" rel="stylesheet">
-    <link href="style/header.css" rel="stylesheet">
+    <link href="static/style/main.css" rel="stylesheet">
+    <link href="static/style/content.css" rel="stylesheet">
+    <link href="static/style/header.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
-    <script type="module" src="script/connector.js"></script>
-    <script type="module" src="script/paramChecker.js"></script>
-    <script type="module" src="script/utils.js"></script>
+    <script type="module" src="static/script/connector.js"></script>
+    <script type="module" src="static/script/paramChecker.js"></script>
+    <script type="module" src="static/script/utils.js"></script>
 </head>
 <body>
     <table class="main-table">
@@ -34,8 +34,8 @@
                     <!-- checkbox hack -->
                     <input type="checkbox" id="header-button" oninput="showHeader(this);">
                     <label class="header-button" for="header-button">
-                        <img class="header-button-img" src="${pageContext.request.contextPath}/img/giphy.gif" alt="">
-                        <img class="arrow-button-img" src="${pageContext.request.contextPath}/img/arrow.png" alt="click">
+                        <img class="header-button-img" src="${pageContext.request.contextPath}/static/img/giphy.gif" alt="">
+                        <img class="arrow-button-img" src="${pageContext.request.contextPath}/static/img/arrow.png" alt="click">
                     </label>
                 </div>
             </td>
@@ -47,7 +47,7 @@
                     <form id="shooting-form" action="" method="post" target="result" onsubmit="return validateSubmission()">
                         <input type="hidden" name="shoot" value="true">
                         <table id="shoot-table">
-                            <img class="placeholder" id="shoot-load" src="${pageContext.request.contextPath}/img/load.gif" alt="loading...">
+                            <img class="placeholder" id="shoot-load" src="${pageContext.request.contextPath}/static/img/load.gif" alt="loading...">
                             <!-- generated in run-time -->
                         </table>
                     </form>
@@ -67,7 +67,7 @@
                                 <a href="https://github.com/ThatDraenGuy"><h2>@ThatDraenGuy</h2></a>
                             </td>
                             <td class="fun">
-                                <img class="header-img" src="${pageContext.request.contextPath}/img/chihuahua-spin.gif" alt="no logo :(">
+                                <img class="header-img" src="${pageContext.request.contextPath}/static/img/chihuahua-spin.gif" alt="no logo :(">
                             </td>
                         </tr>
                         <tr>
@@ -76,7 +76,7 @@
                                 <h3>var 3116</h3>
                             </td>
                             <td class="source">
-                                <a href="https://github.com/ThatDraenGuy/webLab"><img class="source-img" src="${pageContext.request.contextPath}/img/github.png" alt="github"></a>
+                                <a href="https://github.com/ThatDraenGuy/webLab"><img class="source-img" src="${pageContext.request.contextPath}/static/img/github.png" alt="github"></a>
                             </td>
                         </tr>
                     </table>
