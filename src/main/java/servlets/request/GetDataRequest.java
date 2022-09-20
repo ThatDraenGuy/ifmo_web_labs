@@ -12,7 +12,6 @@ public class GetDataRequest implements RequestHandler{
     @Override
     public boolean isApplicable(HttpServletRequest req) {
         String param = req.getParameter("getData");
-        System.out.println("checking getData - " + !(param==null));
         return !(param==null);
     }
 }

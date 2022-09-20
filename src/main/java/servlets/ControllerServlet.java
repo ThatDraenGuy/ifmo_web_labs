@@ -13,6 +13,8 @@ import servlets.request.GetFileRequest;
 import servlets.request.RequestHandler;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,9 @@ public class ControllerServlet extends HttpServlet {
 
     private void handle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("handling...");
+
+        req.setAttribute("startTime", Instant.now());
+
         for (RequestHandler requestHandler : requestHandlers) {
             if (requestHandler.isApplicable(req)) {
                 forward(req,resp, requestHandler.getDispatcher());
