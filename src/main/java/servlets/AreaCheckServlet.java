@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "servlets.AreaCheckServlet")
+@WebServlet(name = "AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {

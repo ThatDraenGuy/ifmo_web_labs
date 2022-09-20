@@ -29,7 +29,7 @@ export function resizeIframe(iframe) {
 // yes, it would be better to use GET not POST in a bunch of situations, but the task said POST
 export function ajax(formData, successFunc) {
     window.superagent
-        .post('/')
+        .post('/webLab-2.0-SNAPSHOT/stuff')
         .send(formData)
         .end((err,res) => {
             if  (err || !res.ok) {

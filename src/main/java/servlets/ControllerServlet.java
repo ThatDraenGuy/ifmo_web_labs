@@ -1,51 +1,65 @@
 package servlets;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import servlets.request.AreaCheckRequest;
+import servlets.request.GetDataRequest;
+import servlets.request.GetFileRequest;
+import servlets.request.RequestHandler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name ="controller", urlPatterns = "/")
+@MultipartConfig
 public class ControllerServlet extends HttpServlet {
-    private final List<String> resourceFormats = List.of("png", "gif", "jpg", "jpeg", "ico", "css", "js", "html");
+    private final List<RequestHandler> requestHandlers = new ArrayList<>();
+    private final String defaultDispatcher = "webLab-2.0-SNAPSHOT/index.jsp";
+
+    @Override
+    public void init() throws ServletException {
+        requestHandlers.add(new GetFileRequest());
+        requestHandlers.add(new GetDataRequest());
+        requestHandlers.add(new AreaCheckRequest());
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(req);
-        req.getHeaderNames().asIterator().forEachRemaining(System.out::println);
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println("testPost");
+        handle(req, resp);
+//        System.out.println(req);
+//        System.out.println(req.getParameter("getData"));
+//        resp.setContentType("text/html");
+//        PrintWriter out = resp.getWriter();
+//        out.println("testPost");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doFileGet(req, resp);
-
-
-
-        System.out.println(req);
-        req.getHeaderNames().asIterator().forEachRemaining(System.out::println);
+        handle(req, resp);
+//        System.out.println(req);
     }
 
-
-    private void doFileGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uri = req.getRequestURI();
-        String[] split = uri.split("\\.");
-        String ender = split[split.length-1];
-        if (resourceFormats.contains(ender)) {
-            System.out.println(uri);
-            String[] split2 = uri.split("/", 3);
-            String trueUri = split2[split2.length-1];
-            System.out.println(trueUri);
-            resp.setContentType(getServletContext().getMimeType(trueUri));
-
-            getServletContext().getResourceAsStream(trueUri).transferTo(resp.getOutputStream());
+    private void handle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("handling...");
+        for (RequestHandler requestHandler : requestHandlers) {
+            if (requestHandler.isApplicable(req)) {
+                forward(req,resp, requestHandler.getDispatcher());
+                return;
+            }
         }
+        System.out.println("default");
+        forward(req,resp,defaultDispatcher);
+    }
+
+    private void forward(HttpServletRequest req, HttpServletResponse resp, String dispatcherName) throws ServletException, IOException {
+        System.out.println(dispatcherName);
+        RequestDispatcher dispatcher = getServletContext().getNamedDispatcher(dispatcherName);
+        dispatcher.forward(req,resp);
     }
 }
