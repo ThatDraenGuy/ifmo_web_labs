@@ -15,14 +15,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
 
 
-@WebServlet(name = "AreaCheckServlet")
+@WebServlet(name = AreaCheckServlet.NAME)
 @MultipartConfig
 public class AreaCheckServlet extends HttpServlet {
+    public final static String NAME = "AreaCheckServlet";
     private SharedInfo info;
 
 
@@ -67,4 +65,17 @@ public class AreaCheckServlet extends HttpServlet {
         }
     }
 
+    public static class Data implements ServletData {
+
+        @Override
+        public boolean isApplicable(HttpServletRequest req) {
+            String param = req.getParameter("shoot");
+            return !(param==null);
+        }
+
+        @Override
+        public String getDispatcher() {
+            return NAME;
+        }
+    }
 }

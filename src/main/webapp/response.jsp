@@ -22,7 +22,7 @@
     <tr class="header">
         <td>
             <div class="result-scream-cell">
-
+                <%= attemptInfo.res() ? "HIT!" : "MISS!"%>
             </div>
         </td>
         <td class="history-header-cell">
@@ -30,7 +30,7 @@
                 <tr>
                     <td>
                         <div class="history-table-name">
-
+                            HISTORY
                         </div>
                     </td>
                     <td>

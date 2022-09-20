@@ -5,12 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import servlets.request.RequestHandler;
 
 import java.io.IOException;
-import java.util.List;
-@WebServlet(name = "GetFileServlet")
+
+@WebServlet(name = GetFileServlet.NAME)
 public class GetFileServlet extends HttpServlet{
+    public static final String NAME = "GetFileServlet";
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,5 +23,15 @@ public class GetFileServlet extends HttpServlet{
         getServletContext().getResourceAsStream(trueUri).transferTo(resp.getOutputStream());
     }
 
+    public static class Data implements ServletData {
+        public boolean isApplicable(HttpServletRequest req) {
+            String uri = req.getRequestURI();
+            return uri.contains("static/");
+        }
 
+        @Override
+        public String getDispatcher() {
+            return NAME;
+        }
+    }
 }

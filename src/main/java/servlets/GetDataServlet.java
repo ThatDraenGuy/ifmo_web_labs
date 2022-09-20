@@ -10,8 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-@WebServlet(name = "GetDataServlet")
+@WebServlet(name = GetDataServlet.NAME)
 public class GetDataServlet extends HttpServlet {
+    public static final String NAME = "GetDataServlet";
     private final ObjectMapper mapper = new ObjectMapper();
     private String jsonInfo;
 
@@ -29,5 +30,18 @@ public class GetDataServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.getWriter().print(jsonInfo);
+    }
+
+    public static class Data implements ServletData {
+        @Override
+        public boolean isApplicable(HttpServletRequest req) {
+            String param = req.getParameter("getData");
+            return !(param==null);
+        }
+
+        @Override
+        public String getDispatcher() {
+            return NAME;
+        }
     }
 }

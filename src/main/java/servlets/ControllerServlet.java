@@ -7,28 +7,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import servlets.request.AreaCheckRequest;
-import servlets.request.GetDataRequest;
-import servlets.request.GetFileRequest;
-import servlets.request.RequestHandler;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name ="controller", urlPatterns = "/")
 @MultipartConfig
 public class ControllerServlet extends HttpServlet {
-    private final List<RequestHandler> requestHandlers = new ArrayList<>();
+    private final List<ServletData> servletData = new ArrayList<>();
     private final String defaultDispatcher = "webLab-2.0-SNAPSHOT/index.jsp";
 
     @Override
     public void init() throws ServletException {
-        requestHandlers.add(new GetFileRequest());
-        requestHandlers.add(new GetDataRequest());
-        requestHandlers.add(new AreaCheckRequest());
+        servletData.add(new GetFileServlet.Data());
+        servletData.add(new GetDataServlet.Data());
+        servletData.add(new AreaCheckServlet.Data());
     }
 
     @Override
@@ -52,9 +47,9 @@ public class ControllerServlet extends HttpServlet {
 
         req.setAttribute("startTime", Instant.now());
 
-        for (RequestHandler requestHandler : requestHandlers) {
-            if (requestHandler.isApplicable(req)) {
-                forward(req,resp, requestHandler.getDispatcher());
+        for (ServletData servletData : this.servletData) {
+            if (servletData.isApplicable(req)) {
+                forward(req,resp, servletData.getDispatcher());
                 return;
             }
         }
