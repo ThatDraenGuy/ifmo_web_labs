@@ -1,5 +1,6 @@
 package servlets;
 
+import info.AppInfo;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -30,21 +31,16 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         handle(req, resp);
-//        System.out.println(req);
-//        System.out.println(req.getParameter("getData"));
-//        resp.setContentType("text/html");
-//        PrintWriter out = resp.getWriter();
-//        out.println("testPost");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         handle(req, resp);
-//        System.out.println(req);
     }
 
     private void handle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("handling...");
+        AppInfo.getInstance().update(req);
 
         req.setAttribute("startTime", Instant.now());
 

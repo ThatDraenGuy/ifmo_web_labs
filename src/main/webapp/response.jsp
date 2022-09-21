@@ -2,13 +2,10 @@
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.Reader" %>
 <%@ page import="java.io.InputStreamReader" %>
-<%@ page import="java.io.BufferedReader" %>
-<%@ page import="java.nio.CharBuffer" %>
-<%@ page import="java.util.stream.Collectors" %>
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ page import="info.ReactionsInfo" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="info.AppInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -19,6 +16,7 @@
     AttemptInfo attemptInfo;
     try {
         attemptInfo = (AttemptInfo) request.getAttribute("attemptInfo");
+        AppInfo.getInstance().getHistoryManager().put(attemptInfo);
     } catch (ClassCastException e) {
         attemptInfo = AttemptInfo.empty();
     }
@@ -34,15 +32,15 @@
         reactionsInfo = ReactionsInfo.empty();
     }
 %>
-<%
-    if (!isThereHistory(request)) request.getSession().setAttribute("history", new ArrayList<AttemptInfo>());
-    List<AttemptInfo> history = (List<AttemptInfo>) request.getSession().getAttribute("history");
-    history.add(attemptInfo);
-%>
+<%--<%--%>
+<%--    if (!isThereHistory(request)) request.getSession().setAttribute("history", new ArrayList<AttemptInfo>());--%>
+<%--    List<AttemptInfo> history = (List<AttemptInfo>) request.getSession().getAttribute("history");--%>
+<%--    history.add(attemptInfo);--%>
+<%--%>--%>
 
-<%! public boolean isThereHistory(HttpServletRequest request) {
-    return request.getSession().getAttribute("history") !=null;
-}%>
+<%--<%! public boolean isThereHistory(HttpServletRequest request) {--%>
+<%--    return request.getSession().getAttribute("history") !=null;--%>
+<%--}%>--%>
 <%! public String historyToTable(List<AttemptInfo> history) {
     StringBuilder builder = new StringBuilder();
     int i = 1;
@@ -97,7 +95,7 @@
                         <td class="header-history-cell">Execution time</td>
                         <td class="header-history-cell">Attempt time</td>
                     </tr>
-                    <%= historyToTable(history)%>
+                    <%= historyToTable(AppInfo.getInstance().getHistoryManager().get())%>
                 </table>
             </div>
         </td>
