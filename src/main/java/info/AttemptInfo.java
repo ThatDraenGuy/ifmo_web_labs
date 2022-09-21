@@ -9,8 +9,15 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public record AttemptInfo(@JsonProperty("x") String x, @JsonProperty("y") String y, @JsonProperty("r") String r,
-                          @JsonProperty("res") boolean res, @JsonProperty("message") String message, @JsonIgnore Duration execTime,@JsonIgnore LocalDateTime currTime) {
+public record AttemptInfo(
+        @JsonProperty("x") String x,
+        @JsonProperty("y") String y,
+        @JsonProperty("r") String r,
+        @JsonProperty("res") boolean res,
+        @JsonProperty("message") String message,
+        @JsonIgnore Duration execTime,
+        @JsonIgnore LocalDateTime currTime
+) {
 
     public static AttemptInfo fromHit(HttpServletRequest req, double x, double y, double r, boolean res, String message) {
         return new AttemptInfo(String.valueOf(x), String.valueOf(y), String.valueOf(r), res, message, getDiff(req), LocalDateTime.now());

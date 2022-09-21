@@ -12,19 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SharedInfo {
-
-    @JsonProperty("quadrants")
-    @Getter
-    private List<Quadrant> quadrants = new ArrayList<>(4);
-    @JsonProperty("constraints")
-    @Getter
-    private Map<String, Constraint> constraints = new HashMap<>(3);
-    @JsonProperty("history")
-    @Getter
-    @Setter
-    private List<AttemptInfo> history = new ArrayList<>();
-
+public record SharedInfo(
+        @JsonProperty("quadrants") List<Quadrant> quadrants,
+        @JsonProperty("constraints") Map<String, Constraint> constraints,
+        @JsonProperty("history") List<AttemptInfo> history
+) {
+    public SharedInfo() {
+        this(new ArrayList<>(4), new HashMap<>(3), new ArrayList<>());
+    }
     @Override
     public String toString() {
         return "Info{" +

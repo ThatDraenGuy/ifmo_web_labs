@@ -34,7 +34,7 @@ public class AreaCheckServlet extends AppServlet {
             double x = getValue(req,"x");
             double y = getValue(req,"y");
             double r = getValue(req,"r");
-            for (Quadrant quadrant : info.getQuadrants()) {
+            for (Quadrant quadrant : info.quadrants()) {
                 if (quadrant.checkHit(x,y,r)) {
                     attemptInfo = AttemptInfo.fromHit(req,x,y,r,true,"That's a hit!");
                     break;
@@ -54,7 +54,7 @@ public class AreaCheckServlet extends AppServlet {
         try {
             double parsed = Double.parseDouble(param);
             if (appInfo().isCheckingConstraints()) {
-                Constraint constraint = info.getConstraints().getOrDefault(param, new NoConstraint());
+                Constraint constraint = info.constraints().getOrDefault(param, new NoConstraint());
                 if (!constraint.checkValue(parsed)) throw new ValueException("Value "+name+" didn't pass the constraint check");
             }
             return parsed;

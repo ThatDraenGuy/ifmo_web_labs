@@ -22,11 +22,8 @@ public class GetDataServlet extends AppServlet {
         String jsonInfo;
         try {
             SharedInfo sharedInfo = appInfo().sharedInfo();
-            try {
-                List<AttemptInfo> history = (List<AttemptInfo>) req.getSession().getAttribute("history");
-                if (history==null) throw new NullPointerException();
-                sharedInfo.setHistory(history);
-            } catch (ClassCastException | NullPointerException ignored) {}
+            List<AttemptInfo> history = appInfo().historyManager().get();
+            sharedInfo = new SharedInfo(sharedInfo.quadrants(), sharedInfo.constraints(), history);
             jsonInfo = mapper.writeValueAsString(sharedInfo);
         } catch (JsonProcessingException e) {
             jsonInfo = "{}";

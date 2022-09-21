@@ -18,16 +18,16 @@ public class JsonTest {
     @Test
     public void doTest() throws JsonProcessingException {
         SharedInfo sharedInfo = new SharedInfo();
-        sharedInfo.getQuadrants().add(new CircleQuadrant(0.5,0.5));
-        sharedInfo.getQuadrants().add(new SquareQuadrant(-0.5,0.5));
-        sharedInfo.getQuadrants().add(new TriangleQuadrant(-0.5,-0.5));
-        sharedInfo.getQuadrants().add(new EmptyQuadrant(0.5,-0.5));
+        sharedInfo.quadrants().add(new CircleQuadrant(0.5,0.5));
+        sharedInfo.quadrants().add(new SquareQuadrant(-0.5,0.5));
+        sharedInfo.quadrants().add(new TriangleQuadrant(-0.5,-0.5));
+        sharedInfo.quadrants().add(new EmptyQuadrant(0.5,-0.5));
 
-        sharedInfo.getConstraints().put("x",new Options(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
-        sharedInfo.getConstraints().put("y",new Range(-3,3));
-        sharedInfo.getConstraints().put("r",new Options(new double[]{1, 1.5, 2, 2.5, 3}));
+        sharedInfo.constraints().put("x",new Options(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
+        sharedInfo.constraints().put("y",new Range(-3,3));
+        sharedInfo.constraints().put("r",new Options(new double[]{1, 1.5, 2, 2.5, 3}));
 
-        sharedInfo.getHistory().add(new AttemptInfo("1","1","1",true,"hit", Duration.ZERO, LocalDateTime.now()));
+        sharedInfo.history().add(new AttemptInfo("1","1","1",true,"hit", Duration.ZERO, LocalDateTime.now()));
 
         ObjectMapper mapper = new ObjectMapper();
 //        mapper.registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES));
