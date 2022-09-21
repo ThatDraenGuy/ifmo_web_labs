@@ -1,4 +1,12 @@
+# Лабы по вебу (ИТМО, сем 3) #
+## чего? вставить нормальное описание? ##
 
+<img src="src/main/resources/img/README/who.gif" alt="who " height="300"/><img src="src/main/resources/img/README/cares.gif" alt="cares" height="300"/>
+
+## лови лучше крысу ##
+<img src="src/main/resources/img/README/rat.gif" alt="who " height="300"/>
+
+---------------------------------------
 
 # Лабораторная работа №2
 # _IN PROGRESS_
