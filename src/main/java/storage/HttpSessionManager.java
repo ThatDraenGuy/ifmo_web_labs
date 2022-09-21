@@ -10,11 +10,10 @@ public class HttpSessionManager<T> implements HistoryManager<T>{
     private final String id = "history";
     private HttpSession session;
 
-    public void setSession(HttpSession session) {
-        if (this.session == null){
-            this.session = session;
-            return;
-        }
+    public HttpSessionManager(HttpSession session) {
+        this.session = session;
+    }
+    public void updateSession(HttpSession session) {
         if (! this.session.equals(session)) this.session = session;
     }
 

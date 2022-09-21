@@ -14,11 +14,12 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name ="controller", urlPatterns = "/")
+@WebServlet(name =ControllerServlet.NAME, urlPatterns = "/")
 @MultipartConfig
 public class ControllerServlet extends HttpServlet {
+    public final static String NAME = "controller";
     private final List<ServletData> servletData = new ArrayList<>();
-    private final String defaultDispatcher = "webLab-2.0-SNAPSHOT/index.jsp";
+    private final String defaultDispatcher = "/index.jsp";
 
     @Override
     public void init() throws ServletException {
@@ -40,8 +41,6 @@ public class ControllerServlet extends HttpServlet {
 
     private void handle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("handling...");
-        AppInfo.getInstance().update(req);
-
         req.setAttribute("startTime", Instant.now());
 
         for (ServletData servletData : this.servletData) {
@@ -51,7 +50,7 @@ public class ControllerServlet extends HttpServlet {
             }
         }
         System.out.println("default");
-        forward(req,resp,defaultDispatcher);
+        getServletContext().getRequestDispatcher(defaultDispatcher).forward(req,resp);
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse resp, String dispatcherName) throws ServletException, IOException {

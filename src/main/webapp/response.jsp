@@ -13,15 +13,16 @@
     <title>Response</title>
 </head>
 <%
+    AppInfo appInfo = (AppInfo) application.getAttribute(AppInfo.NAME);
+
     AttemptInfo attemptInfo;
     try {
         attemptInfo = (AttemptInfo) request.getAttribute("attemptInfo");
-        AppInfo.getInstance().getHistoryManager().put(attemptInfo);
+        appInfo.historyManager().put(attemptInfo);
     } catch (ClassCastException e) {
         attemptInfo = AttemptInfo.empty();
     }
-%>
-<%
+
     ReactionsInfo reactionsInfo;
     try {
         InputStream inputStream = request.getServletContext().getResourceAsStream("/resources/reactions.json");
@@ -32,15 +33,6 @@
         reactionsInfo = ReactionsInfo.empty();
     }
 %>
-<%--<%--%>
-<%--    if (!isThereHistory(request)) request.getSession().setAttribute("history", new ArrayList<AttemptInfo>());--%>
-<%--    List<AttemptInfo> history = (List<AttemptInfo>) request.getSession().getAttribute("history");--%>
-<%--    history.add(attemptInfo);--%>
-<%--%>--%>
-
-<%--<%! public boolean isThereHistory(HttpServletRequest request) {--%>
-<%--    return request.getSession().getAttribute("history") !=null;--%>
-<%--}%>--%>
 <%! public String historyToTable(List<AttemptInfo> history) {
     StringBuilder builder = new StringBuilder();
     int i = 1;
@@ -95,7 +87,7 @@
                         <td class="header-history-cell">Execution time</td>
                         <td class="header-history-cell">Attempt time</td>
                     </tr>
-                    <%= historyToTable(AppInfo.getInstance().getHistoryManager().get())%>
+                    <%= historyToTable(appInfo.historyManager().get())%>
                 </table>
             </div>
         </td>

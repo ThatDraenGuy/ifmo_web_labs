@@ -4,13 +4,11 @@ import constraints.Constraint;
 import constraints.NoConstraint;
 import coordinates.Quadrant;
 import exceptions.ValueException;
-import info.AppInfo;
 import info.AttemptInfo;
 import info.SharedInfo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -19,14 +17,14 @@ import java.io.IOException;
 
 @WebServlet(name = AreaCheckServlet.NAME)
 @MultipartConfig
-public class AreaCheckServlet extends HttpServlet {
+public class AreaCheckServlet extends AppServlet {
     public final static String NAME = "AreaCheckServlet";
     private SharedInfo info;
 
 
     @Override
     public void init() throws ServletException {
-        info = AppInfo.getInstance().getSharedInfo();
+        info = appInfo().sharedInfo();
     }
 
     @Override
@@ -55,7 +53,7 @@ public class AreaCheckServlet extends HttpServlet {
         if (param==null) throw new ValueException("Value "+name+" wasn't inputted");
         try {
             double parsed = Double.parseDouble(param);
-            if (AppInfo.getInstance().isCheckingConstraints()) {
+            if (appInfo().isCheckingConstraints()) {
                 Constraint constraint = info.getConstraints().getOrDefault(param, new NoConstraint());
                 if (!constraint.checkValue(parsed)) throw new ValueException("Value "+name+" didn't pass the constraint check");
             }
