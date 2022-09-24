@@ -6,6 +6,7 @@ import constraints.Constraint;
 import coordinates.Quadrant;
 import lombok.Getter;
 import lombok.Setter;
+import storage.HistoryManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,11 +21,15 @@ public record SharedInfo(
     public SharedInfo() {
         this(new ArrayList<>(4), new HashMap<>(3), new ArrayList<>());
     }
+
+    public SharedInfo(AppInfo appInfo, HistoryManager<AttemptInfo> historyManager) {
+        this(appInfo.quadrantsInfo().quadrants(), appInfo.constraintsInfo().constraints(), historyManager.get());
+    }
     @Override
     public String toString() {
         return "Info{" +
-                "quadrants=" + quadrants +
-                ", constraints=" + constraints +
+                "quadrantInfo=" + quadrants +
+                ", constraintsInfo=" + constraints +
                 '}';
     }
 }

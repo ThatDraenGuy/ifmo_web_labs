@@ -10,11 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 @WebServlet(name = ClearHistoryServlet.NAME)
-public class ClearHistoryServlet extends HttpServlet {
+public class ClearHistoryServlet extends AppServlet {
     public static final String NAME = "ClearHistoryServlet";
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().setAttribute("history", new ArrayList<AttemptInfo>());
+        historyManager().clear();
         resp.setContentType("application/text");
         resp.getWriter().println("success");
     }

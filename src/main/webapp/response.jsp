@@ -6,6 +6,7 @@
 <%@ page import="info.ReactionsInfo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="info.AppInfo" %>
+<%@ page import="storage.HistoryManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,18 +15,19 @@
 </head>
 <%
     AppInfo appInfo = (AppInfo) application.getAttribute(AppInfo.NAME);
+    HistoryManager<AttemptInfo> historyManager = (HistoryManager<AttemptInfo>) application.getAttribute(HistoryManager.NAME);
 
     AttemptInfo attemptInfo;
     try {
         attemptInfo = (AttemptInfo) request.getAttribute("attemptInfo");
-        appInfo.historyManager().put(attemptInfo);
+        historyManager.put(attemptInfo);
     } catch (ClassCastException e) {
         attemptInfo = AttemptInfo.empty();
     }
 
     ReactionsInfo reactionsInfo;
     try {
-        InputStream inputStream = request.getServletContext().getResourceAsStream("/resources/reactions.json");
+        InputStream inputStream = application.getResourceAsStream("/resources/reactions.json");
         Reader reader = new InputStreamReader(inputStream);
         ObjectMapper mapper = new ObjectMapper();
         reactionsInfo = mapper.readValue(reader, ReactionsInfo.class);
@@ -87,7 +89,7 @@
                         <td class="header-history-cell">Execution time</td>
                         <td class="header-history-cell">Attempt time</td>
                     </tr>
-                    <%= historyToTable(appInfo.historyManager().get())%>
+                    <%= historyToTable(historyManager.get())%>
                 </table>
             </div>
         </td>

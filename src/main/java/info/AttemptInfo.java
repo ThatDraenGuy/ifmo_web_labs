@@ -19,8 +19,8 @@ public record AttemptInfo(
         @JsonIgnore LocalDateTime currTime
 ) {
 
-    public static AttemptInfo fromHit(HttpServletRequest req, double x, double y, double r, boolean res, String message) {
-        return new AttemptInfo(String.valueOf(x), String.valueOf(y), String.valueOf(r), res, message, getDiff(req), LocalDateTime.now());
+    public static AttemptInfo fromHit(Instant startTime, double x, double y, double r, boolean res, String message) {
+        return new AttemptInfo(String.valueOf(x), String.valueOf(y), String.valueOf(r), res, message, getDiff(startTime), LocalDateTime.now());
     }
 
     public static AttemptInfo fail(HttpServletRequest req, String message) {
@@ -34,13 +34,16 @@ public record AttemptInfo(
     private static Duration getDiff(HttpServletRequest req) {
         try {
             Instant start = (Instant) req.getAttribute("startTime");
-            Instant finish = Instant.now();
-            Duration duration = Duration.between(start, finish);
-            System.out.println(duration.toNanos());
-            return duration;
+            return getDiff(start);
         } catch (ClassCastException e) {
             return Duration.ZERO;
         }
+    }
+    private static Duration getDiff(Instant start) {
+        Instant finish = Instant.now();
+        Duration duration = Duration.between(start, finish);
+        System.out.println(duration.toNanos());
+        return duration;
     }
 
     public void toHtmlRow(StringBuilder builder, int num) {

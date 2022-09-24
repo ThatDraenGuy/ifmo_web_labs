@@ -1,20 +1,17 @@
 package storage;
 
-import info.AttemptInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HttpSessionManager<T> implements HistoryManager<T>{
+public class SessionHistoryManager<T> implements HistoryManager<T>{
     private final String id = "history";
-    private HttpSession session;
+    private HttpSession session = null;
 
-    public HttpSessionManager(HttpSession session) {
-        this.session = session;
-    }
     public void updateSession(HttpSession session) {
-        if (! this.session.equals(session)) this.session = session;
+        if (!session.equals(this.session)) this.session = session;
     }
 
     @Override

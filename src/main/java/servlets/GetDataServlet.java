@@ -21,9 +21,7 @@ public class GetDataServlet extends AppServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String jsonInfo;
         try {
-            SharedInfo sharedInfo = appInfo().sharedInfo();
-            List<AttemptInfo> history = appInfo().historyManager().get();
-            sharedInfo = new SharedInfo(sharedInfo.quadrants(), sharedInfo.constraints(), history);
+            SharedInfo sharedInfo = new SharedInfo(appInfo(), historyManager());
             jsonInfo = mapper.writeValueAsString(sharedInfo);
         } catch (JsonProcessingException e) {
             jsonInfo = "{}";
