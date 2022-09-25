@@ -1,8 +1,9 @@
-package info;
+package info.app;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import info.app.AppInfo;
+import info.app.AppInfoProvider;
 
 public class SampleAppInfoProvider implements AppInfoProvider {
     private final String sample = """
@@ -10,7 +11,7 @@ public class SampleAppInfoProvider implements AppInfoProvider {
                 "quadrantsInfo":{
                     "quadrants":[
                         {
-                            "type":"triangle",
+                            "type":"square",
                             "xMul":1,
                             "yMul":0.5
                         },{

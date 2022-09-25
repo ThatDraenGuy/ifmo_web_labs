@@ -1,9 +1,10 @@
 package servlets;
 
-import info.AppInfo;
+import info.app.AppInfo;
 import info.AttemptInfo;
-import info.AppInfoProvider;
-import info.SampleAppInfoProvider;
+import info.app.AppInfoProvider;
+import info.app.ConfigAppInfoProvider;
+import info.app.SampleAppInfoProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -16,7 +17,7 @@ import storage.SessionHistoryManager;
 import java.io.IOException;
 @WebFilter(urlPatterns = "/", filterName = "AppInfoUpdateFilter", servletNames = ControllerServlet.NAME)
 public class AppInfoUpdaterFilter extends HttpFilter {
-    private final AppInfoProvider appInfoProvider = new SampleAppInfoProvider();
+    private final AppInfoProvider appInfoProvider = new ConfigAppInfoProvider();
     private SessionHistoryManager<AttemptInfo> historyManager;
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {

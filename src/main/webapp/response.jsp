@@ -5,7 +5,7 @@
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ page import="info.ReactionsInfo" %>
 <%@ page import="java.util.List" %>
-<%@ page import="info.AppInfo" %>
+<%@ page import="info.app.AppInfo" %>
 <%@ page import="storage.HistoryManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

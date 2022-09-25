@@ -1,6 +1,6 @@
 package servlets;
 
-import info.AppInfo;
+import info.app.AppInfo;
 import info.AttemptInfo;
 import jakarta.servlet.http.HttpServlet;
 import storage.HistoryManager;

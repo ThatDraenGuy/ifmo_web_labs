@@ -5,10 +5,9 @@ import constraints.Options;
 import constraints.Range;
 import coordinates.*;
 import info.*;
+import info.app.AppInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import storage.EmptyHistoryManager;
-import storage.SessionHistoryManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

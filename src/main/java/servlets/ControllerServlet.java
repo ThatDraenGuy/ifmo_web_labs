@@ -1,6 +1,5 @@
 package servlets;
 
-import info.AppInfo;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;

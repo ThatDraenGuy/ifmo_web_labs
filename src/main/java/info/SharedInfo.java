@@ -4,8 +4,7 @@ package info;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import constraints.Constraint;
 import coordinates.Quadrant;
-import lombok.Getter;
-import lombok.Setter;
+import info.app.AppInfo;
 import storage.HistoryManager;
 
 import java.util.ArrayList;
