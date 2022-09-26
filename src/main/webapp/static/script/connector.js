@@ -19,11 +19,12 @@ constraints.set(range, handleRange);
 const historyKey = "history";
 
 // request data from server
-const formData = new FormData();
-formData.append("getData", "true");
-ajax(formData, function(responseText) {
-    handleResponse(responseText);  
-})
+getData();
+export function getData() {
+    const formData = new FormData();
+    formData.append("getData", "true");
+    ajax(formData, handleResponse);
+}
 
 
 function handleResponse(responseText) {
@@ -45,6 +46,7 @@ function handleResponse(responseText) {
     }
     // get constraints info and insert them into document
     if (constraintsKey in obj) {
+        clearVariantSpace();
         let constraintsReq = obj[constraintsKey];
         Object.keys(constraintsReq).forEach(key => {
             let element = constraintsReq[key];
@@ -83,6 +85,10 @@ function handleRange(name, data) {
 function insertVariant(text) {
     const place = document.querySelector('#shoot-table');
     place.insertAdjacentHTML('beforeend', text);
+}
+function clearVariantSpace() {
+    const place = document.querySelector('#shoot-table');
+    place.innerHTML = '';
 }
 function clearPlaceholder() {
     const placeholder = document.querySelector('#shoot-load');

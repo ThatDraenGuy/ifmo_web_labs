@@ -48,7 +48,9 @@ public class SessionHistoryManager<T> implements HistoryManager<T>{
     private List<T> history() {
         if (!isSet()) set();
         try {
-            return (List<T>) session.getAttribute(id);
+            @SuppressWarnings({"unchecked"})
+            List<T> res = (List<T>) session.getAttribute(id);
+            return res;
         } catch (ClassCastException e) {
             return set();
         }

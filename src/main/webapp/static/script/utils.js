@@ -1,5 +1,6 @@
 // import superagent from 'superagent';
 import { setOldPoints } from "./graph.js";
+import {getData} from "./connector.js";
 
 // import '../style/content.css';
 // import '../style/header.css';
@@ -14,30 +15,28 @@ import { setOldPoints } from "./graph.js";
 window.resizeIframe = resizeIframe;
 window.clearHistory = clearHistory;
 window.showHeader = showHeader;
-let counter = 0;
 export function resizeIframe(iframe) {
     iframe.style.height = '300px';
     iframe.style.height = iframe.contentWindow.document.body.scrollHeight+20 + 'px';
     iframe.contentWindow.clearHistory = clearHistory;
-    if (counter==0) {
-        counter++;
-        return;
-    }
     iframe.parentElement.hidden = false;
 }
 
 // yes, it would be better to use GET not POST in a bunch of situations, but the task said POST
-export function ajax(formData, successFunc) {
+export function ajax(formData, successFunc, errorFunc = ajaxProblem) {
     window.superagent
         .post('/webLab-2.0-SNAPSHOT/stuff')
         .send(formData)
         .end((err,res) => {
             if  (err || !res.ok) {
-                alert('oh no, ajax problem');
+                errorFunc(err)
             } else {
                 successFunc(res.text);
             }
         })
+}
+function ajaxProblem(err) {
+    alert('oh no, ajax problem');
 }
 
 function clearHistory() {
@@ -75,4 +74,8 @@ export function sendShootingReq(x,y,r) {
         res.close();
         resizeIframe(resFrame);
     })
+}
+
+export function reload() {
+    getData();
 }

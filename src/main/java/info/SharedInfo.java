@@ -24,11 +24,4 @@ public record SharedInfo(
     public SharedInfo(AppInfo appInfo, HistoryManager<AttemptInfo> historyManager) {
         this(appInfo.quadrantsInfo().quadrants(), appInfo.constraintsInfo().constraints(), historyManager.get());
     }
-    @Override
-    public String toString() {
-        return "Info{" +
-                "quadrantInfo=" + quadrants +
-                ", constraintsInfo=" + constraints +
-                '}';
-    }
 }

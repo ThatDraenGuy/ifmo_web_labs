@@ -98,3 +98,18 @@ div.result {
     height: 100px;
     border: none;
 }
+
+/* UPDATER */
+div.updater {
+    margin-left: auto;
+    margin-right: auto;
+    font: bold 16px SansSerif;
+    color: cadetblue;
+    padding: 10px;
+}
+
+#updater {
+    width: 600px;
+    height: 200px;
+    border: none;
+}

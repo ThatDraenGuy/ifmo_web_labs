@@ -13,4 +13,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public interface Quadrant {
     boolean checkHit(double x, double y, double r);
+
+
+    static Quadrant of(String name, double xMul, double yMul) {
+        return switch (name) {
+            case ("circle") -> new CircleQuadrant(xMul, yMul);
+            case ("square") -> new SquareQuadrant(xMul, yMul);
+            case ("triangle") -> new TriangleQuadrant(xMul, yMul);
+            default -> new EmptyQuadrant(xMul, yMul);
+        };
+    }
 }

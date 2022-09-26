@@ -5,7 +5,6 @@ import constraints.Constraint;
 import constraints.NoConstraint;
 import exceptions.ValueException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public record ConstraintsInfo(@JsonProperty Map<String,Constraint> constraints, @JsonProperty boolean isCheckingConstraints) {
@@ -16,5 +15,10 @@ public record ConstraintsInfo(@JsonProperty Map<String,Constraint> constraints, 
             if (!constraint.checkValue(value))
                 throw new ValueException("Value " + name + " didn't pass the constraint check");
         }
+    }
+
+    public void update(Map<String,Constraint> newConstraints) {
+        constraints.clear();
+        constraints.putAll(newConstraints);
     }
 }

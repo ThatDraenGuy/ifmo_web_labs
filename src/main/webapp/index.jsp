@@ -84,7 +84,18 @@
             </td>
         </tr>
         <tr class="content-row">
-            <td class="empty"></td>
+            <!-- dataUpdater -->
+            <td>
+                <div class="updater blob">
+                    <jsp:include page="updater.jsp">
+                        <jsp:param name="" value=""/>
+                    </jsp:include>
+<%--                    <a href="updater.jsp">Change graph data</a>--%>
+<%--                    <iframe src="updater.jsp" id="updater">--%>
+<%--                        bruh--%>
+<%--                    </iframe>--%>
+                </div>
+            </td>
             <!-- response -->
             <td class="response-cell" colspan="2">
                 <div class="result blob" hidden="true">
