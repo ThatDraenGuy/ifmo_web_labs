@@ -1,5 +1,4 @@
 import { updateGraph } from "./graph.js";
-import { sendShootingReq } from "./utils.js";
 window.paramChanged = paramChanged;
 window.validateSubmission = validateSubmission;
 // functions for handling validation
@@ -12,7 +11,7 @@ const currentParams = new Map();
 
 // function called when input is changed
 function paramChanged(name) {
-    var message = getElementOfClassByName(messageClass,name);
+    const message = getElementOfClassByName(messageClass, name);
     message.style.visibility = 'hidden'
     let res = checkParam(name);
     if (res) updateGraph(currentParams);
@@ -20,14 +19,14 @@ function paramChanged(name) {
 //finds needed validation function and checks param
 function checkParam(name) {
     for (const[className,validationFunction] of inputClassesMap) {
-        var input = getElementOfClassByName(className,name);
+        const input = getElementOfClassByName(className, name);
         if (input!=null) return validationFunction(input);
     }
     return false;
 }
 //check all params; if everything is okay update graph
 function checkParams() {
-    var result = true;
+    let result = true;
     for (const[className,validationFunction] of inputClassesMap) {
         if (!checkInputs(className,validationFunction)) result = false;
     }
@@ -35,8 +34,8 @@ function checkParams() {
     return result;
 }
 function checkInputs(inputClass, validationFunction) {
-    var inputs = getElementsOfClass(inputClass);
-    var result = true;
+    const inputs = getElementsOfClass(inputClass);
+    let result = true;
     for (let input of inputs) {
         if (!validationFunction(input)) result=false;
     }
@@ -48,7 +47,7 @@ function checkInputs(inputClass, validationFunction) {
 function validateTextInput(textInput) {
     const value = textInput.value;
     const name = textInput.name;
-    if (value=="") {
+    if (value==="") {
         message("No value inputted!",name);
         return false;
     }
@@ -66,7 +65,7 @@ function validateTextInput(textInput) {
 }
 function validateRadioInput(radioInput) {
     const name = radioInput.name;
-    var checkRadio = document.querySelector('input[name='+name+']:checked');
+    const checkRadio = document.querySelector('input[name=' + name + ']:checked');
     if (checkRadio!=null) {
         message("All good!",name)
         currentParams.set(name, checkRadio.value);
@@ -78,7 +77,7 @@ function validateRadioInput(radioInput) {
 }
 // function to report status of validation
 function message(message, name) {
-    var field = getElementOfClassByName(messageClass,name)
+    const field = getElementOfClassByName(messageClass, name);
     field.innerText = message;
     field.style.visibility = 'visible';
 }

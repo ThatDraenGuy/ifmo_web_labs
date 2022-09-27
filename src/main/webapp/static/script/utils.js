@@ -2,15 +2,6 @@
 import { setOldPoints } from "./graph.js";
 import {getData} from "./connector.js";
 
-// import '../style/content.css';
-// import '../style/header.css';
-// import '../style/main.css';
-
-// import '../../img/arrow.png';
-// import '../../img/chihuahua-spin.gif';
-// import '../../img/giphy.gif';
-// import '../../img/github.png';
-// import '../../img/load.gif';
 
 window.resizeIframe = resizeIframe;
 window.clearHistory = clearHistory;
@@ -35,14 +26,14 @@ export function ajax(formData, successFunc, errorFunc = ajaxProblem) {
             }
         })
 }
-function ajaxProblem(err) {
+function ajaxProblem() {
     alert('oh no, ajax problem');
 }
 
 function clearHistory() {
     const formData = new FormData();
     formData.append('clearHistory','true');
-    ajax(formData, function(responseText) {
+    ajax(formData, function() {
         let resFrame = document.getElementById('result').contentWindow.document;
         let history = resFrame.getElementById('history');
         history.remove();

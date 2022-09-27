@@ -1,4 +1,4 @@
-import { sendShootingReq } from "./utils.js";
+import {sendShootingReq} from "./utils.js";
 
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
@@ -45,8 +45,7 @@ class Quadrant {
         return Quadrant.quadrants[+(x>0)][+(y>0)];
     }
     static update(x,y,name) {
-        let quadrant = Quadrant.getByName(x,y,name);
-        Quadrant.quadrants[+(x>0)][+(y>0)] = quadrant;
+        Quadrant.quadrants[+(x>0)][+(y>0)] = Quadrant.getByName(x, y, name);
     }
     static getByName(x,y,name) {
         switch (name) {
