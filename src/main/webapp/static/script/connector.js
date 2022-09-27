@@ -10,11 +10,14 @@ const yMul = "yMul";
 const constraintsKey = "constraints";
 const constraints = new Map();
 const options = "options";
+const radioOptions = "radio_options";
+const checkboxOptions = "checkbox_options";
 const range = "range";
 const rangeMin = "min";
 const rangeMax = "max";
-constraints.set(options, handleOptions);
+constraints.set(radioOptions, handleRadioOptions);
 constraints.set(range, handleRange);
+constraints.set(checkboxOptions, handleCheckboxOptions)
 
 const historyKey = "history";
 
@@ -68,11 +71,19 @@ function handleVariant(func, name, data) {
     res += '</td><tr class="message-row"><td colspan="2"><span class="message-coord-cell input-message" name="' + name + '" id="message" style="visibility: hidden;">message</span></td></tr>';
     insertVariant(res);
 }
-function handleOptions(name, data) {
+function handleRadioOptions(name, data) {
     let optionsArray = data[options];
     let res = "";
     optionsArray.forEach(element => {
         res += ` ${element} <input type="radio" name="${name}" value="${element}" class="radio-input"  oninput="paramChanged(name)">\n`
+    });
+    return res;
+}
+function handleCheckboxOptions(name, data) {
+    let optionsArray = data[options];
+    let res = "";
+    optionsArray.forEach(element => {
+        res += ` ${element} <input type="checkbox" name="${name}" value="${element}" class="checkbox-input"  oninput="checkboxChanged(this)">\n`
     });
     return res;
 }

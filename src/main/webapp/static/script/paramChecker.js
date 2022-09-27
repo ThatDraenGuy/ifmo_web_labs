@@ -1,14 +1,24 @@
 import { updateGraph } from "./graph.js";
 window.paramChanged = paramChanged;
+window.checkboxChanged = checkboxChanged;
 window.validateSubmission = validateSubmission;
 // functions for handling validation
 const messageClass = "input-message";
 const inputClassesMap = new Map();
 inputClassesMap.set("text-input",validateTextInput);
 inputClassesMap.set("radio-input",validateRadioInput);
+inputClassesMap.set("checkbox-input",validateCheckboxInput);
+inputClassesMap.set("updater-input",validateTextInput);
 //mpa for currently chosen params
 const currentParams = new Map();
 
+function checkboxChanged(checkbox) {
+    let group = document.getElementsByName(checkbox.name);
+    group.forEach((item) => {
+        if (item !== checkbox) item.checked = false;
+    })
+    paramChanged(checkbox.name);
+}
 // function called when input is changed
 function paramChanged(name) {
     const message = getElementOfClassByName(messageClass, name);
@@ -69,6 +79,18 @@ function validateRadioInput(radioInput) {
     if (checkRadio!=null) {
         message("All good!",name)
         currentParams.set(name, checkRadio.value);
+        return true;
+    }
+    message("No value inputted!",name);
+    currentParams.set(name, null);
+    return false;
+}
+function validateCheckboxInput(checkboxInput) {
+    const name = checkboxInput.name;
+    const checkCheckbox = document.querySelector('input[name=' + name + ']:checked');
+    if (checkCheckbox!=null) {
+        message("All good!",name)
+        currentParams.set(name, checkCheckbox.value);
         return true;
     }
     message("No value inputted!",name);

@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use= JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value= Options.class, name= "options"),
-        @JsonSubTypes.Type(value= Range.class, name= "range")
+        @JsonSubTypes.Type(value= RadioOptions.class, name= RadioOptions.NAME),
+        @JsonSubTypes.Type(value = CheckboxOptions.class, name = CheckboxOptions.NAME),
+        @JsonSubTypes.Type(value= Range.class, name= Range.NAME)
 })
 public interface Constraint {
     boolean checkValue(double value);

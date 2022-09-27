@@ -5,6 +5,7 @@
     <title>Data Updater</title>
     <link rel="stylesheet" href="static/style/updater.css">
     <script type="module" src="static/script/updater.js"></script>
+    <script type="module" src="static/script/paramChecker.js    "></script>
 </head>
 <%
     List<String> quadrantNames = List.of("square", "circle", "triangle", "empty");
@@ -42,7 +43,12 @@
                                     <label for="x_mul<%=i%>">xMul:</label>
                                 </td>
                                 <td>
-                                    <input class="updater-input" name="quadrants[<%=i%>][x_mul]" type="text" id="x_mul<%=i%>">
+                                    <input class="updater-input" name="quadrants[<%=i%>][x_mul]" type="text" id="x_mul<%=i%>" data-min="-1" data-max="1" oninput="paramChanged(this.name)">
+                                </td>
+                            </tr>
+                            <tr class="message-row">
+                                <td colspan="2">
+                                    <span class="message-coord-cell input-message" name="quadrants[<%=i%>][x_mul]" style="visibility: hidden;">message</span>
                                 </td>
                             </tr>
                             <tr>
@@ -50,7 +56,12 @@
                                     <label for="y_mul<%=i%>">yMul:</label>
                                 </td>
                                 <td>
-                                    <input class="updater-input" name="quadrants[<%=i%>][y_mul]" type="text" id="y_mul<%=i%>">
+                                    <input class="updater-input" name="quadrants[<%=i%>][y_mul]" type="text" id="y_mul<%=i%>" data-min="-1" data-max="1" oninput="paramChanged(this.name)">
+                                </td>
+                            </tr>
+                            <tr class="message-row">
+                                <td colspan="2">
+                                    <span class="message-coord-cell input-message" name="quadrants[<%=i%>][y_mul]" style="visibility: hidden;">message</span>
                                 </td>
                             </tr>
                         </table>

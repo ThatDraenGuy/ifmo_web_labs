@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Range implements Constraint {
+    public static final String NAME = "range";
     @JsonProperty
     private final double min;
     @JsonProperty

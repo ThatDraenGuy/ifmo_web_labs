@@ -23,17 +23,18 @@
   "constraintsInfo":{
     "constraints":{
       "x":{
-        "type":"options",
-        "options":[-4.0,-3.0,-2.0,-1.0,0.0,1.0,2.0,3.0,4.0]
+        "type":"checkbox_options",
+        "options":[-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2]
       },
       "y":{
         "type":"range",
-        "min":-3.0,
-        "max":3.0
+        "min":-5.0,
+        "max":5.0
       },
       "r":{
-        "type":"options",
-        "options":[1.0,1.5,2.0,2.5,3.0]
+        "type":"range",
+        "min": 2,
+        "max": 5
       }
     },
     "isCheckingConstraints":false
