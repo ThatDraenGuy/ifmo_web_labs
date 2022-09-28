@@ -6,9 +6,21 @@ form.addEventListener("submit", submit)
 
 function submit(e) {
     e.preventDefault();
-    let formData = new FormData(document.getElementById("updater-form"));
-    ajax(formData, success, error);
-    return false;
+    const choosers = document.getElementsByTagName("quadrant-chooser");
+    for (const chooser of choosers) {
+        chooser.setAttribute("checked", false+"");
+    }
+    let res = true;
+    for (const chooser of choosers) {
+        if (chooser.getAttribute("status")==="false") {
+            res = false;
+        }
+        chooser.setAttribute("checked", true+"");
+    }
+    if (res) {
+        let formData = new FormData(document.getElementById("updater-form"));
+        ajax(formData, success, error);
+    }
 }
 
 function success(resText) {
@@ -17,3 +29,5 @@ function success(resText) {
 function error(err) {
     alert("Insufficient quadrant data!");
 }
+
+
