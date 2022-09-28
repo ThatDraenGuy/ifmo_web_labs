@@ -30,3 +30,12 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+tasks.register('deploy') {
+    dependsOn 'build'
+    doLast {
+        exec {
+            workingDir '.'
+            commandLine 'sh', '-c', 'scp -P 2222 build/libs/webLab-2.0.war s336765@se.ifmo.ru:~/wildfly/standalone/deployments'
+        }
+    }
+}

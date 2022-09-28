@@ -2,6 +2,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constraints.Constraint;
 import constraints.Options;
+import constraints.RadioOptions;
 import constraints.Range;
 import coordinates.*;
 import info.*;
@@ -27,9 +28,9 @@ public class JsonTest {
         QuadrantsInfo quadrantsInfo = new QuadrantsInfo(quadrantList);
 
         Map<String, Constraint> constraintMap = new HashMap<>();
-        constraintMap.put("x",new Options(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
+        constraintMap.put("x",new RadioOptions(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
         constraintMap.put("y",new Range(-3,3));
-        constraintMap.put("r",new Options(new double[]{1, 1.5, 2, 2.5, 3}));
+        constraintMap.put("r",new RadioOptions(new double[]{1, 1.5, 2, 2.5, 3}));
         ConstraintsInfo constraintsInfo = new ConstraintsInfo(constraintMap, false);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -48,9 +49,9 @@ public class JsonTest {
         sharedInfo.quadrants().add(new TriangleQuadrant(-0.5,-0.5));
         sharedInfo.quadrants().add(new EmptyQuadrant(0.5,-0.5));
 
-        sharedInfo.constraints().put("x",new Options(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
+        sharedInfo.constraints().put("x",new RadioOptions(new double[]{-4, -3, -2, -1, 0, 1, 2, 3, 4}));
         sharedInfo.constraints().put("y",new Range(-3,3));
-        sharedInfo.constraints().put("r",new Options(new double[]{1, 1.5, 2, 2.5, 3}));
+        sharedInfo.constraints().put("r",new RadioOptions(new double[]{1, 1.5, 2, 2.5, 3}));
 
         sharedInfo.history().add(new AttemptInfo("1","1","1",true,"hit", Duration.ZERO, LocalDateTime.now()));
 //        mapper.registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES));
@@ -93,7 +94,7 @@ public class JsonTest {
                     }],
                   "constraints":{
                     "x":{
-                      "type":"options",
+                      "type":"radio_options",
                       "options":[-4,-3,-2,-1,0,1,2,3,4]
                     },
                     "y":{
@@ -102,7 +103,7 @@ public class JsonTest {
                       "max":3
                     },
                     "r":{
-                      "type":"options",
+                      "type":"radio_options",
                       "options":[1,1.5,2,2.5,3]
                     }
                   }

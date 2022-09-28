@@ -52,7 +52,7 @@ public record AttemptInfo(
         toDataCell(builder, r);
         toDataCell(builder, message);
         toDataCell(builder, execTime.toNanos()/1000 +" mks");
-        toDataCell(builder, currTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm")));
+        toDataCell(builder, currTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")));
         builder.append("</tr>");
     }
     private void toDataCell(StringBuilder builder, Object value) {
