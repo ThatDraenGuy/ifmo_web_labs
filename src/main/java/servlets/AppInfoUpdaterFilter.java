@@ -4,7 +4,6 @@ import info.app.AppInfo;
 import info.AttemptInfo;
 import info.app.AppInfoProvider;
 import info.app.ConfigAppInfoProvider;
-import info.app.SampleAppInfoProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -25,7 +24,7 @@ public class AppInfoUpdaterFilter extends HttpFilter {
         if (isSet()) {
             historyManager.updateSession(req.getSession());
         } else {
-            createAppInfo(req);
+            createAppInfo();
         }
         if (req.getDispatcherType().name().equals("FORWARDED")) {
             chain.doFilter(req, res);
@@ -34,7 +33,7 @@ public class AppInfoUpdaterFilter extends HttpFilter {
         }
     }
 
-    private void createAppInfo(HttpServletRequest req) {
+    private void createAppInfo() {
         historyManager = new SessionHistoryManager<>();
         getServletContext().setAttribute(HistoryManager.NAME, historyManager);
         AppInfo appInfo = appInfoProvider.get();

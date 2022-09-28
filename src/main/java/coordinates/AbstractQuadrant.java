@@ -24,9 +24,6 @@ public abstract class AbstractQuadrant implements Quadrant {
     protected abstract boolean calcHit(double x, double y, double r);
 
 
-    protected int sign(int num) {
-        return num>0 ? 1 : -1;
-    }
     protected int sign(double num) {
         return num>0 ? 1 : -1;
     }

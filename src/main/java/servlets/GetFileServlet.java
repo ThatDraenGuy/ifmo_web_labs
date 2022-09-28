@@ -1,6 +1,5 @@
 package servlets;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ public class GetFileServlet extends HttpServlet{
     public static final String NAME = "GetFileServlet";
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String uri = req.getRequestURI();
         String trueUri = uri.replace(getServletContext().getContextPath(), "");
         resp.setContentType(getServletContext().getMimeType(trueUri));

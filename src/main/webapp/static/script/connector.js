@@ -1,5 +1,5 @@
 import { reDraw, setOldPoints, updateQuadrant } from "./graph.js";
-import { ajax, resizeIframe } from "./utils.js";
+import { ajax } from "./utils.js";
 import {FormHandler} from "./formHandler.js";
 
 // constants for getting info from server
@@ -23,8 +23,9 @@ export function getData() {
 
 function handleResponse(responseText) {
     console.log(responseText);
+    let obj;
     try {
-        var obj = JSON.parse(responseText);
+        obj = JSON.parse(responseText);
     } catch (e) {
         alert('server is stoopid and sent non-valid JSON');
         return;
@@ -43,7 +44,7 @@ function handleResponse(responseText) {
         let constraintsReq = obj[constraintsKey];
         const place = document.querySelector('#shoot-table');
         const form = document.querySelector('#shooting-form');
-        const stuff = new FormHandler(constraintsReq, form, place);
+        new FormHandler(constraintsReq, form, place);
     }
     // get history info and update points on graph
     if (historyKey in obj) {

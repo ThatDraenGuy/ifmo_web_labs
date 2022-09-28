@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,8 +46,8 @@
                 <div class="blob coord-chooser">
                     <form id="shooting-form" action="" method="post" target="result">
                         <input type="hidden" name="shoot" value="true">
+                        <img class="placeholder" id="shoot-load" src="${pageContext.request.contextPath}/static/img/load.gif" alt="loading...">
                         <table id="shoot-table">
-                            <img class="placeholder" id="shoot-load" src="${pageContext.request.contextPath}/static/img/load.gif" alt="loading...">
                             <!-- generated in run-time -->
                         </table>
                     </form>
@@ -98,8 +98,8 @@
             </td>
             <!-- response -->
             <td class="response-cell" colspan="2">
-                <div class="result blob" hidden="true">
-                    <iframe name="result" scrolling="no" id="result" onload="resizeIframe(this)">
+                <div class="result blob" hidden>
+                    <iframe name="result" id="result" onload="resizeIframe(this)">
                         stuff
                     </iframe>
                 </div>

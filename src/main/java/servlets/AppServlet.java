@@ -10,7 +10,9 @@ public class AppServlet extends HttpServlet {
         return (AppInfo) getServletContext().getAttribute(AppInfo.NAME);
     }
     protected HistoryManager<AttemptInfo> historyManager() {
-        return (HistoryManager<AttemptInfo>) getServletContext().getAttribute(HistoryManager.NAME);
+        @SuppressWarnings({"unchecked"})
+        HistoryManager<AttemptInfo> historyManager = (HistoryManager<AttemptInfo>) getServletContext().getAttribute(HistoryManager.NAME);
+        return historyManager;
     }
 
 }

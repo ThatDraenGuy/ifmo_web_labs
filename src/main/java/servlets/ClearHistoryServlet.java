@@ -1,19 +1,15 @@
 package servlets;
 
-import info.AttemptInfo;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 @WebServlet(name = ClearHistoryServlet.NAME)
 public class ClearHistoryServlet extends AppServlet {
     public static final String NAME = "ClearHistoryServlet";
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         historyManager().clear();
         resp.setContentType("application/text");
         resp.getWriter().println("success");

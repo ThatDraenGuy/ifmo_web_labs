@@ -1,6 +1,5 @@
 package storage;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;

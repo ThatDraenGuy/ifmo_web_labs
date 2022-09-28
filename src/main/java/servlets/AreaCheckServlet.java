@@ -20,7 +20,7 @@ public class AreaCheckServlet extends AppServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AttemptInfo attemptInfo = null;
+        AttemptInfo attemptInfo;
         try {
             double x = getValue(req,"x");
             double y = getValue(req,"y");

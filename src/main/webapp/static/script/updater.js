@@ -23,10 +23,10 @@ function submit(e) {
     }
 }
 
-function success(resText) {
+function success() {
     reload();
 }
-function error(err) {
+function error() {
     alert("Insufficient quadrant data!");
 }
 

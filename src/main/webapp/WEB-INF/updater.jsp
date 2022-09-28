@@ -1,5 +1,4 @@
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Data Updater</title>
@@ -8,11 +7,10 @@
     <script type="module" src="${pageContext.request.contextPath}/static/script/formHandler.js"></script>
 </head>
 <%
-    List<String> quadrantNames = List.of("square", "circle", "triangle", "empty");
     String quadrants = "square,circle,triangle,empty";
 %>
 <body>
-    <form action="/webLab-2.0-SNAPSHOT/stuff" method="post" id="updater-form">
+    <form action="${pageContext.request.contextPath}/stuff" method="post" id="updater-form">
         <input type="hidden" name="updateData" value="true">
         <div class="quadrant-chooser">
             <table class="quadrant-table">

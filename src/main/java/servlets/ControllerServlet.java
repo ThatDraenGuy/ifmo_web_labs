@@ -20,7 +20,7 @@ public class ControllerServlet extends HttpServlet {
     private final List<ServletData> servletData = new ArrayList<>();
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         servletData.add(new JspAccessServlet.Data());
         servletData.add(new GetFileServlet.Data());
         servletData.add(new GetDataServlet.Data());

@@ -1,29 +1,21 @@
 package servlets;
 
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.ValueException;
-import info.SharedInfo;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Value;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.Map;
 
 @WebServlet(name = UpdateDataServlet.NAME)
 @MultipartConfig
 public class UpdateDataServlet extends AppServlet{
     public static final String NAME = "UpdateDataServlet";
-    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             System.out.println(req.getContentType());
             Map<String, String[]> params = req.getParameterMap();

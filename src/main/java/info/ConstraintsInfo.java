@@ -16,9 +16,4 @@ public record ConstraintsInfo(@JsonProperty Map<String,Constraint> constraints, 
                 throw new ValueException("Value " + name + " didn't pass the constraint check");
         }
     }
-
-    public void update(Map<String,Constraint> newConstraints) {
-        constraints.clear();
-        constraints.putAll(newConstraints);
-    }
 }

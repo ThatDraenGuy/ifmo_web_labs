@@ -41,8 +41,7 @@ public record AttemptInfo(
     }
     private static Duration getDiff(Instant start) {
         Instant finish = Instant.now();
-        Duration duration = Duration.between(start, finish);
-        return duration;
+        return Duration.between(start, finish);
     }
 
     public void toHtmlRow(StringBuilder builder, int num) {

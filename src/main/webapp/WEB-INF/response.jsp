@@ -5,16 +5,15 @@
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ page import="info.ReactionsInfo" %>
 <%@ page import="java.util.List" %>
-<%@ page import="info.app.AppInfo" %>
 <%@ page import="storage.HistoryManager" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <link href="${pageContext.request.contextPath}/static/style/response.css" rel="stylesheet">
     <title>Response</title>
 </head>
 <%
-    AppInfo appInfo = (AppInfo) application.getAttribute(AppInfo.NAME);
+    @SuppressWarnings({"unchecked"})
     HistoryManager<AttemptInfo> historyManager = (HistoryManager<AttemptInfo>) application.getAttribute(HistoryManager.NAME);
 
     AttemptInfo attemptInfo;
@@ -27,7 +26,7 @@
 
     ReactionsInfo reactionsInfo;
     try {
-        InputStream inputStream = application.getResourceAsStream("/resources/reactions.json");
+        InputStream inputStream = application.getResourceAsStream("/WEB-INF/reactions.json");
         Reader reader = new InputStreamReader(inputStream);
         ObjectMapper mapper = new ObjectMapper();
         reactionsInfo = mapper.readValue(reader, ReactionsInfo.class);
