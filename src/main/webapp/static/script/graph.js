@@ -186,6 +186,7 @@ function updateLabels(r) {
         return;
     }
     const labels = [-r, -r/2, '', r/2, r];
+    const offset = (r+"").length;
     ctx.fillStyle = TEXT_COLOR;
     ctx.font = "18px serif";
     ctx.textAlign = 'center';
@@ -205,7 +206,7 @@ function updateLabels(r) {
         ctx.fill();
 
         ctx.fillText(text, xStep,startY+20);
-        ctx.fillText(text, startX-20, yStep);
+        ctx.fillText(text, startX-13-(3*offset), yStep);
     }
 }
 

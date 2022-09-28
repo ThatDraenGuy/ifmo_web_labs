@@ -171,6 +171,7 @@ class RangeInput extends CheckedInput {
         input.setAttribute("placeholder", `number from ${this.min} to ${this.max}`);
         input.setAttribute("data-min", `${this.min}`);
         input.setAttribute("data-max", `${this.max}`);
+        input.setAttribute("maxlength", "5");
         input.addEventListener('input', (e) => {
             this.onChanged(e);
         });
