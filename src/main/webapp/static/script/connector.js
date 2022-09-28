@@ -1,5 +1,6 @@
 import { reDraw, setOldPoints, updateQuadrant } from "./graph.js";
 import { ajax, resizeIframe } from "./utils.js";
+import {FormHandler} from "./formHandler.js";
 
 // constants for getting info from server
 const quadrantsKey = "quadrants";
@@ -8,16 +9,6 @@ const xMul = "xMul";
 const yMul = "yMul";
 
 const constraintsKey = "constraints";
-const constraints = new Map();
-const options = "options";
-const radioOptions = "radio_options";
-const checkboxOptions = "checkbox_options";
-const range = "range";
-const rangeMin = "min";
-const rangeMax = "max";
-constraints.set(radioOptions, handleRadioOptions);
-constraints.set(range, handleRange);
-constraints.set(checkboxOptions, handleCheckboxOptions)
 
 const historyKey = "history";
 
@@ -49,59 +40,13 @@ function handleResponse(responseText) {
     }
     // get constraints info and insert them into document
     if (constraintsKey in obj) {
-        clearVariantSpace();
         let constraintsReq = obj[constraintsKey];
-        Object.keys(constraintsReq).forEach(key => {
-            let element = constraintsReq[key];
-            let func = constraints.get(element[type]);
-            handleVariant(func, key, element);
-        });
-        insertVariant('<tr><td colspan="2" class="button-coord-cell"><input class="shoot-button" type="submit" value="shoot!"></td></tr>');
-        clearPlaceholder();
+        const place = document.querySelector('#shoot-table');
+        const form = document.querySelector('#shooting-form');
+        const stuff = new FormHandler(constraintsReq, form, place);
     }
     // get history info and update points on graph
     if (historyKey in obj) {
         setOldPoints(obj[historyKey]);
     }
-}
-// functions for inserting constraints in document
-function handleVariant(func, name, data) {
-    let res = '<tr class="shoot-row"><td class="name-coord-cell">' + name.toUpperCase()+':</td><td class="choice-coord-cell">';
-    res += func(name, data);
-    res += '</td><tr class="message-row"><td colspan="2"><span class="message-coord-cell input-message" name="' + name + '" id="message" style="visibility: hidden;">message</span></td></tr>';
-    insertVariant(res);
-}
-function handleRadioOptions(name, data) {
-    let optionsArray = data[options];
-    let res = "";
-    optionsArray.forEach(element => {
-        res += ` ${element} <input type="radio" name="${name}" value="${element}" class="radio-input"  oninput="paramChanged(name)">\n`
-    });
-    return res;
-}
-function handleCheckboxOptions(name, data) {
-    let optionsArray = data[options];
-    let res = "";
-    optionsArray.forEach(element => {
-        res += ` ${element} <input type="checkbox" name="${name}" value="${element}" class="checkbox-input"  oninput="checkboxChanged(this)">\n`
-    });
-    return res;
-}
-function handleRange(name, data) {
-    let min = data[rangeMin];
-    let max = data[rangeMax];
-    return `<input type="text" name="${name}" class="text-input" placeholder="number from ${min} to ${max}" data-min="${min}"; data-max="${max}"; oninput="paramChanged(name)">\n`;
-}
-
-function insertVariant(text) {
-    const place = document.querySelector('#shoot-table');
-    place.insertAdjacentHTML('beforeend', text);
-}
-function clearVariantSpace() {
-    const place = document.querySelector('#shoot-table');
-    place.innerHTML = '';
-}
-function clearPlaceholder() {
-    const placeholder = document.querySelector('#shoot-load');
-    placeholder.hidden = 'true';
 }

@@ -20,6 +20,8 @@ const maxY = height-margin;
 const startX = (maxX+minX)/2;
 const startY = (maxY+minY)/2;
 
+const currentParams = new Map();
+
 // parent class for all quadrant types + a point of referencing all of them
 class Quadrant {
     constructor(xMul, yMul) {
@@ -264,7 +266,17 @@ class CircleQuadrant extends Quadrant {
 }
 
 
-export function updateGraph(currentParams, shouldShoot = false) {
+export function updateGraph(params, shouldShoot = false) {
+    params.forEach((value, name) => {
+        currentParams.set(name, value);
+    })
+    paramsUpdated(shouldShoot);
+}
+export function updateValue(name, value) {
+    currentParams.set(name, value);
+    paramsUpdated(false);
+}
+function paramsUpdated(shouldShoot) {
     const x = currentParams.get('x');
     const y = currentParams.get('y');
     const r = currentParams.get('r');
@@ -275,8 +287,8 @@ export function updateGraph(currentParams, shouldShoot = false) {
     point.update(xCoord,yCoord);
     if (shouldShoot) {
         shoot(x,y);
-        sendShootingReq(x,y,r);        
-    } 
+        sendShootingReq(x,y,r);
+    }
 }
 export function updateQuadrant(name, x, y) {
     Quadrant.update(x,y,name);

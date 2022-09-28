@@ -5,7 +5,6 @@
     <title>Data Updater</title>
     <link rel="stylesheet" href="static/style/updater.css">
     <script type="module" src="static/script/updater.js"></script>
-    <script type="module" src="static/script/paramChecker.js    "></script>
 </head>
 <%
     List<String> quadrantNames = List.of("square", "circle", "triangle", "empty");

@@ -9,8 +9,8 @@
     <link href="static/style/content.css" rel="stylesheet">
     <link href="static/style/header.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    <script type="module" src="static/script/formHandler.js"></script>
     <script type="module" src="static/script/connector.js"></script>
-    <script type="module" src="static/script/paramChecker.js"></script>
     <script type="module" src="static/script/utils.js"></script>
 </head>
 <body>
@@ -44,7 +44,7 @@
             <!-- coord chooser -->
             <td class="coord-choosing-cell">
                 <div class="blob coord-chooser">
-                    <form id="shooting-form" action="" method="post" target="result" onsubmit="return validateSubmission()">
+                    <form id="shooting-form" action="" method="post" target="result">
                         <input type="hidden" name="shoot" value="true">
                         <table id="shoot-table">
                             <img class="placeholder" id="shoot-load" src="${pageContext.request.contextPath}/static/img/load.gif" alt="loading...">
