@@ -26,11 +26,7 @@ public class AppInfoUpdaterFilter extends HttpFilter {
         } else {
             createAppInfo();
         }
-        if (req.getDispatcherType().name().equals("FORWARDED")) {
-            chain.doFilter(req, res);
-        } else {
-            getServletContext().getNamedDispatcher(ControllerServlet.NAME).forward(req,res);
-        }
+        getServletContext().getNamedDispatcher(ControllerServlet.NAME).forward(req,res);
     }
 
     private void createAppInfo() {

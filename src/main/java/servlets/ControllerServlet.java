@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name =ControllerServlet.NAME, urlPatterns = {"/",""})
+@WebServlet(name =ControllerServlet.NAME)
 @MultipartConfig
 public class ControllerServlet extends HttpServlet {
     public final static String NAME = "controller";
