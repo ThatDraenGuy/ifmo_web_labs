@@ -15,19 +15,23 @@ import storage.HistoryManager;
 import storage.SessionHistoryManager;
 
 import java.io.IOException;
-@WebFilter(urlPatterns = "/", filterName = "AppInfoUpdateFilter", servletNames = ControllerServlet.NAME)
+@WebFilter(urlPatterns = "/*", filterName = "AppInfoUpdateFilter")
 public class AppInfoUpdaterFilter extends HttpFilter {
     private final AppInfoProvider appInfoProvider = new ConfigAppInfoProvider();
     private SessionHistoryManager<AttemptInfo> historyManager;
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        System.out.println("filter!");
+        getServletContext().log("request: "+req.getMethod()+" "+req.getRequestURI());
         if (isSet()) {
             historyManager.updateSession(req.getSession());
         } else {
             createAppInfo(req);
         }
-        chain.doFilter(req,res);
+        if (req.getDispatcherType().name().equals("FORWARDED")) {
+            chain.doFilter(req, res);
+        } else {
+            getServletContext().getNamedDispatcher(ControllerServlet.NAME).forward(req,res);
+        }
     }
 
     private void createAppInfo(HttpServletRequest req) {

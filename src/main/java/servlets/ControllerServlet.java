@@ -13,15 +13,15 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name =ControllerServlet.NAME, urlPatterns = "/")
+@WebServlet(name =ControllerServlet.NAME, urlPatterns = {"/",""})
 @MultipartConfig
 public class ControllerServlet extends HttpServlet {
     public final static String NAME = "controller";
     private final List<ServletData> servletData = new ArrayList<>();
-    private final String defaultDispatcher = "/index.jsp";
 
     @Override
     public void init() throws ServletException {
+        servletData.add(new JspAccessServlet.Data());
         servletData.add(new GetFileServlet.Data());
         servletData.add(new GetDataServlet.Data());
         servletData.add(new AreaCheckServlet.Data());
@@ -38,9 +38,11 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         handle(req, resp);
     }
-
+    @Override
+    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        handle(req, resp);
+    }
     private void handle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("handling...");
         req.setAttribute("startTime", Instant.now());
 
         for (ServletData servletData : this.servletData) {
@@ -49,12 +51,12 @@ public class ControllerServlet extends HttpServlet {
                 return;
             }
         }
-        System.out.println("default");
-        getServletContext().getRequestDispatcher(defaultDispatcher).forward(req,resp);
+        //default
+        forward(req,resp, NotFoundServlet.NAME);
     }
 
     private void forward(HttpServletRequest req, HttpServletResponse resp, String dispatcherName) throws ServletException, IOException {
-        System.out.println(dispatcherName);
+        log("forwarding to "+dispatcherName);
         RequestDispatcher dispatcher = getServletContext().getNamedDispatcher(dispatcherName);
         dispatcher.forward(req,resp);
     }

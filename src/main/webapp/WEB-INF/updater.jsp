@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>Data Updater</title>
-    <link rel="stylesheet" href="static/style/updater.css">
-    <script type="module" src="static/script/updater.js"></script>
-    <script type="module" src="static/script/formHandler.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style/updater.css">
+    <script type="module" src="${pageContext.request.contextPath}/static/script/updater.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/static/script/formHandler.js"></script>
 </head>
 <%
     List<String> quadrantNames = List.of("square", "circle", "triangle", "empty");

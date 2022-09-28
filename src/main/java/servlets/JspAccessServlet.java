@@ -2,28 +2,25 @@ package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = GetFileServlet.NAME)
-public class GetFileServlet extends HttpServlet{
-    public static final String NAME = "GetFileServlet";
+@WebServlet(name = JspAccessServlet.NAME)
+public class JspAccessServlet extends AppServlet{
+    public static final String NAME = "JspAccessServlet";
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uri = req.getRequestURI();
-        String trueUri = uri.replace(getServletContext().getContextPath(), "");
-        resp.setContentType(getServletContext().getMimeType(trueUri));
-        getServletContext().getResourceAsStream(trueUri).transferTo(resp.getOutputStream());
+        getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req,resp);
     }
 
     public static class Data implements ServletData {
+
+        @Override
         public boolean isApplicable(HttpServletRequest req) {
-            String uri = req.getRequestURI();
-            return uri.contains("static/");
+            return  req.getRequestURI().equals(req.getServletContext().getContextPath()+"/");
         }
 
         @Override

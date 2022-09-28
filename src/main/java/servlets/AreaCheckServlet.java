@@ -30,7 +30,7 @@ public class AreaCheckServlet extends AppServlet {
             attemptInfo = AttemptInfo.fail(req, e.getMessage());
         }
         req.setAttribute("attemptInfo", attemptInfo);
-        getServletContext().getRequestDispatcher("/response.jsp").forward(req,resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/response.jsp").forward(req,resp);
     }
 
     private double getValue(HttpServletRequest req, String name) throws ValueException {

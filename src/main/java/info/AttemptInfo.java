@@ -42,7 +42,6 @@ public record AttemptInfo(
     private static Duration getDiff(Instant start) {
         Instant finish = Instant.now();
         Duration duration = Duration.between(start, finish);
-        System.out.println(duration.toNanos());
         return duration;
     }
 

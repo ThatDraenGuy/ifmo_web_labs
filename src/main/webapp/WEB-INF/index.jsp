@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/img/favicon.ico">
     <title>lab2</title>
-    <link href="static/style/main.css" rel="stylesheet">
-    <link href="static/style/content.css" rel="stylesheet">
-    <link href="static/style/header.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/style/main.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/style/content.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/style/header.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
-    <script type="module" src="static/script/formHandler.js"></script>
-    <script type="module" src="static/script/connector.js"></script>
-    <script type="module" src="static/script/utils.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/static/script/formHandler.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/static/script/connector.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/static/script/utils.js"></script>
 </head>
 <body>
     <table class="main-table">
