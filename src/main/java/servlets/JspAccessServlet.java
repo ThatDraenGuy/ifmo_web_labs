@@ -13,7 +13,7 @@ public class JspAccessServlet extends AppServlet{
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req,resp);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
     }
 
     public static class Data implements ServletData {

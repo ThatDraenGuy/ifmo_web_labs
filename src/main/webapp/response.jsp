@@ -26,7 +26,7 @@
 
     ReactionsInfo reactionsInfo;
     try {
-        InputStream inputStream = application.getResourceAsStream("/WEB-INF/reactions.json");
+        InputStream inputStream = application.getResourceAsStream("/static/reactions.json");
         Reader reader = new InputStreamReader(inputStream);
         ObjectMapper mapper = new ObjectMapper();
         reactionsInfo = mapper.readValue(reader, ReactionsInfo.class);
