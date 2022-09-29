@@ -3,15 +3,15 @@ import { setOldPoints } from "./graph.js";
 import {getData} from "./connector.js";
 
 
-window.resizeIframe = resizeIframe;
+// window.resizeIframe = resizeIframe;
 window.clearHistory = clearHistory;
 window.showHeader = showHeader;
-export function resizeIframe(iframe) {
-    iframe.style.height = '300px';
-    iframe.style.height = iframe.contentWindow.document.body.scrollHeight+20 + 'px';
-    iframe.contentWindow.clearHistory = clearHistory;
-    iframe.parentElement.hidden = false;
-}
+// export function resizeIframe(iframe) {
+//     iframe.style.height = '300px';
+//     iframe.style.height = iframe.contentWindow.document.body.scrollHeight+20 + 'px';
+//     iframe.contentWindow.clearHistory = clearHistory;
+//     iframe.parentElement.hidden = false;
+// }
 
 // yes, it would be better to use GET not POST in a bunch of situations, but the task said POST
 export function ajax(formData, successFunc, errorFunc = ajaxProblem) {
@@ -22,7 +22,7 @@ export function ajax(formData, successFunc, errorFunc = ajaxProblem) {
             if  (err || !res.ok) {
                 errorFunc(err)
             } else {
-                successFunc(res.text);
+                successFunc(res.text, res);
             }
         })
 }
@@ -57,13 +57,15 @@ export function sendShootingReq(x,y,r) {
     formData.append('y',y);
     formData.append('r',r);
     formData.append('shoot','true');
-    ajax(formData, function(responseText) {
-        let resFrame = document.getElementById('result');
-        let res = resFrame.contentWindow.document;
-        res.open();
-        res.write(responseText);
-        res.close();
-        resizeIframe(resFrame);
+    ajax(formData, function(responseText, response) {
+        console.log(responseText, window.location.pathname);
+        window.location.pathname = responseText
+        // let resFrame = document.getElementById('result');
+        // let res = resFrame.contentWindow.document;
+        // res.open();
+        // res.write(responseText);
+        // res.close();
+        // resizeIframe(resFrame);
     })
 }
 

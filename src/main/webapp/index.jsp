@@ -93,13 +93,13 @@
                 </div>
             </td>
             <!-- response -->
-            <td class="response-cell" colspan="2">
-                <div class="result blob" hidden>
-                    <iframe name="result" id="result" onload="resizeIframe(this)">
-                        stuff
-                    </iframe>
-                </div>
-            </td>
+<%--            <td class="response-cell" colspan="2">--%>
+<%--                <div class="result blob" hidden>--%>
+<%--                    <iframe name="result" id="result" onload="resizeIframe(this)">--%>
+<%--                        stuff--%>
+<%--                    </iframe>--%>
+<%--                </div>--%>
+<%--            </td>--%>
         </tr>
     </table>
 </body>

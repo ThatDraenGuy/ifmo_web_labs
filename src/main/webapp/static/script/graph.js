@@ -1,7 +1,8 @@
 import {sendShootingReq} from "./utils.js";
+import Quadrant from "./graph/quadrant.js";
 
 const canvas = document.getElementById('graph');
-const ctx = canvas.getContext('2d');
+export const ctx = canvas.getContext('2d');
 
 const GRAPH_COLOR = 'rgba(0, 0, 200, 0.5)';
 const BACK_COLOR = 'rgba(150,150,150,0)';
@@ -13,62 +14,16 @@ const width = canvas.width;
 const height = canvas.height;
 const margin = width/8; // margin between the actual graph and borders of canvas
 //min, max and start coordinates calculated
-const minX = margin;
-const minY = margin;
-const maxX = width-margin;
-const maxY = height-margin;
-const startX = (maxX+minX)/2;
-const startY = (maxY+minY)/2;
+export const minX = margin;
+export const minY = margin;
+export const maxX = width-margin;
+export const maxY = height-margin;
+export const startX = (maxX+minX)/2;
+export const startY = (maxY+minY)/2;
 
 const currentParams = new Map();
 
 // parent class for all quadrant types + a point of referencing all of them
-class Quadrant {
-    constructor(xMul, yMul) {
-        this.xMul = xMul;
-        this.yMul = yMul;
-    }
-    draw() {}
-
-    static quadrants = [
-        [
-            Quadrant.default(-1,-1),
-            Quadrant.default(-1,1)
-        ],
-        [
-            Quadrant.default(1,-1),
-            Quadrant.default(1,1)
-        ]
-    ]
-    static default(x,y) {
-        return new Quadrant(x,y);
-    }
-    static get(x,y) {
-        return Quadrant.quadrants[+(x>0)][+(y>0)];
-    }
-    static update(x,y,name) {
-        Quadrant.quadrants[+(x>0)][+(y>0)] = Quadrant.getByName(x, y, name);
-    }
-    static getByName(x,y,name) {
-        switch (name) {
-            case "triangle":
-                return new TriangleQuadrant(x,y);
-            case "square":
-                return new SquareQuadrant(x,y);
-            case "circle":
-                return new CircleQuadrant(x,y);
-            default:
-                return new Quadrant(x,y);
-        }
-    }
-    static drawAll() {
-        Quadrant.quadrants.forEach(element => {
-            element.forEach(quadrant => {
-                quadrant.draw();
-            })
-        })
-    }
-}
 
 // class for a point - handles its position & movement (animations included)
 class Point {
@@ -211,15 +166,7 @@ function updateLabels(r) {
 }
 
 
-// needed to get min or max depending on quadrant I'm in
-function xMulled(xMul) {
-    if (xMul>=0) return startX + (maxX-startX)*xMul;
-    return startX + xMul*(startX-minX);
-}
-function yMulled(yMul) {
-    if (yMul>=0) return startY + (startY-maxY)*yMul;
-    return startY + yMul*(minY-startY);
-}
+
 
 //convert absolute canvas coords to meaningful ones
 function xFromCoord(xCoord) {
@@ -236,35 +183,9 @@ function coordFromY(y) {
     return startY + (startY-maxY)/radius*y;
 }
 
-class SquareQuadrant extends Quadrant {
-    draw() {
-        ctx.fillRect(startX,startY,xMulled(this.xMul)-startX, yMulled(this.yMul)-startY);
-    }
-}
-class TriangleQuadrant extends Quadrant {
-    draw() {
-        ctx.beginPath();
-        ctx.moveTo(startX,yMulled(this.yMul));
-        ctx.lineTo(xMulled(this.xMul),startY);
-        ctx.lineTo(startX,startY);
-        ctx.fill();
-    }
-}
-class CircleQuadrant extends Quadrant {
-    xSign() {
-        return this.xMul >=0 ? 0 : 1;
-    }
-    ySign() {
-        return this.yMul >= 0 ? -1 : 1;
-    }
-    draw() {
-        let orientation = (this.xMul >= 0)!==(this.yMul >= 0);
-        ctx.beginPath();
-        ctx.moveTo(startX,startY);
-        ctx.arc(startX,startY,Math.abs(xMulled(this.xMul)-startX),this.ySign()*Math.PI/2,this.xSign()*Math.PI, orientation);
-        ctx.fill();
-    }
-}
+
+
+
 
 
 export function updateGraph(params, shouldShoot = false) {

@@ -10,6 +10,9 @@
 <html>
 <head>
     <link href="${pageContext.request.contextPath}/static/style/response.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/img/favicon.ico">
+    <script type="module" src="${pageContext.request.contextPath}/static/script/utils.js"></script>
     <title>Response</title>
 </head>
 <%
@@ -18,9 +21,14 @@
 
     AttemptInfo attemptInfo;
     try {
-        attemptInfo = (AttemptInfo) request.getAttribute("attemptInfo");
-        historyManager.put(attemptInfo);
-    } catch (ClassCastException e) {
+        if (request.getSession().getAttribute("isInfoNew")!=null) {
+            attemptInfo = (AttemptInfo) request.getSession().getAttribute("attemptInfo");
+            historyManager.put(attemptInfo);
+            request.getSession().removeAttribute("isInfoNew");
+        } else {
+            attemptInfo = historyManager.get().get(historyManager.get().size()-1);
+        }
+    } catch (Exception e) {
         attemptInfo = AttemptInfo.empty();
     }
 
@@ -44,6 +52,9 @@
     return builder.toString();
 }%>
 <body>
+<form action="${pageContext.request.contextPath}">
+    <input type="submit" value="RETURN" class="clear-history-button"/>
+</form>
 <table class="response-table">
     <colgroup>
         <col class="result">

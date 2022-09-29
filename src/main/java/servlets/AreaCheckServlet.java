@@ -29,8 +29,12 @@ public class AreaCheckServlet extends AppServlet {
         } catch (ValueException e) {
             attemptInfo = AttemptInfo.fail(req, e.getMessage());
         }
-        req.setAttribute("attemptInfo", attemptInfo);
-        getServletContext().getRequestDispatcher("/response.jsp").forward(req,resp);
+//        req.setAttribute("attemptInfo", attemptInfo);
+        req.getSession().setAttribute("attemptInfo", attemptInfo);
+        req.getSession().setAttribute("isInfoNew", true);
+        resp.setContentType("text/plain");
+        resp.getWriter().println(getServletContext().getContextPath()+"/response.jsp");
+//        getServletContext().getRequestDispatcher("/response.jsp").forward(req,resp);
     }
 
     private double getValue(HttpServletRequest req, String name) throws ValueException {

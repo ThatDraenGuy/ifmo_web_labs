@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
@@ -15,18 +16,32 @@
         <div class="quadrant-chooser">
             <table class="quadrant-table">
                 <tr>
-                    <% for (int i=1; i <= 4; i++) { %>
-                    <td class="updater-cell updater-header">
-                            Quadrant <%=i%>
-                    </td>
-                    <%}%>
+                    <c:forEach var="i" begin="1" end="4">
+                        <td class="updater-cell updater-header">
+                            Quadrant <c:out value="${i}"/>
+                        </td>
+                    </c:forEach>
                 </tr>
                 <tr>
-                    <% for (int i=1; i <= 4; i++) { %>
-                    <td class="updater-cell">
-                        <quadrant-chooser index="<%=i%>" quadrants="<%=quadrants%>" x-min="<%= i==1 || i==4 ? 0 : -1%>" y-min="<%= i==1 || i==2 ? 0 : -1%>"></quadrant-chooser>
-                    </td>
-                    <%}%>
+                    <c:forEach var="i" begin="1" end="4">
+                        <td class="updater-cell">
+                            <quadrant-chooser index="<c:out value="${i}"/>" quadrants="<%=quadrants%>" x-min="<c:choose>
+                                <c:when test="${i==1 || i==4}">
+                                    0
+                                </c:when>
+                                <c:otherwise>
+                                    -1
+                                </c:otherwise>
+                            </c:choose>" y-min="<c:choose>
+                                <c:when test="${i==1 || i==2}">
+                                    0
+                                </c:when>
+                                <c:otherwise>
+                                    -1
+                                </c:otherwise>
+                            </c:choose>"></quadrant-chooser>
+                        </td>
+                    </c:forEach>
                 </tr>
             </table>
             <input class="submit" type="submit">
