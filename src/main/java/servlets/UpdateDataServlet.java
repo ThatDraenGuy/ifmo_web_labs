@@ -26,7 +26,7 @@ public class UpdateDataServlet extends AppServlet{
                 }
                 System.out.println();
             }
-            appInfo().quadrantsInfo().update(params);
+            appInfo(req).quadrantsInfo().update(params);
 
             resp.setContentType("text/plain");
             resp.getWriter().println("Data sufficiently updated");

@@ -25,7 +25,7 @@ public class AreaCheckServlet extends AppServlet {
             double x = getValue(req,"x");
             double y = getValue(req,"y");
             double r = getValue(req,"r");
-            attemptInfo = appInfo().quadrantsInfo().check(startTime(req), x,y,r);
+            attemptInfo = appInfo(req).quadrantsInfo().check(startTime(req), x,y,r);
         } catch (ValueException e) {
             attemptInfo = AttemptInfo.fail(req, e.getMessage());
         }
@@ -38,7 +38,7 @@ public class AreaCheckServlet extends AppServlet {
         if (param==null) throw new ValueException("Value "+name+" wasn't inputted");
         try {
             double parsed = Double.parseDouble(param);
-            appInfo().constraintsInfo().check(name, parsed);
+            appInfo(req).constraintsInfo().check(name, parsed);
             return parsed;
         } catch (NumberFormatException e) {
             throw new ValueException("Value "+name+" isn't a number, but a \""+param+"\"");

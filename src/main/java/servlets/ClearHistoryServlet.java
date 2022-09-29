@@ -10,7 +10,7 @@ public class ClearHistoryServlet extends AppServlet {
     public static final String NAME = "ClearHistoryServlet";
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        historyManager().clear();
+        historyManager(req).clear();
         resp.setContentType("application/text");
         resp.getWriter().println("success");
     }

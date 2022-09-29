@@ -9,8 +9,8 @@ public class SessionHistoryManager<T> implements HistoryManager<T>{
     private final String id = "history";
     private HttpSession session = null;
 
-    public void updateSession(HttpSession session) {
-        if (!session.equals(this.session)) this.session = session;
+    public SessionHistoryManager(HttpSession session) {
+        this.session = session;
     }
 
     @Override

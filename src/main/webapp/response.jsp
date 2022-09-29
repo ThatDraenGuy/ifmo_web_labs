@@ -14,7 +14,7 @@
 </head>
 <%
     @SuppressWarnings({"unchecked"})
-    HistoryManager<AttemptInfo> historyManager = (HistoryManager<AttemptInfo>) application.getAttribute(HistoryManager.NAME);
+    HistoryManager<AttemptInfo> historyManager = (HistoryManager<AttemptInfo>) request.getSession().getAttribute(HistoryManager.NAME);
 
     AttemptInfo attemptInfo;
     try {
