@@ -1,7 +1,7 @@
-import SquareQuadrant from "./squareQuadrant.js";
-import CircleQuadrant from "./circleQuadrant.js";
-import TriangleQuadrant from "./triangleQuadrant.js";
-import {maxX, maxY, minX, minY, startX, startY} from "../graph";
+// import SquareQuadrant from "./squareQuadrant.js";
+// import CircleQuadrant from "./circleQuadrant.js";
+// import TriangleQuadrant from "./triangleQuadrant.js";
+import {maxX, maxY, minX, minY, startX, startY} from "../graph.js";
 
 export default class Quadrant {
     constructor(xMul, yMul) {
@@ -36,21 +36,12 @@ export default class Quadrant {
     static get(x,y) {
         return Quadrant.quadrants[+(x>0)][+(y>0)];
     }
-    static update(x,y,name) {
-        Quadrant.quadrants[+(x>0)][+(y>0)] = Quadrant.getByName(x, y, name);
+    static update(quadrant) {
+        let x = quadrant.xMul > 0 ? 1 : 0;
+        let y = quadrant.yMul > 0 ? 1 : 0;
+        Quadrant.quadrants[x][y] = quadrant;
     }
-    static getByName(x,y,name) {
-        switch (name) {
-            case "triangle":
-                return new TriangleQuadrant(x,y);
-            case "square":
-                return new SquareQuadrant(x,y);
-            case "circle":
-                return new CircleQuadrant(x,y);
-            default:
-                return new Quadrant(x,y);
-        }
-    }
+
     static drawAll() {
         Quadrant.quadrants.forEach(element => {
             element.forEach(quadrant => {

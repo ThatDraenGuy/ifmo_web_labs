@@ -25,21 +25,10 @@
                 <tr>
                     <c:forEach var="i" begin="1" end="4">
                         <td class="updater-cell">
-                            <quadrant-chooser index="<c:out value="${i}"/>" quadrants="<%=quadrants%>" x-min="<c:choose>
-                                <c:when test="${i==1 || i==4}">
-                                    0
-                                </c:when>
-                                <c:otherwise>
-                                    -1
-                                </c:otherwise>
-                            </c:choose>" y-min="<c:choose>
-                                <c:when test="${i==1 || i==2}">
-                                    0
-                                </c:when>
-                                <c:otherwise>
-                                    -1
-                                </c:otherwise>
-                            </c:choose>"></quadrant-chooser>
+                            <quadrant-chooser index="<c:out value="${i}"/>" quadrants="<%=quadrants%>"
+                                              x-min="<c:choose><c:when test="${i==1 || i==4}">0</c:when><c:otherwise>-1</c:otherwise></c:choose>"
+                                              y-min="<c:choose><c:when test="${i==1 || i==2}">0</c:when><c:otherwise>-1</c:otherwise></c:choose>">
+                            </quadrant-chooser>
                         </td>
                     </c:forEach>
                 </tr>

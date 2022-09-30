@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
 <%@ page import="info.AttemptInfo" %>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.Reader" %>
@@ -31,6 +32,7 @@
     } catch (Exception e) {
         attemptInfo = AttemptInfo.empty();
     }
+    pageContext.setAttribute("scream", attemptInfo.res() ? "HIT!" : "MISS!");
 
     ReactionsInfo reactionsInfo;
     try {
@@ -41,6 +43,8 @@
     } catch (Exception e) {
         reactionsInfo = ReactionsInfo.empty();
     }
+    pageContext.setAttribute("reaction", attemptInfo.res() ? reactionsInfo.randomHit() : reactionsInfo.randomMiss());
+    pageContext.setAttribute("historyTable", historyToTable(historyManager.get()));
 %>
 <%! public String historyToTable(List<AttemptInfo> history) {
     StringBuilder builder = new StringBuilder();
@@ -63,7 +67,8 @@
     <tr class="header">
         <td>
             <div class="result-scream-cell">
-                <%= attemptInfo.res() ? "HIT!" : "MISS!"%>
+                <c:out value="${scream}"/>
+<%--                <%= attemptInfo.res() ? "HIT!" : "MISS!"%>--%>
             </div>
         </td>
         <td class="history-header-cell">
@@ -85,7 +90,8 @@
     </tr>
     <tr class="content">
         <td class="result-reaction-cell">
-            <%= attemptInfo.res() ? reactionsInfo.randomHit() : reactionsInfo.randomMiss()%>
+            <c:out value="${reaction}" escapeXml="false"/>
+<%--            <%= attemptInfo.res() ? reactionsInfo.randomHit() : reactionsInfo.randomMiss()%>--%>
         </td>
         <td class="history-table-cell">
             <div id="history">
@@ -99,7 +105,8 @@
                         <td class="header-history-cell">Execution time</td>
                         <td class="header-history-cell">Attempt time</td>
                     </tr>
-                    <%= historyToTable(historyManager.get())%>
+                    <c:out value="${historyTable}" escapeXml="false"/>
+<%--                    <%= historyToTable(historyManager.get())%>--%>
                 </table>
             </div>
         </td>

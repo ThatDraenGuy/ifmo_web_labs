@@ -1,5 +1,8 @@
 import {sendShootingReq} from "./utils.js";
 import Quadrant from "./graph/quadrant.js";
+import TriangleQuadrant from "./graph/triangleQuadrant.js";
+import SquareQuadrant from "./graph/squareQuadrant.js";
+import CircleQuadrant from "./graph/circleQuadrant.js";
 
 const canvas = document.getElementById('graph');
 export const ctx = canvas.getContext('2d');
@@ -213,7 +216,21 @@ function paramsUpdated(shouldShoot) {
     }
 }
 export function updateQuadrant(name, x, y) {
-    Quadrant.update(x,y,name);
+    let quadrant;
+        switch (name) {
+            case "triangle":
+                quadrant = new TriangleQuadrant(x,y);
+                break;
+            case "square":
+                quadrant = new SquareQuadrant(x,y);
+                break;
+            case "circle":
+                quadrant = new CircleQuadrant(x,y);
+                break;
+            default:
+                quadrant = new Quadrant(x,y);
+        }
+    Quadrant.update(quadrant);
 }
 export function setOldPoints(points) {
     oldPoints.length = 0;
