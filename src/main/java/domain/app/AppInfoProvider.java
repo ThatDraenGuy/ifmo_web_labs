@@ -1,4 +1,4 @@
-package info.app;
+package domain.app;
 
 public interface AppInfoProvider {
     AppInfo get();

@@ -1,7 +1,7 @@
 package servlets;
 
-import info.app.AppInfo;
-import info.AttemptInfo;
+import domain.app.AppInfo;
+import domain.AttemptInfo;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import storage.HistoryManager;

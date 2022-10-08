@@ -1,9 +1,9 @@
 package servlets;
 
-import info.app.AppInfo;
-import info.AttemptInfo;
-import info.app.AppInfoProvider;
-import info.app.ConfigAppInfoProvider;
+import domain.app.AppInfo;
+import domain.AttemptInfo;
+import domain.app.AppInfoProvider;
+import domain.app.ConfigAppInfoProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;

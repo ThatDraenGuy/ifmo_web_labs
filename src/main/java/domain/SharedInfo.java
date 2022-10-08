@@ -1,10 +1,10 @@
-package info;
+package domain;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import constraints.Constraint;
 import coordinates.Quadrant;
-import info.app.AppInfo;
+import domain.app.AppInfo;
 import storage.HistoryManager;
 
 import java.util.ArrayList;

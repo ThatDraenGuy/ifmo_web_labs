@@ -8,7 +8,7 @@
     <link href="${pageContext.request.contextPath}/static/style/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/style/content.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/style/header.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    <script src="https://cdn.jsdelivr.net/npm/superagent@8.0.0"></script>
     <script type="module" src="${pageContext.request.contextPath}/static/script/formHandler.js"></script>
     <script type="module" src="${pageContext.request.contextPath}/static/script/connector.js"></script>
     <script type="module" src="${pageContext.request.contextPath}/static/script/utils.js"></script>

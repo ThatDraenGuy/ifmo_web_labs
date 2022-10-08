@@ -1,4 +1,4 @@
-package info;
+package domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import coordinates.Quadrant;

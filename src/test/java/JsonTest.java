@@ -1,12 +1,11 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constraints.Constraint;
-import constraints.Options;
 import constraints.RadioOptions;
 import constraints.Range;
 import coordinates.*;
-import info.*;
-import info.app.AppInfo;
+import domain.*;
+import domain.app.AppInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

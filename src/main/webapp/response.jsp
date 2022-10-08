@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
-<%@ page import="info.AttemptInfo" %>
+<%@ page import="domain.AttemptInfo" %>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.Reader" %>
 <%@ page import="java.io.InputStreamReader" %>
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-<%@ page import="info.ReactionsInfo" %>
+<%@ page import="domain.ReactionsInfo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="storage.HistoryManager" %>
 <%@ page contentType="text/html;charset=UTF-8"%>

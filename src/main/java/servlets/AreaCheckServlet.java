@@ -1,7 +1,7 @@
 package servlets;
 
 import exceptions.ValueException;
-import info.AttemptInfo;
+import domain.AttemptInfo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
