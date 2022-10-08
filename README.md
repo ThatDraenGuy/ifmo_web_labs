@@ -1,10 +1,10 @@
 # Лабы по вебу (ИТМО, сем 3) #
 ## чего? вставить нормальное описание? ##
 
-<img src="src/main/resources/img/README/who.gif" alt="who " height="300"/><img src="src/main/resources/img/README/cares.gif" alt="cares" height="300"/>
+<img src="readme/img/who.gif" alt="who " height="300"/><img src="readme/img/cares.gif" alt="cares" height="300"/>
 
 ## лови лучше крысу ##
-<img src="src/main/resources/img/README/rat.gif" alt="who " height="300"/>
+<img src="readme/img/rat.gif" alt="who " height="300"/>
 
 ---------------------------------------
 
@@ -13,11 +13,11 @@
 
 ## Check out this site live: (IN PROGRESS) ##
 
-<img src="src/main/resources/img/README/crying-emoji-dies.gif" alt="cry about it" width="50">
+<img src="readme/img/crying-emoji-dies.gif" alt="cry about it" width="50">
 
 ## Вариант: 6663127 ##
 
-![Task graph](src/main/resources/img/README/areas.png)
+![Task graph](readme/img/areas.png)
 
 
 Разработать веб-приложение на базе сервлетов и JSP, определяющее попадание точки на координатной плоскости в заданную область.
@@ -69,4 +69,4 @@
 14. Архитектура веб-приложений. Шаблон MVC. Архитектурные модели Model 1 и Model 2 и их реализация на платформе Java EE.
 
 
-<img src="src/main/resources/img/README/oh-the-misery.gif" style="display: block; margin-left: auto; margin-right: auto; width: 30%;">
+<img src="readme/img/oh-the-misery.gif" style="display: block; margin-left: auto; margin-right: auto; width: 30%;">
