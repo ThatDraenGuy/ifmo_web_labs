@@ -1,12 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
-<%@ page import="domain.AttemptInfo" %>
-<%@ page import="java.io.InputStream" %>
-<%@ page import="java.io.Reader" %>
-<%@ page import="java.io.InputStreamReader" %>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-<%@ page import="domain.ReactionsInfo" %>
-<%@ page import="java.util.List" %>
-<%@ page import="storage.HistoryManager" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
@@ -16,45 +8,6 @@
     <script type="module" src="${pageContext.request.contextPath}/static/script/utils.js"></script>
     <title>Response</title>
 </head>
-<%
-    @SuppressWarnings({"unchecked"})
-    HistoryManager<AttemptInfo> historyManager = (HistoryManager<AttemptInfo>) request.getSession().getAttribute(HistoryManager.NAME);
-
-    AttemptInfo attemptInfo;
-    try {
-        if (request.getSession().getAttribute("isInfoNew")!=null) {
-            attemptInfo = (AttemptInfo) request.getSession().getAttribute("attemptInfo");
-            historyManager.put(attemptInfo);
-            request.getSession().removeAttribute("isInfoNew");
-        } else {
-            attemptInfo = historyManager.get().get(historyManager.get().size()-1);
-        }
-    } catch (Exception e) {
-        attemptInfo = AttemptInfo.empty();
-    }
-    pageContext.setAttribute("scream", attemptInfo.res() ? "HIT!" : "MISS!");
-
-    ReactionsInfo reactionsInfo;
-    try {
-        InputStream inputStream = application.getResourceAsStream("/static/reactions.json");
-        Reader reader = new InputStreamReader(inputStream);
-        ObjectMapper mapper = new ObjectMapper();
-        reactionsInfo = mapper.readValue(reader, ReactionsInfo.class);
-    } catch (Exception e) {
-        reactionsInfo = ReactionsInfo.empty();
-    }
-    pageContext.setAttribute("reaction", attemptInfo.res() ? reactionsInfo.randomHit() : reactionsInfo.randomMiss());
-    pageContext.setAttribute("historyTable", historyToTable(historyManager.get()));
-%>
-<%! public String historyToTable(List<AttemptInfo> history) {
-    StringBuilder builder = new StringBuilder();
-    int i = 1;
-    for (AttemptInfo attemptInfo : history) {
-        attemptInfo.toHtmlRow(builder, i);
-        i++;
-    }
-    return builder.toString();
-}%>
 <body>
 <form action="${pageContext.request.contextPath}">
     <input type="submit" value="RETURN" class="clear-history-button"/>
@@ -67,8 +20,7 @@
     <tr class="header">
         <td>
             <div class="result-scream-cell">
-                <c:out value="${scream}"/>
-<%--                <%= attemptInfo.res() ? "HIT!" : "MISS!"%>--%>
+                <c:out value="${requestScope.scream}"/>
             </div>
         </td>
         <td class="history-header-cell">
@@ -90,8 +42,7 @@
     </tr>
     <tr class="content">
         <td class="result-reaction-cell">
-            <c:out value="${reaction}" escapeXml="false"/>
-<%--            <%= attemptInfo.res() ? reactionsInfo.randomHit() : reactionsInfo.randomMiss()%>--%>
+            <c:out value="${requestScope.reaction}" escapeXml="false"/>
         </td>
         <td class="history-table-cell">
             <div id="history">
@@ -105,8 +56,7 @@
                         <td class="header-history-cell">Execution time</td>
                         <td class="header-history-cell">Attempt time</td>
                     </tr>
-                    <c:out value="${historyTable}" escapeXml="false"/>
-<%--                    <%= historyToTable(historyManager.get())%>--%>
+                    <c:out value="${requestScope.historyTable}" escapeXml="false"/>
                 </table>
             </div>
         </td>
