@@ -1,17 +1,10 @@
-// import superagent from 'superagent';
-import { setOldPoints } from "./graph.js";
-import {getData} from "./connector.js";
+// import { setOldPoints } from "./graph.js";
+// import {getData} from "./connector.js";
 
 
-// window.resizeIframe = resizeIframe;
 window.clearHistory = clearHistory;
 window.showHeader = showHeader;
-// export function resizeIframe(iframe) {
-//     iframe.style.height = '300px';
-//     iframe.style.height = iframe.contentWindow.document.body.scrollHeight+20 + 'px';
-//     iframe.contentWindow.clearHistory = clearHistory;
-//     iframe.parentElement.hidden = false;
-// }
+
 
 // yes, it would be better to use GET not POST in a bunch of situations, but the task said POST
 export function ajax(formData, successFunc, errorFunc = ajaxProblem) {
@@ -37,7 +30,7 @@ function clearHistory() {
         let resFrame = document.getElementById('result').contentWindow.document;
         let history = resFrame.getElementById('history');
         history.remove();
-        setOldPoints([]);
+        // setOldPoints([]);
     })
 }
 
@@ -59,16 +52,6 @@ export function sendShootingReq(x,y,r) {
     formData.append('shoot','true');
     ajax(formData, function(responseText, response) {
         console.log(responseText, window.location.pathname);
-        window.location.pathname = responseText
-        // let resFrame = document.getElementById('result');
-        // let res = resFrame.contentWindow.document;
-        // res.open();
-        // res.write(responseText);
-        // res.close();
-        // resizeIframe(resFrame);
+        window.location.pathname = responseText;
     })
-}
-
-export function reload() {
-    getData();
 }

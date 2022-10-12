@@ -1,4 +1,5 @@
-import {ajax, reload} from "./utils.js";
+import {ajax} from "./utils.js";
+import  {getData} from "./connector.js";
 
 window.submit = submit;
 const form = document.getElementById("updater-form");
@@ -24,7 +25,7 @@ function submit(e) {
 }
 
 function success() {
-    reload();
+    getData();
 }
 function error() {
     alert("Insufficient quadrant data!");

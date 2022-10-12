@@ -5,7 +5,8 @@
     <link href="${pageContext.request.contextPath}/static/style/response.css" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/img/favicon.ico">
-    <script type="module" src="${pageContext.request.contextPath}/static/script/utils.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/static/script/response.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/superagent@8.0.0"></script>
     <title>Response</title>
 </head>
 <body>
@@ -33,7 +34,7 @@
                     </td>
                     <td>
                         <div class="clear-history-button-cell">
-                            <button class="clear-history-button" type="button" onclick="clearHistory();">Clear</button>
+                            <button class="clear-history-button" type="button" id="clear-button">Clear</button>
                         </div>
                     </td>
                 </tr>
