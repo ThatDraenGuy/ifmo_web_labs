@@ -87,9 +87,7 @@
             <!-- dataUpdater -->
             <td>
                 <div class="updater blob">
-                    <jsp:include page="updater.jsp">
-                        <jsp:param name="" value=""/>
-                    </jsp:include>
+                    <jsp:include page="updater.jsp"/>
                 </div>
             </td>
             <!-- response -->
