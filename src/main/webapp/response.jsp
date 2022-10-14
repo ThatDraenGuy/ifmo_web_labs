@@ -1,4 +1,7 @@
+<%@ page import="java.time.Duration" %>
+<%@ page import="java.time.temporal.ChronoUnit" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<%@ taglib prefix = "olezha" uri = "/WEB-INF/printer.tld" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
@@ -59,6 +62,12 @@
                     </tr>
                     <c:out value="${requestScope.historyTable}" escapeXml="false"/>
                 </table>
+                <div class="history-cell">
+                    <p>
+                        Printer test:
+                    </p>
+                    <olezha:printer collection="${sessionScope.history}" duration="<%=Duration.of(700, ChronoUnit.MICROS)%>"/>
+                </div>
             </div>
         </td>
     </tr>

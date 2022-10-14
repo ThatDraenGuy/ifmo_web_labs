@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "public-id" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>printer</short-name>
+
+    <tag>
+        <name>printer</name>
+        <tag-class>tags.PrinterTag</tag-class>
+        <body-content>empty</body-content>
+
+        <attribute>
+            <name>collection</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.util.Collection</type>
+        </attribute>
+
+        <attribute>
+            <name>duration</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.time.Duration</type>
+        </attribute>
+    </tag>
+</taglib>

@@ -67,8 +67,8 @@ public record AttemptInfo(
                 ", r='" + r + '\'' +
                 ", res=" + res +
                 ", message='" + message + '\'' +
-                ", execTime=" + execTime +
-                ", currTime=" + currTime +
+                ", execTime=" + execTime.toNanos() + "ns" +
+                ", currTime=" + currTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")) +
                 '}';
     }
 }
