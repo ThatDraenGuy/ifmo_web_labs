@@ -8,19 +8,21 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite">
 <ui:component>
     <cc:interface>
-        <cc:attribute name="name"/>
+        <cc:attribute name="name" required="true"/>
     </cc:interface>
     <cc:implementation>
         <table>
             <tr>
                 <td>#{cc.attrs.name}:</td>
                 <td>
-                    <cc:insertChildren/>
+                    <div id="children">
+                        <cc:renderFacet name="input" required="true"/>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <span></span>
+                    <h:message for="#{cc.facets.get('input').id}:input"/>
                 </td>
             </tr>
         </table>

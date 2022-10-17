@@ -13,13 +13,19 @@
 <h:body>
     <h:form>
         <my:chooser name="X">
-            <my:commandLink variants="#{[-4,-3,-2,-1,0,1,2,3,4]}"/>
+            <f:facet name="input">
+                <my:commandLink variants="#{[-4,-3,-2,-1,0,1,2,3,4]}"/>
+            </f:facet>
         </my:chooser>
         <my:chooser name="Y">
-            <my:inputText min="-3" max="3"/>
+            <f:facet name="input">
+                <my:inputText min="-3" max="3"/>
+            </f:facet>
         </my:chooser>
         <my:chooser name="R">
-            <my:selectOneRadio variants="#{[1,2,3,4,5]}"/>
+            <f:facet name="input">
+                <my:selectOneRadio variants="#{[1,2,3,4,5]}"/>
+            </f:facet>
         </my:chooser>
     </h:form>
 </h:body>
