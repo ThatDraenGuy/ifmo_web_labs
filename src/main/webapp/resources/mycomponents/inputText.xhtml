@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+<ui:component>
+    <cc:interface>
+        <cc:attribute name="min"/>
+        <cc:attribute name="max"/>
+    </cc:interface>
+    <cc:implementation>
+        <h:inputText data-min="#{cc.attrs.min}" data-max="#{cc.attrs.max}" maxlength="6">
+            <f:validator validatorId="inputTextValidator"/>
+        </h:inputText>
+    </cc:implementation>
+</ui:component>
+</html>

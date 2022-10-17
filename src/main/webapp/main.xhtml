@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:my="http://xmlns.jcp.org/jsf/composite/mycomponents">
+<h:head>
+    <title>Lab3</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <my:chooser name="X">
+            <my:commandLink variants="#{[-4,-3,-2,-1,0,1,2,3,4]}"/>
+        </my:chooser>
+        <my:chooser name="Y">
+            <my:inputText min="-3" max="3"/>
+        </my:chooser>
+        <my:chooser name="R">
+            <my:selectOneRadio variants="#{[1,2,3,4,5]}"/>
+        </my:chooser>
+    </h:form>
+</h:body>
+
+</html>

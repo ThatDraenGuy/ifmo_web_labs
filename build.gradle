@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'draen'
-version '2.0'
+version '3.0'
 
 repositories {
     mavenCentral()
@@ -18,14 +18,19 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
     implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
-    compileOnly 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.0'
+    implementation 'jakarta.faces:jakarta.faces-api:4.0.1'
+    implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
+    implementation 'jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1'
+
+    implementation 'org.primefaces:primefaces:12.0.0:jakarta'
+
 
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.4'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.4'
     implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.4'
-    implementation 'org.jboss.spec.javax.servlet.jstl:jboss-jstl-api_1.2_spec:1.1.4.Final'
 
 }
 

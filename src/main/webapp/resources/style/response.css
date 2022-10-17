@@ -1,0 +1,87 @@
+body {
+    background-image: url('../../static/img/back.jpg');
+    background-repeat: repeat;
+}
+table.response-table {
+    width: 100%;
+}
+col.result {
+    width: 20%;
+}
+col.history {
+    width: 80%;
+}
+tr.header {
+    height: 70px;
+}
+tr.content {
+    height: fit-content;
+}
+
+.result-scream-cell {
+    text-align: center;
+    font-size: xx-large;
+    color: cyan;
+    background-color: blueviolet;
+    border-radius: 10px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+.history-header-cell {
+    padding: 0 0 0 0;
+}
+table.history-header-table {
+    width: 100%;
+    height: 100%;
+}
+table.history-header-table>tr>td {
+    height: 100%;
+}
+.history-table-name {
+    background-color: azure;
+    color: gray;
+    border-radius: 5px;
+    width: fit-content;
+    font-size: larger;
+}
+.clear-history-button-cell {
+    text-align: right;
+}
+.clear-history-button {
+    background-color: rgba(50, 50, 50, 0.9);
+    font-size: larger;
+    color: aqua;
+    border-radius: 10px;
+}
+
+.result-reaction-cell {
+    vertical-align: top;
+}
+.result-image {
+    width: 100%;
+}
+
+.history-table-cell {
+    vertical-align: top;
+}
+.history-table {
+    width: 100%;
+}
+[class*='history-cell'] {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: azure;
+    border-radius: 5px;
+}
+.header-history-cell {
+    text-align: center;
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 5px;
+}
+
+/* td,tr {
+    border: 1px solid white;
+    border-collapse: collapse;
+} */
