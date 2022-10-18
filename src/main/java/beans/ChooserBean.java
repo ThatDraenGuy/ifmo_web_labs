@@ -1,6 +1,7 @@
 package beans;
 
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,12 +12,8 @@ import java.io.Serializable;
 @SessionScoped
 public class ChooserBean implements Serializable {
     @Getter
-//    @Setter
+    @Setter
     private Double x;
-    public void setX(Double x) {
-        this.x=x;
-        System.out.println(x);
-    }
     @Getter
     @Setter
     private Double y;

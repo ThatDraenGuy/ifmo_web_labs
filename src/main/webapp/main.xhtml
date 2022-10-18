@@ -5,8 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:my="http://xmlns.jcp.org/jsf/composite/mycomponents">
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Lab3</title>
 </h:head>
@@ -14,26 +13,7 @@
 <h:outputStylesheet library="style" name="content.css"/>
 <h:body>
     <div class="blob coord-chooser">
-        <h:form>
-            <my:chooser name="X">
-                <f:facet name="input">
-                    <my:commandLink target="#{chooserBean.x}" variants="#{[-4,-3,-2,-1,0,1,2,3,4]}"/>
-                </f:facet>
-            </my:chooser>
-            <my:chooser name="Y">
-                <f:facet name="input">
-                    <my:inputText target="#{chooserBean.y}" min="-3" max="3"/>
-                </f:facet>
-            </my:chooser>
-            <my:chooser name="R">
-                <f:facet name="input">
-                    <my:selectOneRadio target="#{chooserBean.r}" variants="#{[1,2,3,4,5]}"/>
-                </f:facet>
-            </my:chooser>
-            <h:commandButton value="submit">
-                <p:ajax process="@form" update="@form" listener="#{chooserBean.show}"/>
-            </h:commandButton>
-        </h:form>
+        <ui:include src="templates/shooterForm.xhtml"/>
     </div>
 </h:body>
 

@@ -2,12 +2,16 @@
 div.coord-chooser {
     margin-left: auto;
     margin-right: 10px;
+    padding: 10px;
     /* width: 60%;
     height: 100%; */
 }
 
 #shoot-table {
     border-spacing: 5px;
+}
+.chooser-table {
+    width: 100%;
 }
 [class*='coord-cell'] {
     background-color: rgba(50, 50, 50, 0.9);
