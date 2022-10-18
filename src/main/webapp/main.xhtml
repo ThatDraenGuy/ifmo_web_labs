@@ -9,25 +9,28 @@
 <h:head>
     <title>Lab3</title>
 </h:head>
-
+<h:outputStylesheet library="style" name="main.css"/>
+<h:outputStylesheet library="style" name="content.css"/>
 <h:body>
-    <h:form>
-        <my:chooser name="X">
-            <f:facet name="input">
-                <my:commandLink variants="#{[-4,-3,-2,-1,0,1,2,3,4]}"/>
-            </f:facet>
-        </my:chooser>
-        <my:chooser name="Y">
-            <f:facet name="input">
-                <my:inputText min="-3" max="3"/>
-            </f:facet>
-        </my:chooser>
-        <my:chooser name="R">
-            <f:facet name="input">
-                <my:selectOneRadio variants="#{[1,2,3,4,5]}"/>
-            </f:facet>
-        </my:chooser>
-    </h:form>
+    <div class="blob coord-chooser">
+        <h:form>
+            <my:chooser name="X">
+                <f:facet name="input">
+                    <my:commandLink variants="#{[-4,-3,-2,-1,0,1,2,3,4]}"/>
+                </f:facet>
+            </my:chooser>
+            <my:chooser name="Y">
+                <f:facet name="input">
+                    <my:inputText min="-3" max="3"/>
+                </f:facet>
+            </my:chooser>
+            <my:chooser name="R">
+                <f:facet name="input">
+                    <my:selectOneRadio variants="#{[1,2,3,4,5]}"/>
+                </f:facet>
+            </my:chooser>
+        </h:form>
+    </div>
 </h:body>
 
 </html>

@@ -13,7 +13,7 @@
     </cc:interface>
     <cc:implementation>
         <ui:repeat value="#{cc.attrs.variants}" var="variant">
-            <h:commandLink value="#{variant}"/>
+            <h:commandLink value="#{variant}" styleClass="link-input"/>
             <h:outputText value=" "/>
         </ui:repeat>
     </cc:implementation>

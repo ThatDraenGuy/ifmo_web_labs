@@ -25,7 +25,7 @@ public class InputTextValidator implements Validator<String>, Serializable {
             double minNum = Double.parseDouble(min.toString());
             double valNum = Double.parseDouble(value);
             if (valNum > maxNum || valNum < minNum) {
-                FacesMessage message = new FacesMessage("value should be between "+minNum+" and "+maxNum+"!");
+                FacesMessage message = new FacesMessage("value should be from "+minNum+" to "+maxNum+"!");
                 throw new ValidatorException(message);
             }
         } catch (NumberFormatException e) {

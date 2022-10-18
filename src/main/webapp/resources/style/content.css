@@ -35,6 +35,11 @@ tr.message-row>td {
     font-family: sans-serif;
     color: darkmagenta;
 }
+.link-input {
+    color: aqua;
+    margin-left: 5px;
+    margin-right: 5px;
+}
 .text-input {
     background-color: azure;
     border-color: rgba(50, 50, 50, 0.9);
@@ -42,11 +47,11 @@ tr.message-row>td {
 .text-input::placeholder {
     font-style: italic;
 }
-.radio-input {
-    margin-right: 10px;
+.radio-input input[type=radio]{
+    margin-left: 10px;
 }
 /* custom radio-input */
-.radio-input:after {
+.radio-input input[type=radio]:after {
     width: 10px;
     height: 10px;
     border-radius: 10px;
@@ -59,7 +64,7 @@ tr.message-row>td {
     border: 2px solid white;
 }
 
-.radio-input:checked:after {
+.radio-input input[type=radio]:checked:after {
     width: 10px;
     height: 10px;
     border-radius: 10px;

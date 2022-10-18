@@ -13,18 +13,18 @@
     </cc:interface>
     <cc:implementation>
         <table>
-            <tr>
-                <td>#{cc.attrs.name}:</td>
-                <td>
+            <tr class="shoot-row">
+                <td class="name-coord-cell">#{cc.attrs.name}:</td>
+                <td class="choise-coord-cell">
                     <div id="children">
                         <cc:renderFacet name="input" required="true">
                         </cc:renderFacet>
                     </div>
                 </td>
             </tr>
-            <tr>
+            <tr class="message-row">
                 <td colspan="2">
-                    <h:message id="message" for="#{cc.facets.get('input').id}:input"/>
+                    <h:message id="message" for="#{cc.facets.get('input').id}:input" styleClass="input-message message-coord-cell"/>
                 </td>
             </tr>
         </table>

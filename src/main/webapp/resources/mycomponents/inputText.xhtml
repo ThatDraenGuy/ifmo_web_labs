@@ -14,7 +14,7 @@
         <cc:editableValueHolder name="input" targets="input"/>
     </cc:interface>
     <cc:implementation>
-        <h:inputText id="input" maxlength="6">
+        <h:inputText id="input" maxlength="6" required="true" requiredMessage="is required!" styleClass="text-input">
             <f:validator validatorId="inputTextValidator"/>
             <f:attribute name="min" value="#{cc.attrs.min}"/>
             <f:attribute name="max" value="#{cc.attrs.max}"/>
