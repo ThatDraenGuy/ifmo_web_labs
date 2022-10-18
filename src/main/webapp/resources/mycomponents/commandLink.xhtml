@@ -6,16 +6,25 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
 >
 <ui:component>
     <cc:interface>
+        <cc:attribute name="target" required="true"/>
         <cc:attribute name="variants" required="true"/>
+        <cc:editableValueHolder name="input"/>
     </cc:interface>
     <cc:implementation>
-        <ui:repeat value="#{cc.attrs.variants}" var="variant">
-            <h:commandLink value="#{variant}" styleClass="link-input"/>
-            <h:outputText value=" "/>
-        </ui:repeat>
+        <h:inputHidden id="input" required="true" value="#{cc.attrs.target}" requiredMessage="is required!"/>
+        <div id="variants">
+            <ui:repeat value="#{cc.attrs.variants}" var="variant">
+                <h:commandLink value="#{variant}" styleClass="link-input #{cc.attrs.target==variant ? 'link-input-chosen' : ''}" immediate="true">
+                    <p:ajax update="@form"/>
+                    <f:setPropertyActionListener value="#{variant}" target="#{cc.attrs.target}"/>
+                </h:commandLink>
+                <h:outputText value=" "/>
+            </ui:repeat>
+        </div>
     </cc:implementation>
 </ui:component>
 </html>

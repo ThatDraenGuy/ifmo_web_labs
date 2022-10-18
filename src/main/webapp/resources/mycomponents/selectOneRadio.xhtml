@@ -9,11 +9,12 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <ui:component>
     <cc:interface>
-        <cc:attribute name="variants"/>
+        <cc:attribute name="target" required="true"/>
+        <cc:attribute name="variants" required="true"/>
         <cc:editableValueHolder name="input"/>
     </cc:interface>
     <cc:implementation>
-        <h:selectOneRadio id="input" required="true" requiredMessage="is required!" styleClass="radio-input">
+        <h:selectOneRadio id="input" required="true" requiredMessage="is required!" styleClass="radio-input" value="#{cc.attrs.target}">
             <f:ajax render="message"/>
             <c:forEach items="#{cc.attrs.variants}" var="variant">
                 <f:selectItem itemLabel="#{variant}" itemValue="#{variant}"/>

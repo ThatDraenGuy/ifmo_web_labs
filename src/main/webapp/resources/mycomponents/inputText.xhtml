@@ -9,16 +9,18 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:component>
     <cc:interface>
+        <cc:attribute name="target" required="true"/>
         <cc:attribute name="min" type="java.lang.Double"/>
         <cc:attribute name="max" type="java.lang.Double"/>
         <cc:editableValueHolder name="input" targets="input"/>
     </cc:interface>
     <cc:implementation>
-        <h:inputText id="input" maxlength="6" required="true" requiredMessage="is required!" styleClass="text-input">
+        <h:inputText id="input" maxlength="6" required="true" requiredMessage="is required!" styleClass="text-input" value="#{cc.attrs.target}">
             <f:validator validatorId="inputTextValidator"/>
             <f:attribute name="min" value="#{cc.attrs.min}"/>
             <f:attribute name="max" value="#{cc.attrs.max}"/>
             <f:ajax event="keyup" execute="@this" render="message"/>
+            <p:ajax update="@this"/>
         </h:inputText>
         <p:watermark value="-3 to 3" for="input"/>
     </cc:implementation>

@@ -11,16 +11,17 @@ import java.util.Map;
 
 
 @FacesValidator(value="inputTextValidator")
-public class InputTextValidator implements Validator<String> {
+public class InputTextValidator implements Validator<Double> {
     @Override
-    public void validate(FacesContext context, UIComponent component, String value) throws ValidatorException {
+    public void validate(FacesContext context, UIComponent component, Double value) throws ValidatorException {
         Map<String,Object> attributes = component.getAttributes();
         Object min = attributes.get("min");
         Object max = attributes.get("max");
         try {
             double maxNum = Double.parseDouble(max.toString());
             double minNum = Double.parseDouble(min.toString());
-            double valNum = Double.parseDouble(value);
+//            double valNum = Double.parseDouble(value);
+            double valNum = value;
             if (valNum > maxNum || valNum < minNum) {
                 FacesMessage message = new FacesMessage("value should be from "+minNum+" to "+maxNum+"!");
                 throw new ValidatorException(message);
