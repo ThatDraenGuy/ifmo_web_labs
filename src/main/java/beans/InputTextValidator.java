@@ -11,16 +11,26 @@ import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.util.Map;
-
-
+@Named("test")
+@SessionScoped
 @FacesValidator(value="inputTextValidator")
 public class InputTextValidator implements Validator<String>, Serializable {
     @Override
     public void validate(FacesContext context, UIComponent component, String value) throws ValidatorException {
-        System.out.println("fire");
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-        System.out.println(params.get("min"));
-        FacesMessage message = new FacesMessage("bruh");
-        throw new ValidatorException(message);
+        Map<String,Object> attributes = component.getAttributes();
+        Object min = attributes.get("min");
+        Object max = attributes.get("max");
+        try {
+            double maxNum = Double.parseDouble(max.toString());
+            double minNum = Double.parseDouble(min.toString());
+            double valNum = Double.parseDouble(value);
+            if (valNum > maxNum || valNum < minNum) {
+                FacesMessage message = new FacesMessage("value should be between "+minNum+" and "+maxNum+"!");
+                throw new ValidatorException(message);
+            }
+        } catch (NumberFormatException e) {
+            FacesMessage message = new FacesMessage("value should be a number");
+            throw new ValidatorException(message);
+        }
     }
 }

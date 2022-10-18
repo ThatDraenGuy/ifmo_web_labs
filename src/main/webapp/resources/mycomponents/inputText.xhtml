@@ -5,17 +5,22 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
 <ui:component>
     <cc:interface>
-        <cc:attribute name="min"/>
-        <cc:attribute name="max"/>
+        <cc:attribute name="min" type="java.lang.Double"/>
+        <cc:attribute name="max" type="java.lang.Double"/>
         <cc:editableValueHolder name="input" targets="input"/>
     </cc:interface>
     <cc:implementation>
-        <h:inputText id="input" data-min="#{cc.attrs.min}" data-max="#{cc.attrs.max}" maxlength="6">
+        <h:inputText id="input" maxlength="6">
             <f:validator validatorId="inputTextValidator"/>
+            <f:attribute name="min" value="#{cc.attrs.min}"/>
+            <f:attribute name="max" value="#{cc.attrs.max}"/>
+            <f:ajax event="keyup" execute="@this" render="message"/>
         </h:inputText>
+        <p:watermark value="-3 to 3" for="input"/>
     </cc:implementation>
 </ui:component>
 </html>
