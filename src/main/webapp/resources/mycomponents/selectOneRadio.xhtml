@@ -14,6 +14,7 @@
     </cc:interface>
     <cc:implementation>
         <h:selectOneRadio id="input" required="true" requiredMessage="is required!" styleClass="radio-input">
+            <f:ajax render="message"/>
             <c:forEach items="#{cc.attrs.variants}" var="variant">
                 <f:selectItem itemLabel="#{variant}" itemValue="#{variant}"/>
             </c:forEach>

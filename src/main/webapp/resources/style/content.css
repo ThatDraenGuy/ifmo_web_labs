@@ -48,7 +48,10 @@ tr.message-row>td {
     font-style: italic;
 }
 .radio-input input[type=radio]{
-    margin-left: 10px;
+    margin-left: 5px;
+}
+.radio-input label {
+    margin-right: 5px;
 }
 /* custom radio-input */
 .radio-input input[type=radio]:after {
