@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+<ui:component xmlns="http://www.w3.org/2000/svg">
+    <cc:interface>
+        <cc:attribute name="begin" required="true"/>
+        <cc:attribute name="center" required="true"/>
+        <cc:attribute name="end" required="true"/>
+        <cc:attribute name="color"/>
+    </cc:interface>
+    <cc:implementation>
+        <!--xAxis-->
+        <line
+                x1="#{cc.attrs.begin}" y1="#{cc.attrs.center}"
+                x2="#{cc.attrs.end}" y2="#{cc.attrs.center}"
+                stroke="#{cc.attrs.color}"/>
+        <!--yAxis-->
+        <line
+                x1="#{cc.attrs.center}" y1="#{cc.attrs.end}"
+                x2="#{cc.attrs.center}" y2="#{cc.attrs.begin}"
+                stroke="#{cc.attrs.color}"/>
+        <!--xAxis arrow-->
+        <path d="
+        m #{cc.attrs.end} #{cc.attrs.center}
+        l -16 -8
+        m 16 8
+        l -16 8"
+              stroke="#{cc.attrs.color}"/>
+        <!--yAxis arrow-->
+        <path d="
+        m #{cc.attrs.center} #{cc.attrs.begin}
+        l -8 16
+        m 8 -16
+        l 8 16"
+              stroke="#{cc.attrs.color}"/>
+    </cc:implementation>
+</ui:component>
+</html>
