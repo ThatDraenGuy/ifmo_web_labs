@@ -12,9 +12,48 @@
 <h:outputStylesheet library="style" name="main.css"/>
 <h:outputStylesheet library="style" name="content.css"/>
 <h:body>
-    <div class="blob coord-chooser">
-        <ui:include src="templates/shooterForm.xhtml"/>
-    </div>
+    <table class="main-table">
+        <colgroup>
+            <col class="left"/>
+            <col class="middle"/>
+            <col class="right"/>
+        </colgroup>
+        <tr class="header-row">
+            <td class="empty"/>
+            <td class="graph-cell" rowspan="2">
+                <div class="blob graph">
+
+                </div>
+            </td>
+            <td class="header-button-cell">
+                <div class="header-button-blob">
+                    <h:form id="form">
+                        <h:commandButton styleClass="hidden-header-button" id="header-button" action="#{navigationController.goToIndex}"/>
+                        <label class="header-button" for="form:header-button">
+                            <img class="header-button-img" src="resources/img/giphy.gif" alt=""/>
+                            <img class="arrow-button-img" src="resources/img/arrow.png" alt="click"/>
+                        </label>
+                    </h:form>
+                </div>
+            </td>
+        </tr>
+        <tr class="content-row">
+            <td class="coord-choosing-cell">
+                <div class="blob coord-chooser">
+                    <ui:include src="templates/shooterForm.xhtml"/>
+                </div>
+            </td>
+            <td class="header-cell">
+                <div class="blob header header-active" id="header">
+                    <ui:include src="templates/header.xhtml"/>
+                </div>
+            </td>
+        </tr>
+        <tr class="content-row">
+
+        </tr>
+    </table>
+
 </h:body>
 
 </html>

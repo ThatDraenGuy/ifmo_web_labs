@@ -8,4 +8,5 @@ import java.io.Serializable;
 @RequestScoped
 public class NavigationController implements Serializable {
     public String goToMain() {return "";}
+    public String goToIndex() {return "";}
 }

@@ -30,12 +30,12 @@ div.header-button-blob {
     width: 80px;
     height: 80px;
     position: absolute;
-    left: 15px; 
-    top:  15px;
+    left: 10px;
+    top:  5px;
     transition: transform 1s;
 }
 
-#header-button:checked + label > img.arrow-button-img {
+.hidden-header-button:checked + label > img.arrow-button-img {
     transform: rotate(180deg);
 }
 
