@@ -12,6 +12,7 @@
         <cc:attribute name="target" required="true"/>
         <cc:attribute name="min" type="java.lang.Double"/>
         <cc:attribute name="max" type="java.lang.Double"/>
+        <cc:attribute name="listener"/>
         <cc:editableValueHolder name="input" targets="input"/>
     </cc:interface>
     <cc:implementation>
@@ -20,7 +21,7 @@
             <f:attribute name="min" value="#{cc.attrs.min}"/>
             <f:attribute name="max" value="#{cc.attrs.max}"/>
             <f:ajax event="keyup" execute="@this" render="message"/>
-            <p:ajax update="@this"/>
+            <p:ajax update="@this #{cc.attrs.listener}"/>
         </h:inputText>
         <p:watermark value="-3 to 3" for="input"/>
     </cc:implementation>

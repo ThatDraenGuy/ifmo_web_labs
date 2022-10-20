@@ -21,11 +21,11 @@
         </ch:chooser>
         <ch:chooser name="R">
             <f:facet name="input">
-                <ch:selectOneRadio target="#{chooserBean.r}" variants="#{[1,2,3,4,5]}"/>
+                <ch:selectOneRadio target="#{chooserBean.r}" listener="#{rListener}" variants="#{[1,2,3,4,5]}"/>
             </f:facet>
         </ch:chooser>
         <h:commandButton value="submit" styleClass="shoot-button">
-            <p:ajax process="@form" update="@form" listener="#{graphBean.stuff()}"/>
+            <p:ajax process="@form" update="@form #{listener}" listener="#{graphBean.stuff()}"/>
         </h:commandButton>
     </h:form>
 </ui:composition>

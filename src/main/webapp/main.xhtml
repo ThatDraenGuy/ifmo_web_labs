@@ -21,9 +21,9 @@
         <tr class="header-row">
             <td class="empty"/>
             <td class="graph-cell" rowspan="2">
-                <div class="blob graph">
+                <h:panelGroup layout="block" id="graph-wrapper" class="blob graph">
                     <ui:include src="templates/graph.xhtml"/>
-                </div>
+                </h:panelGroup>
             </td>
             <td class="header-button-cell">
                 <div class="header-button-blob">
@@ -40,7 +40,9 @@
         <tr class="content-row">
             <td class="coord-choosing-cell">
                 <div class="blob coord-chooser">
-                    <ui:include src="templates/shooterForm.xhtml"/>
+                    <ui:include src="templates/shooterForm.xhtml">
+                        <ui:param name="rListener" value=":graph-wrapper"/>
+                    </ui:include>
                 </div>
             </td>
             <td class="header-cell">

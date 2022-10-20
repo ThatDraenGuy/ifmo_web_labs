@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">>
+<ui:component xmlns="http://www.w3.org/2000/svg">
+    <cc:interface>
+        <cc:attribute name="base" required="true"/>
+        <cc:attribute name="center" required="true"/>
+        <cc:attribute name="color"/>
+    </cc:interface>
+    <cc:implementation>
+        <ui:repeat value="#{[-1,-1/2,0,1/2,1]}" var="i">
+            <circle r="4" cx="#{cc.attrs.center + cc.attrs.base * i}" cy="#{cc.attrs.center}" color="#{cc.attrs.color}"/>
+            <circle r="4" cx="#{cc.attrs.center}" cy="#{cc.attrs.center - cc.attrs.base * i}" color="#{cc.attrs.color}"/>
+
+            <c:if test="#{chooserBean.r!=null}">
+                <text x="#{cc.attrs.center + cc.attrs.base * i}" y="#{cc.attrs.center+24}" text-anchor="middle">
+                    #{i!=0 ? chooserBean.r * i : ''}
+                </text>
+
+                <text x="#{cc.attrs.center - 16}" y="#{cc.attrs.center - cc.attrs.base * i}" text-anchor="end" alignment-baseline="middle">
+                    #{i!=0 ? chooserBean.r * i : ''}
+                </text>
+            </c:if>
+        </ui:repeat>
+    </cc:implementation>
+</ui:component>
+</html>

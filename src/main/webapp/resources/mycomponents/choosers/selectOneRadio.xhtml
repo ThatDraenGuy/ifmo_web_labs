@@ -6,16 +6,18 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 <ui:component>
     <cc:interface>
         <cc:attribute name="target" required="true"/>
         <cc:attribute name="variants" required="true"/>
+        <cc:attribute name="listener"/>
         <cc:editableValueHolder name="input"/>
     </cc:interface>
     <cc:implementation>
         <h:selectOneRadio id="input" required="true" requiredMessage="is required!" styleClass="radio-input" value="#{cc.attrs.target}">
-            <f:ajax render="message"/>
+            <f:ajax render="message #{cc.attrs.listener}"/>
             <c:forEach items="#{cc.attrs.variants}" var="variant">
                 <f:selectItem itemLabel="#{variant}" itemValue="#{variant}"/>
             </c:forEach>
