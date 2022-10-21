@@ -21,9 +21,11 @@
             <c:forEach items="#{quadrantsBean.quadrants}" var="quadrant">
                 <my:quadrant quadrant="#{quadrant}" center="#{center}" base="#{base}" color="#{cc.attrs.graphColor}"/>
             </c:forEach>
-<!--            <my:rectangle xMul="-1" yMul="-1" center="#{center}" base="#{base}" color="#{cc.attrs.graphColor}"/>-->
-<!--            <my:triangle xMul="-1" yMul="1" center="#{center}" base="#{base}" color="#{cc.attrs.graphColor}"/>-->
-<!--            <my:circle mul="1" xSign="1" ySign="1" center="#{center}" base="#{base}" color="#{cc.attrs.graphColor}"/>-->
+
+            <ui:repeat value="#{historyBean.attempts}" var="attempt">
+                <my:point attempt="#{attempt}" center="#{center}" base="#{base}"/>
+            </ui:repeat>
+
             <my:axis begin="0" center="#{center}" end="#{cc.attrs.graphSize}" color="#{cc.attrs.axisColor}"/>
             <my:labels base="#{base}" center="#{center}" color="#{cc.attrs.axisColor}"/>
         </svg>

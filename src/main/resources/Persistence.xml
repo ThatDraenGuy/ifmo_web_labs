@@ -1,0 +1,14 @@
+<persistence>
+    <persistence-unit name="AttemptInfo">
+
+        <class>domain.AttemptInfo</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:orbis"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+        </properties>
+
+    </persistence-unit>
+</persistence>

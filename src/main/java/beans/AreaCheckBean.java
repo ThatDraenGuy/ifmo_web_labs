@@ -1,5 +1,6 @@
 package beans;
 
+import domain.AttemptInfo;
 import domain.quadrants.Quadrant;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
@@ -14,15 +15,12 @@ public class AreaCheckBean implements Serializable {
     ChooserBean chooserBean;
     @Inject
     QuadrantsBean quadrantsBean;
+    @Inject
+    HistoryBean historyBean;
 
     public void shoot() {
-        for (Quadrant quadrant : quadrantsBean.getQuadrants()) {
-            boolean res = quadrant.checkHit(chooserBean.getX(), chooserBean.getY(), chooserBean.getR());
-            if (res) {
-                System.out.println("hit!");
-                return;
-            }
-        }
-        System.out.println("miss!");
+        AttemptInfo attemptInfo = quadrantsBean.doCheck(chooserBean.getX(),chooserBean.getY(),chooserBean.getR());
+        historyBean.add(attemptInfo);
     }
+
 }

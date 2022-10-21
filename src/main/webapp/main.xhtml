@@ -21,18 +21,18 @@
         <tr class="header-row">
             <td class="empty"/>
             <td class="graph-cell" rowspan="2">
-                <h:panelGroup layout="block" id="graph-wrapper" class="blob graph">
+                <p:outputPanel layout="block" id="graph-wrapper" class="blob graph">
                     <ui:include src="templates/graph.xhtml"/>
-                </h:panelGroup>
+                </p:outputPanel>
             </td>
             <td class="header-button-cell">
                 <div class="header-button-blob">
                     <h:form id="form">
                         <h:commandButton styleClass="hidden-header-button" id="header-button" action="#{navigationController.goToIndex}"/>
-                        <label class="header-button" for="form:header-button">
+                        <h:outputLabel class="header-button" for="header-button">
                             <img class="header-button-img" src="resources/img/giphy.gif" alt=""/>
                             <img class="arrow-button-img" src="resources/img/arrow.png" alt="click"/>
-                        </label>
+                        </h:outputLabel>
                     </h:form>
                 </div>
             </td>
@@ -41,6 +41,7 @@
             <td class="coord-choosing-cell">
                 <div class="blob coord-chooser">
                     <ui:include src="templates/shooterForm.xhtml">
+                        <ui:param name="listener" value=":graph-wrapper"/>
                         <ui:param name="rListener" value=":graph-wrapper"/>
                     </ui:include>
                 </div>

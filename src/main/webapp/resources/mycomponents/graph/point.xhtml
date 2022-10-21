@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+<ui:component xmlns="http://www.w3.org/2000/svg">
+    <cc:interface>
+        <cc:attribute name="attempt" required="true" type="domain.AttemptInfo"/>
+        <cc:attribute name="center"/>
+        <cc:attribute name="base"/>
+    </cc:interface>
+    <cc:implementation>
+        <circle r="6"
+                cx="#{cc.attrs.attempt.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                cy="#{- cc.attrs.attempt.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                fill="#{cc.attrs.attempt.res ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)'}"/>
+    </cc:implementation>
+</ui:component>
+</html>
