@@ -36,4 +36,19 @@ public class HistoryBean implements Serializable {
     public List<AttemptInfo> getAttempts() {
         return attempts;
     }
+
+    public boolean isEmpty() {
+        return attempts.isEmpty();
+    }
+
+    public AttemptInfo getLast() {
+        if (attempts.size()!=0) {
+            return attempts.get(attempts.size()-1);
+        }
+        return AttemptInfo.empty();
+    }
+
+    public void clear() {
+        attempts.clear();
+    }
 }

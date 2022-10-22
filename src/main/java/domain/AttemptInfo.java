@@ -29,8 +29,11 @@ public class AttemptInfo {
     private double r;
     @Getter
     private boolean res;
+    @Getter
     private String message;
+    @Getter
     private Duration execTime;
+    @Getter
     private LocalDateTime currTime;
 
 
@@ -47,6 +50,10 @@ public class AttemptInfo {
 
     public static AttemptInfo fromHit(Instant startTime, double x, double y, double r, boolean res, String message) {
         return new AttemptInfo(x, y, r, res, message, getDiff(startTime), LocalDateTime.now());
+    }
+
+    public static AttemptInfo empty() {
+        return new AttemptInfo(0,0,0,false,"",Duration.ZERO,LocalDateTime.MIN);
     }
 
 //    public static AttemptInfo fail(HttpServletRequest req, String message) {

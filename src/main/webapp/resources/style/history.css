@@ -1,7 +1,3 @@
-body {
-    background-image: url('../../static/img/back.jpg');
-    background-repeat: repeat;
-}
 table.response-table {
     width: 100%;
 }
@@ -11,8 +7,8 @@ col.result {
 col.history {
     width: 80%;
 }
-tr.header {
-    height: 70px;
+tr.history-header {
+    height: 50px;
 }
 tr.content {
     height: fit-content;
@@ -63,23 +59,49 @@ table.history-header-table>tr>td {
     width: 100%;
 }
 
-.history-table-cell {
-    vertical-align: top;
-}
-.history-table {
+.ui-datatable table.history-table, .ui-datatable.history-table, .ui-datatable.history-table .ui-datatable-tablewrapper, .ui-datatable thead th.ui-state-default {
     width: 100%;
+    background: none;
+    border-style: none;
+    border-collapse: separate;
+    border-spacing: 5px;
 }
-[class*='history-cell'] {
+.ui-datatable-odd.history-table-cell td, .ui-datatable-even.history-table-cell td, .ui-datatable-data.history-table-cell td,
+.ui-datatable .ui-paginator.ui-paginator-top, .ui-datatable .ui-paginator.ui-paginator-bottom {
+    vertical-align: top;
     background-color: rgba(50, 50, 50, 0.9);
     color: azure;
     border-radius: 5px;
+    padding: 5px;
 }
-.header-history-cell {
+.ui-datatable .ui-paginator.ui-paginator-top, .ui-datatable .ui-paginator.ui-paginator-bottom {
+    background-color: rgba(25, 25, 25, 0.9);
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/*[class*='history-cell'] {*/
+/*    background-color: rgba(50, 50, 50, 0.9);*/
+/*    color: azure;*/
+/*    border-radius: 5px;*/
+/*}*/
+.ui-datatable-header, .ui-datatable thead th.ui-state-default  {
     text-align: center;
     font-size: large;
     font-family: 'Courier New', Courier, monospace;
     padding: 5px;
+    margin: 5px;
+    background-color: rgba(50, 50, 50, 0.9);
+    color: azure;
+    border-radius: 5px;
 }
+
+.history-table thead tr th{
+    padding-bottom: 5px;
+}
+
 
 /* td,tr {
     border: 1px solid white;
