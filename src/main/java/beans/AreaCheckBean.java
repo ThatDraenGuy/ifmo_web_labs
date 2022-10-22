@@ -3,6 +3,7 @@ package beans;
 import domain.AttemptInfo;
 import domain.quadrants.Quadrant;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -18,8 +19,8 @@ public class AreaCheckBean implements Serializable {
     @Inject
     HistoryBean historyBean;
 
-    public void shoot() {
-        AttemptInfo attemptInfo = quadrantsBean.doCheck(chooserBean.getX(),chooserBean.getY(),chooserBean.getR());
+    public void shoot(double x, double y, double r) {
+        AttemptInfo attemptInfo = quadrantsBean.doCheck(x,y,r);
         historyBean.add(attemptInfo);
     }
 

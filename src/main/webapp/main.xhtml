@@ -22,7 +22,9 @@
             <td class="empty"/>
             <td class="graph-cell" rowspan="2">
                 <h:panelGroup layout="block" id="graph-wrapper" class="blob graph">
-                    <ui:include src="templates/graph.xhtml"/>
+                    <ui:include src="templates/graph.xhtml">
+                        <ui:param name="listener" value=":graph-wrapper"/>
+                    </ui:include>
                 </h:panelGroup>
             </td>
             <td class="header-button-cell">

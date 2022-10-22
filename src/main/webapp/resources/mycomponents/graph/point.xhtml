@@ -12,10 +12,20 @@
         <cc:attribute name="base"/>
     </cc:interface>
     <cc:implementation>
-        <circle r="6"
-                cx="#{cc.attrs.attempt.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
-                cy="#{- cc.attrs.attempt.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
-                fill="#{cc.attrs.attempt.res ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)'}"/>
+        <c:choose>
+            <c:when test="#{chooserBean.r.equals(cc.attrs.attempt.r)}">
+                <circle r="6"
+                        cx="#{cc.attrs.attempt.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                        cy="#{- cc.attrs.attempt.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                        fill="#{cc.attrs.attempt.res ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)'}"/>
+            </c:when>
+            <c:otherwise>
+                <circle r="6"
+                        cx="#{cc.attrs.attempt.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                        cy="#{- cc.attrs.attempt.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                        fill="#{cc.attrs.attempt.res ? 'rgba(0, 128, 0, 0.7)' : 'rgba(128, 0, 0, 0.7)'}"/>
+            </c:otherwise>
+        </c:choose>
     </cc:implementation>
 </ui:component>
 </html>

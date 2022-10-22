@@ -103,6 +103,17 @@ tr.message-row>td {
     height: 400px;
 }
 
+.graph-stacker {
+    display: grid;
+}
+.graph-stacker .layer1, .graph-stacker .layer2 {
+    grid-column: 1;
+    grid-row: 1;
+}
+.graph-stacker .layer1 {
+    z-index: 2;
+}
+
 /* RESULT */
 div.result {
     margin-left: auto;

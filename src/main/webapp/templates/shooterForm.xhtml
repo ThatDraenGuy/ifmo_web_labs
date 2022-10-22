@@ -25,7 +25,7 @@
             </f:facet>
         </ch:chooser>
         <h:commandButton value="submit" styleClass="shoot-button">
-            <f:ajax execute="@form" listener="#{areaCheckBean.shoot}" render="@form #{listener}"/>
+            <f:ajax execute="@form" listener="#{areaCheckBean.shoot(chooserBean.x, chooserBean.y, chooserBean.r)}" render="@form #{listener}"/>
         </h:commandButton>
     </h:form>
 </ui:composition>

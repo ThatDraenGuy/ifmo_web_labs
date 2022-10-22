@@ -34,7 +34,6 @@ public class HistoryBean implements Serializable {
     }
 
     public List<AttemptInfo> getAttempts() {
-        System.out.println(attempts);
         return attempts;
     }
 }
