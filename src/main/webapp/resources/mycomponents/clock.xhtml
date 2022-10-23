@@ -16,7 +16,11 @@
             <h:form>
                 <p:poll interval="#{cc.attrs.interval}" update="clock"/>
                 <h:outputText id="clock" value="#{clockBean.time}"/>
+                <p:remoteCommand name="setTimezone" action="#{clockBean.updateTimezone()}" update="clock"/>
             </h:form>
+            <script type="text/javascript">
+                setTimezone([{name: "timezone", value: Intl.DateTimeFormat().resolvedOptions().timeZone}]);
+            </script>
         </div>
     </cc:implementation>
 </ui:component>
