@@ -6,6 +6,10 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -22,33 +26,32 @@ public class HistoryBean implements Serializable {
     private void init() {
         attempts = new ArrayList<>();
     }
-//
-//    @Inject
-//    EntityManager entityManager;
 
+    @PersistenceContext
+    EntityManager entityManager;
 
+    @Transactional
     public void add(AttemptInfo attemptInfo) {
-//        entityManager.persist(attemptInfo);
-        attempts.add(attemptInfo);
+        entityManager.persist(attemptInfo);
+        entityManager.flush();
+//        attempts.add(attemptInfo);
         System.out.println(attemptInfo);
     }
 
     public List<AttemptInfo> getAttempts() {
-        return attempts;
+        TypedQuery<AttemptInfo> query = entityManager.createQuery("SELECT e FROM AttemptInfo e", AttemptInfo.class);
+        return query.getResultList();
     }
 
     public boolean isEmpty() {
-        return attempts.isEmpty();
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(*) FROM AttemptInfo", Long.class);
+        return query.getResultList().get(0).equals(0L);
     }
 
-    public AttemptInfo getLast() {
-        if (attempts.size()!=0) {
-            return attempts.get(attempts.size()-1);
-        }
-        return AttemptInfo.empty();
-    }
-
+    @Transactional
     public void clear() {
-        attempts.clear();
+        Query query = entityManager.createQuery("DELETE from AttemptInfo");
+        query.executeUpdate();
+//        attempts.clear();
     }
 }

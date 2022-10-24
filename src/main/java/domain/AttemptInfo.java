@@ -8,32 +8,26 @@ import jakarta.persistence.Table;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.query.sqm.UnknownEntityException;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 @Entity
-@Table
+@Table(name = "attempts")
+@Getter
 public class AttemptInfo {
-    @Getter
     @Setter
     @Id
     @GeneratedValue
     private Long id;
-    @Getter
     private double x;
-    @Getter
     private double y;
-    @Getter
     private double r;
-    @Getter
     private boolean res;
-    @Getter
     private String message;
-    @Getter
     private Duration execTime;
-    @Getter
     private LocalDateTime currTime;
 
 
