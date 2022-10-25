@@ -22,7 +22,7 @@
             <td class="empty"/>
             <td class="graph-cell" rowspan="2">
                 <h:panelGroup layout="block" id="graph-wrapper" class="blob graph">
-                    <ui:include src="templates/graph.xhtml">
+                    <ui:include src="WEB-INF/templates/graph.xhtml">
                         <ui:param name="listener" value=":graph-wrapper :history-table"/>
                     </ui:include>
                 </h:panelGroup>
@@ -42,7 +42,7 @@
         <tr class="content-row">
             <td class="coord-choosing-cell">
                 <div class="blob coord-chooser">
-                    <ui:include src="templates/shooterForm.xhtml">
+                    <ui:include src="WEB-INF/templates/shooterForm.xhtml">
                         <ui:param name="listener" value=":graph-wrapper :history-table"/>
                         <ui:param name="rListener" value=":graph-wrapper"/>
                     </ui:include>
@@ -50,7 +50,7 @@
             </td>
             <td class="header-cell">
                 <div class="blob header header-active" id="header">
-                    <ui:include src="templates/header.xhtml"/>
+                    <ui:include src="WEB-INF/templates/header.xhtml"/>
                 </div>
             </td>
         </tr>
@@ -58,7 +58,7 @@
             <td class="empty"/>
             <td class="response-cell" colspan="2">
                 <h:panelGroup id="history-table">
-                    <ui:include src="templates/history.xhtml"/>
+                    <ui:include src="WEB-INF/templates/history.xhtml"/>
                 </h:panelGroup>
             </td>
         </tr>

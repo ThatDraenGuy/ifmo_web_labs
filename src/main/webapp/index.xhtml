@@ -9,18 +9,35 @@
 >
 <h:head>
     <h:outputStylesheet library="style" name="main.css"/>
+    <h:outputStylesheet library="style" name="index.css"/>
 </h:head>
 <h:body>
-    <div class="blob">
-        <ui:include src="templates/header.xhtml"/>
-    </div>
-    <div class="blob">
-        <my:clock interval="13"/>
-    </div>
-    <div>
-        <h:form>
-            <h:commandLink action="#{navigationController.goToMain}" value="Go to main"/>
-        </h:form>
-    </div>
+    <table class="index-table">
+        <colgroup>
+            <col class="left-side"/>
+            <col class="right-side"/>
+        </colgroup>
+        <tr>
+            <td>
+                <div class="blob">
+                    <ui:include src="WEB-INF/templates/header.xhtml"/>
+                </div>
+            </td>
+            <td>
+                <div class="blob">
+                    <my:clock interval="13"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="blob link">
+                    <h:form>
+                        <h:commandLink action="#{navigationController.goToMain}" value="Go to main"/>
+                    </h:form>
+                </div>
+            </td>
+        </tr>
+    </table>
 </h:body>
 </html>

@@ -1,0 +1,28 @@
+.index-table {
+    width: 100%;
+}
+
+col.left-side, col.right-side {
+    width: 50%;
+}
+
+.index-table tr td {
+    text-align: center;
+}
+
+.clock {
+    margin-left: auto;
+    margin-right: auto;
+}
+.clock-text {
+    font-size: xx-large;
+    color: aqua;
+    padding: 5px;
+}
+
+.link {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: xx-large;
+    padding: 5px;
+}

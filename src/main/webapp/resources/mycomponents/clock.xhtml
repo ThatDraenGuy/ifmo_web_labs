@@ -12,10 +12,10 @@
         <cc:attribute name="interval" required="true"/>
     </cc:interface>
     <cc:implementation>
-        <div>
+        <div class="clock">
             <h:form>
                 <p:poll interval="#{cc.attrs.interval}" update="clock"/>
-                <h:outputText id="clock" value="#{clockBean.time}"/>
+                <h:outputText styleClass="clock-text" id="clock" value="#{clockBean.time}"/>
                 <p:remoteCommand name="setTimezone" action="#{clockBean.updateTimezone()}" update="clock"/>
             </h:form>
             <script type="text/javascript">

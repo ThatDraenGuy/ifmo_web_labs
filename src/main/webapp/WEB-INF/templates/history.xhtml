@@ -23,27 +23,14 @@
                     </div>
                 </td>
                 <td class="history-header-cell">
-                    <table class="history-header-table">
-                        <tr>
-                            <td>
-                                <div class="history-table-name">
-<!--                                    HISTORY-->
-                                </div>
-                            </td>
-                            <td>
-                                <div class="clear-history-button-cell">
-                                    <h:form>
-                                        <h:commandButton styleClass="clear-history-button" id="clear-button" value="Clear" action="#{historyBean.clear}"/>
-                                    </h:form>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="clear-history-button-cell">
+                        <h:form>
+                            <h:commandButton styleClass="clear-history-button" id="clear-button" value="Clear" action="#{historyBean.clear}"/>
+                        </h:form>
+                    </div>
                 </td>
             </tr>
             <tr class="content">
-<!--                <td class="result-reaction-cell">-->
-<!--                </td>-->
                 <td class="history-table-cell" colspan="2">
                     <div id="history">
                         <p:dataTable value="#{historyBean.attempts}" var="attempt" styleClass="history-table"
