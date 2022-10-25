@@ -1,9 +1,10 @@
-package beans;
+package ui;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import logic.AreaCheckBean;
 
 import java.io.Serializable;
 

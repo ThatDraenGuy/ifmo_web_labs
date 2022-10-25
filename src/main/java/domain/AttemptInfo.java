@@ -1,14 +1,10 @@
 package domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.query.sqm.UnknownEntityException;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -17,10 +13,11 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Table(name = "attempts")
 @Getter
+@AllArgsConstructor
 public class AttemptInfo {
     @Setter
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private double x;
     private double y;
@@ -50,41 +47,10 @@ public class AttemptInfo {
         return new AttemptInfo(0,0,0,false,"",Duration.ZERO,LocalDateTime.MIN);
     }
 
-//    public static AttemptInfo fail(HttpServletRequest req, String message) {
-//        return new AttemptInfo(req.getParameter("x"),req.getParameter("y"),req.getParameter("r"),false,message, getDiff(req), LocalDateTime.now());
-//    }
-
-//    public static AttemptInfo empty() {
-//        return new AttemptInfo(0,0,-1,false,"",Duration.ZERO,LocalDateTime.now());
-//    }
-
-//    private static Duration getDiff(HttpServletRequest req) {
-//        try {
-//            Instant start = (Instant) req.getAttribute("startTime");
-//            return getDiff(start);
-//        } catch (ClassCastException e) {
-//            return Duration.ZERO;
-//        }
-//    }
     private static Duration getDiff(Instant start) {
         Instant finish = Instant.now();
         return Duration.between(start, finish);
     }
-
-//    public void toHtmlRow(StringBuilder builder, int num) {
-//        builder.append("<tr>");
-//        toDataCell(builder, num);
-//        toDataCell(builder, x);
-//        toDataCell(builder, y);
-//        toDataCell(builder, r);
-//        toDataCell(builder, message);
-//        toDataCell(builder, execTime.toNanos()/1000 +" mks");
-//        toDataCell(builder, currTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")));
-//        builder.append("</tr>");
-//    }
-//    private void toDataCell(StringBuilder builder, Object value) {
-//        builder.append("<td class=\"history-cell\">").append(value).append("</td>");
-//    }
 
     @Override
     public String toString() {

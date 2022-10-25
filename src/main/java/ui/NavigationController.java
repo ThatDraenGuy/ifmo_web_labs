@@ -1,4 +1,4 @@
-package beans;
+package ui;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;

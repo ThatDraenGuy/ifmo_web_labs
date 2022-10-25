@@ -1,4 +1,4 @@
-package beans.ui;
+package ui;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;

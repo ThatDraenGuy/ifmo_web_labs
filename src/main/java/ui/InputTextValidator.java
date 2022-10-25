@@ -1,4 +1,4 @@
-package beans.ui;
+package ui;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;

@@ -1,15 +1,13 @@
-package beans;
+package logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.AttemptInfo;
-import domain.quadrants.Quadrant;
-import domain.quadrants.QuadrantsInfo;
+import logic.quadrants.Quadrant;
+import logic.quadrants.QuadrantsInfo;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
-import jakarta.interceptor.InvocationContext;
 import lombok.Getter;
 
 import java.io.InputStream;

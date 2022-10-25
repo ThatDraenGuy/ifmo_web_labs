@@ -1,4 +1,4 @@
-package beans.ui;
+package ui;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;

@@ -1,4 +1,4 @@
-package beans;
+package ui;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;

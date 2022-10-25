@@ -1,9 +1,8 @@
-package beans;
+package logic;
 
+import ui.ChooserBean;
 import domain.AttemptInfo;
-import domain.quadrants.Quadrant;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
