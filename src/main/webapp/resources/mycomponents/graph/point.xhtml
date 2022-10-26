@@ -13,6 +13,7 @@
     </cc:interface>
     <cc:implementation>
         <c:choose>
+            <c:when test="#{chooserBean.r == null}"/>
             <c:when test="#{chooserBean.r.equals(cc.attrs.attempt.r)}">
                 <circle r="6"
                         cx="#{cc.attrs.attempt.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
