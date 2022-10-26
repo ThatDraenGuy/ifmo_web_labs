@@ -12,8 +12,6 @@ import java.io.Serializable;
 @SessionScoped
 public class AreaCheckBean implements Serializable {
     @Inject
-    ChooserBean chooserBean;
-    @Inject
     QuadrantsBean quadrantsBean;
     @Inject
     HistoryBean historyBean;

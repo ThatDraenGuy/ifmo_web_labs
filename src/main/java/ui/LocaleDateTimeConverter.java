@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 @FacesConverter("localeDateTimeConverter")
 public class LocaleDateTimeConverter implements Converter<LocalDateTime> {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     @Override
     public LocalDateTime getAsObject(FacesContext context, UIComponent component, String value) {
         return LocalDateTime.parse(value, formatter);
