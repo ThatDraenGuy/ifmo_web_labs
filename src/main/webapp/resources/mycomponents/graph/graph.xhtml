@@ -27,9 +27,9 @@
                     <my:quadrant quadrant="#{quadrant}" center="#{center}" base="#{base}" color="#{cc.attrs.graphColor}"/>
                 </c:forEach>
 
-                <c:forEach items="#{historyBean.attempts}" var="attempt">
+                <ui:repeat value="#{historyBean.attempts}" var="attempt">
                     <my:point attempt="#{attempt}" center="#{center}" base="#{base}"/>
-                </c:forEach>
+                </ui:repeat>
 
                 <my:axis begin="0" center="#{center}" end="#{cc.attrs.graphSize}" color="#{cc.attrs.axisColor}"/>
                 <my:labels base="#{base}" center="#{center}" color="#{cc.attrs.axisColor}"/>
