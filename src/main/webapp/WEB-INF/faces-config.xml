@@ -7,7 +7,7 @@
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{navigationController.goToMain}</from-action>
+            <from-outcome>toMain</from-outcome>
             <to-view-id>/main.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -15,7 +15,7 @@
     <navigation-rule>
         <from-view-id>/main.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{navigationController.goToIndex}</from-action>
+            <from-outcome>toIndex</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>

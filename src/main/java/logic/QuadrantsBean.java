@@ -35,6 +35,7 @@ public class QuadrantsBean implements Serializable {
 
     public AttemptInfo doCheck(double x, double y, double r) {
         Instant startTime = Instant.now();
+        if (r<=0) return AttemptInfo.fromHit(startTime,x,y,r,false,"Invalid R value");
         for (Quadrant quadrant : quadrants) {
             boolean res = quadrant.checkHit(x,y,r);
             if (res) {
