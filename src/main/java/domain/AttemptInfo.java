@@ -1,67 +1,50 @@
 package domain;
 
 
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ui.TimeZoneBean;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.*;
+
 @Entity
 @Table(name = "attempts")
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class AttemptInfo {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private double x;
-    private double y;
-    private double r;
-    private boolean res;
-    private String message;
-    private Duration execTime;
-    private LocalDateTime currTime;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "coord_id", referencedColumnName = "id")
+    private CoordInfo coords;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shot_id", referencedColumnName = "id")
+    private ShotInfo shot;
+
+    private ZonedDateTime currTime;
 
 
-    public AttemptInfo() {}
-    private AttemptInfo(double x, double y, double r, boolean res, String message, Duration execTime, LocalDateTime currTime) {
-        this.x=x;
-        this.y=y;
-        this.r=r;
-        this.res=res;
-        this.message=message;
-        this.execTime=execTime;
-        this.currTime=currTime;
-    }
-
-    public static AttemptInfo fromHit(Instant startTime, double x, double y, double r, boolean res, String message) {
-        return new AttemptInfo(x, y, r, res, message, getDiff(startTime), LocalDateTime.now());
-    }
-
-    public static AttemptInfo empty() {
-        return new AttemptInfo(0,0,0,false,"",Duration.ZERO,LocalDateTime.MIN);
-    }
-
-    private static Duration getDiff(Instant start) {
-        Instant finish = Instant.now();
-        return Duration.between(start, finish);
+    public static AttemptInfo fromHit(CoordInfo coordInfo, ShotInfo shotInfo) {
+        String timezone = CDI.current().select(TimeZoneBean.class).get().getTimezone();
+        return new AttemptInfo(null, coordInfo, shotInfo, ZonedDateTime.now(ZoneId.of(timezone)));
     }
 
     @Override
     public String toString() {
         return "AttemptInfo{" +
-                "x='" + x + '\'' +
-                ", y='" + y + '\'' +
-                ", r='" + r + '\'' +
-                ", res=" + res +
-                ", message='" + message + '\'' +
-                ", execTime=" + execTime.toNanos() + "ns" +
-                ", currTime=" + currTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")) +
+                "id=" + id +
+                ", coordInfo=" + coords +
+                ", shotInfo=" + shot +
+                ", currTime=" + currTime +
                 '}';
     }
 }

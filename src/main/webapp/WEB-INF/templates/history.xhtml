@@ -40,23 +40,23 @@
                                      tableStyleClass="history-table" rowStyleClass="history-table-cell" headerClass="header-history-cell">
                             <p:column>
                                 <f:facet name="header">X</f:facet>
-                                <h:outputText value="#{attempt.x}"/>
+                                <h:outputText value="#{attempt.coords.x}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">Y</f:facet>
-                                <h:outputText value="#{attempt.y}"/>
+                                <h:outputText value="#{attempt.coords.y}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">R</f:facet>
-                                <h:outputText value="#{attempt.r}"/>
+                                <h:outputText value="#{attempt.coords.r}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">Result</f:facet>
-                                <h:outputText value="#{attempt.message}"/>
+                                <h:outputText value="#{attempt.shot.message}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">Execution time</f:facet>
-                                <h:outputText value="#{attempt.execTime}">
+                                <h:outputText value="#{attempt.shot.execTime}">
                                     <f:converter converterId="nanosDurationConverter"/>
                                 </h:outputText>
                             </p:column>

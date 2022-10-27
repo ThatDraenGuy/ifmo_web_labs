@@ -13,17 +13,17 @@
         <cc:attribute name="base"/>
     </cc:interface>
     <cc:implementation>
-        <h:panelGroup rendered="#{chooserBean.r!=null and chooserBean.r.equals(cc.attrs.attempt.r)}">
+        <h:panelGroup rendered="#{chooserBean.r!=null and chooserBean.r.equals(cc.attrs.attempt.coords.r)}">
             <circle r="6"
-                    cx="#{cc.attrs.attempt.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
-                    cy="#{- cc.attrs.attempt.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
-                    fill="#{cc.attrs.attempt.res ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)'}"/>
+                    cx="#{cc.attrs.attempt.coords.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                    cy="#{- cc.attrs.attempt.coords.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                    fill="#{cc.attrs.attempt.shot.res ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)'}"/>
         </h:panelGroup>
-        <h:panelGroup rendered="#{chooserBean.r!=null and !chooserBean.r.equals(cc.attrs.attempt.r)}">
+        <h:panelGroup rendered="#{chooserBean.r!=null and !chooserBean.r.equals(cc.attrs.attempt.coords.r)}">
             <circle r="6"
-                    cx="#{cc.attrs.attempt.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
-                    cy="#{- cc.attrs.attempt.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
-                    fill="#{cc.attrs.attempt.res ? 'rgba(0, 128, 0, 0.7)' : 'rgba(128, 0, 0, 0.7)'}"/>
+                    cx="#{cc.attrs.attempt.coords.x / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                    cy="#{- cc.attrs.attempt.coords.y / chooserBean.r * cc.attrs.base + cc.attrs.center}"
+                    fill="#{cc.attrs.attempt.shot.res ? 'rgba(0, 128, 0, 0.7)' : 'rgba(128, 0, 0, 0.7)'}"/>
         </h:panelGroup>
     </cc:implementation>
 </ui:component>

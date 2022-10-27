@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 
 import java.io.Serializable;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Named("historyBean")
@@ -24,7 +25,9 @@ public class HistoryBean implements Serializable {
     }
 
     public List<AttemptInfo> getAttempts() {
-        return attemptInfoDao.getAll();
+        List<AttemptInfo> history = attemptInfoDao.getAll();
+        history.sort((o1, o2) -> o2.getCurrTime().compareTo(o1.getCurrTime()));
+        return history;
     }
 
     public boolean isEmpty() {

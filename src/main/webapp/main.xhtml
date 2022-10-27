@@ -12,6 +12,11 @@
 <h:outputStylesheet library="style" name="main.css"/>
 <h:outputStylesheet library="style" name="content.css"/>
 <h:body>
+    <h:panelGroup id="timezone">
+        <ui:include src="WEB-INF/templates/timezone.xhtml">
+            <ui:param name="listener" value=":history-table"/>
+        </ui:include>
+    </h:panelGroup>
     <table class="main-table">
         <colgroup>
             <col class="left"/>

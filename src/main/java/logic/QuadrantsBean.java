@@ -2,6 +2,8 @@ package logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.AttemptInfo;
+import domain.CoordInfo;
+import domain.ShotInfo;
 import logic.quadrants.Quadrant;
 import logic.quadrants.QuadrantsInfo;
 import jakarta.annotation.PostConstruct;
@@ -35,13 +37,14 @@ public class QuadrantsBean implements Serializable {
 
     public AttemptInfo doCheck(double x, double y, double r) {
         Instant startTime = Instant.now();
-        if (r<=0) return AttemptInfo.fromHit(startTime,x,y,r,false,"Invalid R value");
+        CoordInfo coordInfo = CoordInfo.create(x,y,r);
+        if (r<=0) return AttemptInfo.fromHit(coordInfo, ShotInfo.create(false, "Invalid R value", startTime));
         for (Quadrant quadrant : quadrants) {
             boolean res = quadrant.checkHit(x,y,r);
             if (res) {
-                return AttemptInfo.fromHit(startTime,x,y,r, true, "That's a hit!");
+                return AttemptInfo.fromHit(coordInfo, ShotInfo.create(true, "That's a hit!", startTime));
             }
         }
-        return AttemptInfo.fromHit(startTime,x,y,r, false, "That's a miss!");
+        return AttemptInfo.fromHit(coordInfo, ShotInfo.create(false, "That's a miss", startTime));
     }
 }

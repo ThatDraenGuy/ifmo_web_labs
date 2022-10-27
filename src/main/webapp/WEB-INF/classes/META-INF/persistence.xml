@@ -9,5 +9,12 @@
 
         <!-- Make all annotated entities part of this unit configuration: -->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>-->
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="true"/>
+            <!-- Is nighthack for WildFly: https://issues.jboss.org/browse/WFLY-2727 -->
+<!--            <property name="wildfly.jpa.twophasebootstrap" value="false" />-->
+        </properties>
     </persistence-unit>
 </persistence>
