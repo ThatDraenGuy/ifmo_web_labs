@@ -1,17 +1,7 @@
-# Лабы по вебу (ИТМО, сем 3) #
-## чего? вставить нормальное описание? ##
-
-<img src="readme/img/who.gif" alt="who " height="300"/><img src="readme/img/cares.gif" alt="cares" height="300"/>
-
-## лови лучше крысу ##
-<img src="readme/img/rat.gif" alt="who " height="300"/>
-
----------------------------------------
-
 # Лабораторная работа №3
-# _IN PROGRESS_
 
-## Check out this site live: (IN PROGRESS) ##
+## Check out this site live: ##
+гелиос убивает процессы, сайта не будет
 
 <img src="readme/img/crying-emoji-dies.gif" alt="cry about it" width="50">
 
