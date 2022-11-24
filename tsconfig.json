@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "esModuleInterop": true,
+    "declaration": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src/main/ts"
+  ]
+}

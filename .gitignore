@@ -8,3 +8,6 @@ report/.~*
 .gradle
 .idea
 build
+
+#lab4
+src/main/resources/database.properties
