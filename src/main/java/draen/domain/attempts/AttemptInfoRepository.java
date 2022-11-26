@@ -1,14 +1,12 @@
 package draen.domain.attempts;
 
-import draen.domain.users.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public interface AttemptInfoRepository extends CrudRepository<AttemptInfo, Long> {
+    Collection<AttemptInfo> findAttemptInfosByUserIdEquals(Long user_id);
+    Optional<AttemptInfo> findAttemptInfoByIdAndUserIdEquals(Long id, Long userId);
 
-    Optional<AttemptInfo> findAttemptInfoByIdAndUser(Long id, User user);
-
-    Collection<AttemptInfo> findAttemptInfosByUser(User user);
 }

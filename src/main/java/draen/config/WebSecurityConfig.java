@@ -20,7 +20,8 @@ public class WebSecurityConfig {
         http.authorizeRequests()
                         .antMatchers("/auth/**").not().authenticated()
                         .antMatchers("/public/**").permitAll()
-                        .anyRequest().authenticated();
+//                        .anyRequest().authenticated();
+                        .anyRequest().permitAll();
         http.formLogin().loginPage("/login");
 
         return http.build();

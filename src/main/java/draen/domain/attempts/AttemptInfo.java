@@ -32,7 +32,7 @@ public class AttemptInfo {
     private ZonedDateTime currTime;
 
     @ManyToOne
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name="UserId")
     private User user;
 
 
