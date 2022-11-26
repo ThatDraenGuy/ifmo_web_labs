@@ -18,15 +18,33 @@ public class AttemptInfoController {
     private final AttemptInfoRepository repository;
     private final AttemptInfoModelAssembler assembler;
 
+    private final UserController userController;
 
-    @GetMapping("/attempts")
-    public CollectionModel<EntityModel<AttemptInfo>> all() {
-        return assembler.toCollectionModel(repository.findAll());
+//
+//    @GetMapping("/attempts")
+//    public CollectionModel<EntityModel<AttemptInfo>> all() {
+//        return assembler.toCollectionModel(repository.findAll());
+//    }
+//
+//    @GetMapping("/attempts/{id}")
+//    public EntityModel<AttemptInfo> one(@PathVariable Long id) {
+//        return assembler.toModel(getAttemptInfo(id));
+//    }
+
+
+    @GetMapping("/users/{userId}/attempts")
+    public CollectionModel<EntityModel<AttemptInfo>> allAttempts(@PathVariable long userId) {
+        return assembler.toCollectionModel(repository.findAttemptInfosByUser(userController.getUser(userId)));
     }
 
-    @GetMapping("/attempts/{id}")
-    public EntityModel<AttemptInfo> one(@PathVariable Long id) {
-        AttemptInfo attemptInfo = repository.findById(id).orElseThrow(() -> new RuntimeException("bruh no id"));
-        return assembler.toModel(attemptInfo);
+    @GetMapping("/users/{userId}/attempts/{attemptId}")
+    public EntityModel<AttemptInfo> oneAttempt(@PathVariable long userId, @PathVariable long attemptId) {
+        return assembler.toModel(repository.findAttemptInfoByIdAndUser(attemptId, userController.getUser(userId))
+                .orElseThrow(() -> new RuntimeException("attempt not found")));
     }
+
+
+//    private AttemptInfo getAttemptInfo(Long id) {
+//        return repository.findById(id).orElseThrow(() -> new RuntimeException("bruh no id"));
+//    }
 }

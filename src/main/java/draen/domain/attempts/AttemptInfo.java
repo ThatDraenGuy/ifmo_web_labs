@@ -2,6 +2,9 @@ package draen.domain.attempts;
 
 
 import javax.persistence.*;
+
+import draen.domain.users.User;
+import draen.domain.users.UserData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +31,13 @@ public class AttemptInfo {
 
     private ZonedDateTime currTime;
 
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
+    private User user;
 
-    public static AttemptInfo fromHit(CoordInfo coordInfo, ShotInfo shotInfo) {
-        return new AttemptInfo(null, coordInfo, shotInfo, ZonedDateTime.now());
+
+    public static AttemptInfo fromHit(CoordInfo coordInfo, ShotInfo shotInfo, User user) {
+        return new AttemptInfo(null, coordInfo, shotInfo, ZonedDateTime.now(), user);
     }
 
     @Override

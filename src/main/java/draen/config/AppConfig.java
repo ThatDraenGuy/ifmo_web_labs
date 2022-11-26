@@ -1,10 +1,10 @@
 package draen.config;
 
-import draen.config.QuadrantsInfoConverter;
-import draen.config.QuadrantsInfoWrapper;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @PropertySource("classpath:/database.properties")
 
 @EnableConfigurationProperties(QuadrantsInfoWrapper.class)
+//@EnableJpaRepositories
 public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {

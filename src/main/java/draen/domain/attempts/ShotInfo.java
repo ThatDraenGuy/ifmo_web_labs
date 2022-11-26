@@ -12,7 +12,8 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Embeddable public class ShotInfo {
+@Embeddable
+public class ShotInfo {
 
     private boolean res;
     private String message;

@@ -9,7 +9,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Embeddable public class CoordInfo {
+@Embeddable
+public class CoordInfo {
     private double x;
     private double y;
     private double r;
