@@ -3,7 +3,7 @@ package draen.rest.modelassemblers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import draen.dto.AttemptInfoDto;
-import draen.rest.controllers.AttemptInfoController;
+import draen.rest.controllers.UserAttemptsController;
 import lombok.NonNull;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -14,7 +14,7 @@ public class AttemptInfoDtoModelAssembler implements RepresentationModelAssemble
     @Override
     public @NonNull EntityModel<AttemptInfoDto> toModel(@NonNull AttemptInfoDto entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(AttemptInfoController.class).oneAttempt(entity.getUserId(), entity.getId())).withSelfRel(),
-                linkTo(methodOn(AttemptInfoController.class).allAttempts(entity.getUserId())).withRel("attempts"));
+                linkTo(methodOn(UserAttemptsController.class).oneAttempt(entity.getUserId(), entity.getId())).withSelfRel(),
+                linkTo(methodOn(UserAttemptsController.class).allAttempts(entity.getUserId())).withRel("attempts"));
     }
 }

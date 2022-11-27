@@ -5,6 +5,7 @@ import draen.domain.attempts.AttemptInfoRepository;
 import draen.domain.attempts.CoordInfo;
 import draen.domain.attempts.ShotInfo;
 import draen.domain.users.User;
+import draen.domain.users.UserFactory;
 import draen.domain.users.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,11 @@ import java.time.Instant;
 public class TemporalPreloader implements CommandLineRunner {
 //    private final AttemptInfoRepository attemptInfoRepository;
     private final UserRepository userRepository;
+    private final UserFactory userFactory;
 
     @Override
     public void run(String... args) throws Exception {
-        User user = userRepository.save(User.create("test", "thing"));
-        user.getData().getAttempts().add(AttemptInfo.fromHit(CoordInfo.create(1,1,1), ShotInfo.create(true, "b", Instant.now()), user));
+//        User user = userRepository.save(userFactory.create("test2", "thing"));
+//        user.getData().getAttempts().add(AttemptInfo.fromHit(CoordInfo.create(1,1,1), ShotInfo.create(true, "b", Instant.now()), user));
     }
 }

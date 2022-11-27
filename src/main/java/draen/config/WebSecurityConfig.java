@@ -1,12 +1,11 @@
 package draen.config;
 
-import draen.domain.users.DatabaseUserDetailsService;
+import draen.security.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +16,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable(); //TODO read
         http.authorizeRequests()
                         .antMatchers("/auth/**").not().authenticated()
                         .antMatchers("/public/**").permitAll()
@@ -29,8 +29,8 @@ public class WebSecurityConfig {
 
     @Bean
     @Autowired
-    public UserDetailsService userDetailsService(DatabaseUserDetailsService databaseUserDetailsService) {
-        return databaseUserDetailsService;
+    public UserDetailsService userDetailsService(AppUserDetailsService appUserDetailsService) {
+        return appUserDetailsService;
     }
 
     @Bean

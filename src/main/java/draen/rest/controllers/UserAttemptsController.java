@@ -8,28 +8,32 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
+@RequestMapping("/users/id/{userId}/attempts")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class AttemptInfoController {
+public class UserAttemptsController {
     private final AttemptInfoRepository repository;
     private final AttemptInfoDtoModelAssembler assembler;
     private final DtoMapper dtoMapper;
 
 
 
-    @GetMapping("/users/{userId}/attempts")
+    @GetMapping
     public CollectionModel<EntityModel<AttemptInfoDto>> allAttempts(@PathVariable long userId) {
         return assembler.toCollectionModel(dtoMapper.toAttemptInfoDtos(repository.findAttemptInfosByUserIdEquals(userId)));
     }
 
-    @GetMapping("/users/{userId}/attempts/{attemptId}")
+    @GetMapping("/{attemptId}")
     public EntityModel<AttemptInfoDto> oneAttempt(@PathVariable long userId, @PathVariable long attemptId) {
         return assembler.toModel(dtoMapper.toAttemptInfoDto(repository.findAttemptInfoByIdAndUserIdEquals(attemptId, userId)
-                .orElseThrow(() -> new RuntimeException("attempt not found"))));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "attempt not found"))));
     }
 }

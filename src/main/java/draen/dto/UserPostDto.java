@@ -7,9 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserFullDto {
-    private Long id;
+public class UserPostDto {
     private String username;
     private String password;
-    private UserDataDto data;
 }

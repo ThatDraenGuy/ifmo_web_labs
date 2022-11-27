@@ -4,7 +4,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
 import draen.dto.UserGetDto;
-import draen.rest.controllers.AttemptInfoController;
+import draen.rest.controllers.UserAttemptsController;
 import draen.rest.controllers.UserController;
 import lombok.NonNull;
 import org.springframework.hateoas.EntityModel;
@@ -16,8 +16,9 @@ public class UserGetDtoModelAssembler implements RepresentationModelAssembler<Us
     @Override
     public @NonNull EntityModel<UserGetDto> toModel(@NonNull UserGetDto entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(UserController.class).oneUser(entity.getId())).withSelfRel(),
-                linkTo(methodOn(AttemptInfoController.class).allAttempts(entity.getId())).withRel("attempts")
+                linkTo(methodOn(UserController.class).userById(entity.getId())).withSelfRel(),
+                linkTo(methodOn(UserController.class).userByUsername(entity.getUsername())).withSelfRel(),
+                linkTo(methodOn(UserAttemptsController.class).allAttempts(entity.getId())).withRel("attempts")
                 );
     }
 }
