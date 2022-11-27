@@ -18,7 +18,7 @@ public class UserGetDtoModelAssembler implements RepresentationModelAssembler<Us
     public @NonNull EntityModel<UserGetDto> toModel(@NonNull UserGetDto entity) {
         return EntityModel.of(entity,
                 linkTo(methodOn(AuthorizedUserController.class).userById(entity.getId())).withSelfRel(),
-                linkTo(methodOn(AuthorizedUserController.class).userByUsername(entity.getUsername())).withSelfRel(),
+                linkTo(methodOn(PublicUserController.class).userByUsername(entity.getUsername())).withSelfRel(),
                 linkTo(methodOn(UserAttemptsController.class).allAttempts(entity.getId())).withRel("attempts"),
                 linkTo(methodOn(PublicUserController.class).all()).withRel("users")
         );

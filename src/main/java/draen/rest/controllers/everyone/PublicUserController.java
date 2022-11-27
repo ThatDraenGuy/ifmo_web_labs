@@ -5,9 +5,7 @@ import draen.dto.UserGetDto;
 import draen.dto.UserPostDto;
 import draen.dto.UserPublicDto;
 import draen.exceptions.UsernameTakenException;
-import draen.rest.controllers.UserController;
-import draen.rest.modelassemblers.UserGetDtoModelAssembler;
-import draen.rest.modelassemblers.UserPublicDtoModelAssembler;
+import draen.rest.controllers.UserControllerUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -17,27 +15,26 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping(path = "/public/users")
+@RequestMapping(path = "/users")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class PublicUserController extends UserController {
-    private final UserPublicDtoModelAssembler userPublicDtoModelAssembler;
-    private final UserGetDtoModelAssembler userGetDtoModelAssembler;
+public class PublicUserController {
+    private final UserControllerUtils utils;
 
     @GetMapping("/{username}")
     public EntityModel<UserPublicDto> userByUsername(@PathVariable String username) {
-        return wrapToUserPublicDto(username);
+        return utils.wrapToUserPublicDto(username);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<UserPublicDto>> all() {
-        return allToUserPublicDtos();
+        return utils.allToUserPublicDtos();
     }
 
     @PostMapping
     public EntityModel<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
         try {
-            User user = repository.save(dtoMapper.toUser(userPostDto));
-            return userGetDtoModelAssembler.toModel(dtoMapper.toUserGetDto(user));
+            User user = utils.getRepository().save(utils.getDtoMapper().toUser(userPostDto));
+            return utils.getUserGetDtoModelAssembler().toModel(utils.getDtoMapper().toUserGetDto(user));
         } catch (UsernameTakenException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
         }
@@ -45,7 +42,7 @@ public class PublicUserController extends UserController {
 
     @GetMapping("/exists/{username}")
     public boolean usernameExists(@PathVariable String username) {
-        return repository.existsUserByUsername(username);
+        return utils.getRepository().existsUserByUsername(username);
     }
 
 }

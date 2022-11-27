@@ -8,6 +8,7 @@ import draen.domain.users.UserAttemptInfo;
 import draen.dto.UserAttemptInfoDto;
 import draen.dto.CoordInfoDto;
 import draen.dto.DtoMapper;
+import draen.rest.controllers.UserControllerUtils;
 import draen.rest.modelassemblers.UserAttemptInfoDtoModelAssembler;
 import draen.security.AppUserDetails;
 import lombok.AllArgsConstructor;
@@ -30,11 +31,12 @@ public class AreaCheckController {
     private final AreaShooterComponent areaShooterComponent;
     private final DtoMapper dtoMapper;
     private final UserAttemptInfoDtoModelAssembler assembler;
-    private final AuthorizedUserController userController;
+    private final UserControllerUtils userUtils;
+
     @PostMapping(value = "/shoot", consumes = MediaType.APPLICATION_JSON_VALUE)
     public EntityModel<UserAttemptInfoDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @AuthenticationPrincipal AppUserDetails appUserDetails) {
         try {
-            User user = userController.getUser(appUserDetails.getUsername());
+            User user = userUtils.getUser(appUserDetails.getUsername());
             CoordInfo coordInfo = dtoMapper.toCoordInfo(coordInfoDto);
             UserAttemptInfo attemptInfo = areaShooterComponent.shoot(coordInfo, user);
             return assembler.toModel(dtoMapper.toUserAttemptInfoDto(attemptInfo));

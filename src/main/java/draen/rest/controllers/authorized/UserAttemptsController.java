@@ -10,7 +10,7 @@ import draen.dto.UserAttemptInfoDto;
 import draen.dto.CoordInfoDto;
 import draen.dto.DtoMapper;
 import draen.exceptions.UserIdNotFoundException;
-import draen.rest.controllers.UserController;
+import draen.rest.controllers.UserControllerUtils;
 import draen.rest.modelassemblers.UserAttemptInfoDtoModelAssembler;
 import draen.storage.UserAttemptInfoRepository;
 import lombok.AllArgsConstructor;
@@ -25,11 +25,12 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("/users/id/{userId}/attempts")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class UserAttemptsController extends UserController {
+public class UserAttemptsController {
     private final AreaShooterComponent areaShooterComponent;
     private final UserAttemptInfoRepository repository;
     private final UserAttemptInfoDtoModelAssembler assembler;
     private final DtoMapper dtoMapper;
+    private final UserControllerUtils userUtils;
 
 
 
@@ -51,7 +52,7 @@ public class UserAttemptsController extends UserController {
     @PostMapping("/shoot")
     public EntityModel<UserAttemptInfoDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @PathVariable long userId) {
         try {
-            User user = getUser(userId);
+            User user = userUtils.getUser(userId);
             CoordInfo coordInfo = unwrap(coordInfoDto, dtoMapper::toCoordInfo);
             UserAttemptInfo attemptInfo = areaShooterComponent.shoot(coordInfo, user);
             return wrap(attemptInfo, dtoMapper::toUserAttemptInfoDto, assembler::toModel);

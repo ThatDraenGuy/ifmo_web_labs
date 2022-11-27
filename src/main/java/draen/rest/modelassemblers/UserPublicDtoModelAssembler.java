@@ -16,7 +16,7 @@ public class UserPublicDtoModelAssembler implements RepresentationModelAssembler
     @Override
     public @NonNull EntityModel<UserPublicDto> toModel(@NonNull UserPublicDto entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(AuthorizedUserController.class).userByUsername(entity.getUsername())).withSelfRel(),
+                linkTo(methodOn(PublicUserController.class).userByUsername(entity.getUsername())).withSelfRel(),
                 linkTo(methodOn(PublicUserController.class).all()).withRel("users")
                 );
     }
