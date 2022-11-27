@@ -12,34 +12,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/users")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthorizedUserController extends UserController {
-//    private final UserRepository repository;
     private final UserGetDtoModelAssembler userGetDtoModelAssembler;
-//    private final DtoMapper dtoMapper;
 
     @GetMapping("/id/{userId}")
     public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        return getWrappedUser(userId, dtoMapper::toUserGetDto, userGetDtoModelAssembler::toModel);
-//        try {
-//            return userGetDtoModelAssembler.toModel(dtoMapper.toUserGetDto(getUser(userId)));
-//        } catch (UserIdNotFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No such user", e);
-//        }
+        return wrapToUserGetDto(userId);
     }
     @GetMapping("/{username}")
     public EntityModel<UserGetDto> userByUsername(@PathVariable String username) {
-        return getWrappedUser(username, dtoMapper::toUserGetDto, userGetDtoModelAssembler::toModel);
-//        User user = repository.findUserByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such user"));
-//        return userGetDtoModelAssembler.toModel(dtoMapper.toUserGetDto(user));
+        return wrapToUserGetDto(username);
     }
-
-//    @GetMapping
-//    public RedirectView all() {
-//        //TODO think
-////        return userGetDtoModelAssembler.toCollectionModel(dtoMapper.toUserGetDtos(repository.findAll()));
-//        return new RedirectView("/api/public/users");
-//    }
-
-
 
     @GetMapping("/exists/{username}")
     public boolean usernameExists(@PathVariable String username) {

@@ -1,5 +1,7 @@
 package draen.rest.controllers.authorized;
 
+import static draen.rest.controllers.ControllerUtils.*;
+
 import draen.components.AreaShooterComponent;
 import draen.domain.attempts.CoordInfo;
 import draen.domain.users.User;
@@ -33,22 +35,26 @@ public class UserAttemptsController extends UserController {
 
     @GetMapping
     public CollectionModel<EntityModel<UserAttemptInfoDto>> allAttempts(@PathVariable long userId) {
-        return assembler.toCollectionModel(dtoMapper.toUserAttemptInfoDtos(repository.findAttemptInfosByUserIdEquals(userId)));
+        return wrap(repository.findUserAttemptInfosByUserIdEquals(userId), dtoMapper::toUserAttemptInfoDtos, assembler::toCollectionModel);
     }
 
     @GetMapping("/{attemptId}")
     public EntityModel<UserAttemptInfoDto> oneAttempt(@PathVariable long userId, @PathVariable long attemptId) {
-        return assembler.toModel(dtoMapper.toUserAttemptInfoDto(repository.findAttemptInfoByIdAndUserIdEquals(attemptId, userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "attempt not found"))));
+        return wrap(
+                repository.findUserAttemptInfoByIdAndUserIdEquals(attemptId,userId)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "attempt not found")),
+                dtoMapper::toUserAttemptInfoDto, assembler::toModel
+                );
+
     }
 
     @PostMapping("/shoot")
     public EntityModel<UserAttemptInfoDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @PathVariable long userId) {
         try {
             User user = getUser(userId);
-            CoordInfo coordInfo = dtoMapper.toCoordInfo(coordInfoDto);
+            CoordInfo coordInfo = unwrap(coordInfoDto, dtoMapper::toCoordInfo);
             UserAttemptInfo attemptInfo = areaShooterComponent.shoot(coordInfo, user);
-            return assembler.toModel(dtoMapper.toUserAttemptInfoDto(attemptInfo));
+            return wrap(attemptInfo, dtoMapper::toUserAttemptInfoDto, assembler::toModel);
         } catch (UserIdNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

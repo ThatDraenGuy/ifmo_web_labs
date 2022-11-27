@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface UserAttemptInfoRepository extends CrudRepository<UserAttemptInfo, Long> {
-    Collection<UserAttemptInfo> findAttemptInfosByUserIdEquals(Long user_id);
-    Optional<UserAttemptInfo> findAttemptInfoByIdAndUserIdEquals(Long id, Long userId);
+    Iterable<UserAttemptInfo> findUserAttemptInfosByUserIdEquals(Long user_id);
+    Optional<UserAttemptInfo> findUserAttemptInfoByIdAndUserIdEquals(Long id, Long userId);
 
 }

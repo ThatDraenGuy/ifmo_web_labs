@@ -29,7 +29,7 @@ public abstract class DtoMapper {
     @Mapping(target = "userId", source = "user")
     public abstract UserAttemptInfoDto toUserAttemptInfoDto(UserAttemptInfo attemptInfo);
     @Mapping(target = "userId", source = "user")
-    public abstract List<UserAttemptInfoDto> toUserAttemptInfoDtos(Collection<UserAttemptInfo> attemptInfos);
+    public abstract List<UserAttemptInfoDto> toUserAttemptInfoDtos(Iterable<UserAttemptInfo> attemptInfos);
 
     public abstract CoordInfoDto toCoordInfoDto(CoordInfo coordInfo);
     public abstract CoordInfo toCoordInfo(CoordInfoDto coordInfoDto);

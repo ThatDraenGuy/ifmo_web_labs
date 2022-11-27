@@ -20,22 +20,17 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping(path = "/public/users")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PublicUserController extends UserController {
-//    private final UserRepository repository;
     private final UserPublicDtoModelAssembler userPublicDtoModelAssembler;
     private final UserGetDtoModelAssembler userGetDtoModelAssembler;
-//    private final DtoMapper dtoMapper;
 
     @GetMapping("/{username}")
     public EntityModel<UserPublicDto> userByUsername(@PathVariable String username) {
-        return getWrappedUser(username, dtoMapper::toUserPublicDto, userPublicDtoModelAssembler::toModel);
-//        User user = repository.findUserByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such user"));
-//        return userPublicDtoModelAssembler.toModel(dtoMapper.toUserPublicDto(user));
+        return wrapToUserPublicDto(username);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<UserPublicDto>> all() {
-        return getWrappedUsers(dtoMapper::toUserPublicDtos, userPublicDtoModelAssembler::toCollectionModel);
-//        return userPublicDtoModelAssembler.toCollectionModel(dtoMapper.toUserPublicDtos(repository.findAll()));
+        return allToUserPublicDtos();
     }
 
     @PostMapping

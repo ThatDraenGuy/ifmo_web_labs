@@ -1,6 +1,13 @@
 package draen.rest.controllers;
 
+import static draen.rest.controllers.ControllerUtils.*;
+
 import draen.domain.users.User;
+import draen.dto.Dto;
+import draen.dto.UserGetDto;
+import draen.dto.UserPublicDto;
+import draen.rest.modelassemblers.UserGetDtoModelAssembler;
+import draen.rest.modelassemblers.UserPublicDtoModelAssembler;
 import draen.storage.UserRepository;
 import draen.dto.DtoMapper;
 import draen.exceptions.UserIdNotFoundException;
@@ -19,25 +26,58 @@ public abstract class UserController {
     protected UserRepository repository;
     @Autowired
     protected DtoMapper dtoMapper;
+    @Autowired
+    protected UserPublicDtoModelAssembler userPublicDtoModelAssembler;
+    @Autowired
+    protected UserGetDtoModelAssembler userGetDtoModelAssembler;
 
-    protected <T> EntityModel<T> getWrappedUser(Long id, Function<User, T> dto, Function<T, EntityModel<T>> model) throws ResponseStatusException {
+
+    protected EntityModel<UserGetDto> wrapToUserGetDto(Long id) throws ResponseStatusException {
         try {
-            return model.apply(dto.apply(getUser(id)));
+            return wrapToUserGetDto(getUser(id));
         } catch (UserIdNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
-    protected <T> EntityModel<T> getWrappedUser(String username, Function<User, T> dto, Function<T, EntityModel<T>> model) throws ResponseStatusException {
+    protected EntityModel<UserGetDto> wrapToUserGetDto(String username) throws UsernameNotFoundException {
         try {
-            return model.apply(dto.apply(getUser(username)));
+            return wrapToUserGetDto(getUser(username));
         } catch (UsernameNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+    protected EntityModel<UserGetDto> wrapToUserGetDto(User user) {
+        return wrap(user, dtoMapper::toUserGetDto, userGetDtoModelAssembler::toModel);
+    }
 
-    protected <T> CollectionModel<EntityModel<T>> getWrappedUsers(Function<Iterable<User>, Iterable<T>> dto, Function<Iterable<T>,CollectionModel<EntityModel<T>>> model) {
-        return model.apply(dto.apply(repository.findAll()));
+    protected EntityModel<UserPublicDto> wrapToUserPublicDto(Long id) throws UserIdNotFoundException {
+        try {
+            return wrapToUserPublicDto(getUser(id));
+        } catch (UserIdNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }    }
+    protected EntityModel<UserPublicDto> wrapToUserPublicDto(String username) throws UsernameNotFoundException {
+        try {
+            return wrapToUserPublicDto(getUser(username));
+        } catch (UsernameNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }        }
+    protected EntityModel<UserPublicDto> wrapToUserPublicDto(User user) {
+        return wrap(user, dtoMapper::toUserPublicDto, userPublicDtoModelAssembler::toModel);
+    }
+
+    protected CollectionModel<EntityModel<UserPublicDto>> allToUserPublicDtos() {
+        return wrapToUserPublicDtos(repository.findAll());
+    }
+    protected CollectionModel<EntityModel<UserPublicDto>> wrapToUserPublicDtos(Iterable<User> users) {
+        return wrap(users, dtoMapper::toUserPublicDtos, userPublicDtoModelAssembler::toCollectionModel);
+    }
+
+    protected CollectionModel<EntityModel<UserGetDto>> allToUserGetDtos() {
+        return wrapToUserGetDtos(repository.findAll());
+    }
+    protected CollectionModel<EntityModel<UserGetDto>> wrapToUserGetDtos(Iterable<User> users) {
+        return wrap(users, dtoMapper::toUserGetDtos, userGetDtoModelAssembler::toCollectionModel);
     }
 
     public User getUser(long userId) throws UserIdNotFoundException {

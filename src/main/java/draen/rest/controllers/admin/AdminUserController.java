@@ -25,29 +25,23 @@ public class AdminUserController extends UserController {
 
     @GetMapping("/id/{userId}")
     public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        try {
-            return userGetDtoModelAssembler.toModel(dtoMapper.toUserGetDto(getUser(userId)));
-        } catch (UserIdNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No such user", e);
-        }
+        return wrapToUserGetDto(userId);
     }
     @GetMapping("/{username}")
     public EntityModel<UserGetDto> userByUsername(@PathVariable String username) {
-        User user = repository.findUserByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such user"));
-        return userGetDtoModelAssembler.toModel(dtoMapper.toUserGetDto(user));
+        return wrapToUserGetDto(username);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<UserGetDto>> all() {
-        return getWrappedUsers(dtoMapper::toUserGetDtos, userGetDtoModelAssembler::toCollectionModel);
-//        return userGetDtoModelAssembler.toCollectionModel(dtoMapper.toUserGetDtos(repository.findAll()));
+        return allToUserGetDtos();
     }
 
     @PostMapping
     public EntityModel<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
         try {
             User user = repository.save(dtoMapper.toUser(userPostDto));
-            return userGetDtoModelAssembler.toModel(dtoMapper.toUserGetDto(user));
+            return wrapToUserGetDto(user);
         } catch (UsernameTakenException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
         }
@@ -56,9 +50,5 @@ public class AdminUserController extends UserController {
     @GetMapping("/exists/{username}")
     public boolean usernameExists(@PathVariable String username) {
         return repository.existsUserByUsername(username);
-    }
-
-    public User getUser(long userId) throws UserIdNotFoundException {
-        return repository.findById(userId).orElseThrow(() -> new UserIdNotFoundException("No such user"));
     }
 }
