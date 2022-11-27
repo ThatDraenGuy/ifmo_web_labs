@@ -16,7 +16,8 @@ import java.util.List;
 public class UserData {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<AttemptInfo> attempts;
+    private List<UserAttemptInfo> attempts;
+
 
     public static UserData create() {
         return new UserData(new ArrayList<>());

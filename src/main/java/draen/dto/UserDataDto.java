@@ -1,6 +1,7 @@
 package draen.dto;
 
 import draen.domain.attempts.AttemptInfo;
+import draen.domain.users.UserAttemptInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +12,5 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class UserDataDto {
-    private List<AttemptInfo> attempts;
+    private List<UserAttemptInfo> attempts;
 }

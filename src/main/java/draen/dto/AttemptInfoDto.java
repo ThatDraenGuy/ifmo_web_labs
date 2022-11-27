@@ -1,18 +1,12 @@
 package draen.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import draen.domain.attempts.CoordInfo;
+import draen.domain.attempts.ShotInfo;
 
 import java.time.ZonedDateTime;
 
-@Getter
-@Setter
-@AllArgsConstructor
 public class AttemptInfoDto {
-    private Long id;
-    private CoordInfoDto coords;
-    private ShotInfoDto shot;
+    private CoordInfo coords;
+    private ShotInfo shot;
     private ZonedDateTime currTime;
-    private Long userId;
 }

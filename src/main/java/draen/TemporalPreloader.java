@@ -1,18 +1,11 @@
 package draen;
 
-import draen.domain.attempts.AttemptInfo;
-import draen.domain.attempts.AttemptInfoRepository;
-import draen.domain.attempts.CoordInfo;
-import draen.domain.attempts.ShotInfo;
-import draen.domain.users.User;
 import draen.domain.users.UserFactory;
-import draen.domain.users.UserRepository;
+import draen.storage.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.time.Instant;
 
 @Component
 @AllArgsConstructor(onConstructor = @__({@Autowired}))

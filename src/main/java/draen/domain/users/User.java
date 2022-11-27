@@ -19,7 +19,7 @@ public class User {
     private String username;
     private String password;
 
-    @ElementCollection(targetClass = UserRole.class)
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "userRoles")
     @Enumerated(EnumType.STRING)
     @Column(name = "role")

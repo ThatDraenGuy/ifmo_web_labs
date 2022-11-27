@@ -12,16 +12,17 @@ import lombok.Setter;
 
 import java.time.*;
 
-@Entity
-@Table(name = "attempts")
+//@Entity
+//@Table(name = "attempts")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Embeddable
 public class AttemptInfo {
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+//    @Setter
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    private Long id;
 
     @Embedded
     private CoordInfo coords;
@@ -31,20 +32,19 @@ public class AttemptInfo {
 
     private ZonedDateTime currTime;
 
-    @ManyToOne
-    @JoinColumn(name="UserId")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name="UserId")
+//    private User user;
 
 
-    public static AttemptInfo fromHit(CoordInfo coordInfo, ShotInfo shotInfo, User user) {
-        return new AttemptInfo(null, coordInfo, shotInfo, ZonedDateTime.now(), user);
+    public static AttemptInfo fromHit(CoordInfo coordInfo, ShotInfo shotInfo) {
+        return new AttemptInfo(coordInfo, shotInfo, ZonedDateTime.now());
     }
 
     @Override
     public String toString() {
         return "AttemptInfo{" +
-                "id=" + id +
-                ", coordInfo=" + coords +
+                "coordInfo=" + coords +
                 ", shotInfo=" + shot +
                 ", currTime=" + currTime +
                 '}';

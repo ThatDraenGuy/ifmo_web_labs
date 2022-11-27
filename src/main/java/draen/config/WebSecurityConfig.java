@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -20,21 +22,21 @@ public class WebSecurityConfig {
         http.authorizeRequests()
                         .antMatchers("/auth/**").not().authenticated()
                         .antMatchers("/public/**").permitAll()
-//                        .anyRequest().authenticated();
-                        .anyRequest().permitAll();
-        http.formLogin().loginPage("/login");
+                        .antMatchers("/api/public/**").permitAll()
+                        .antMatchers("/api/users/id/{userId}/**").access("@userSecurity.hasUserId(authentication,#userId)")
+                        .antMatchers("/api/users/{username}/**").access("@userSecurity.hasUsername(authentication, #username)")
+                        .anyRequest().authenticated()
+                        .and()
+//                        .anyRequest().permitAll();
+                .formLogin().loginPage("/auth/login")
+                .loginProcessingUrl("/auth/login/process")
+                .and().httpBasic();
 
         return http.build();
     }
 
     @Bean
-    @Autowired
-    public UserDetailsService userDetailsService(AppUserDetailsService appUserDetailsService) {
-        return appUserDetailsService;
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

@@ -1,6 +1,6 @@
 package draen.rest.controllers;
 
-import draen.config.QuadrantsInfoWrapper;
+import draen.components.QuadrantsInfoComponent;
 import draen.domain.quadrants.QuadrantsInfo;
 import draen.rest.modelassemblers.QuadrantsInfoModelAssembler;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class QuadrantsInfoController {
-    private final QuadrantsInfoWrapper quadrantsInfoWrapper;
+    private final QuadrantsInfoComponent quadrantsInfoComponent;
     private final QuadrantsInfoModelAssembler assembler;
 
     @GetMapping("/quadrants")
     public EntityModel<QuadrantsInfo> get() {
-        return assembler.toModel(quadrantsInfoWrapper.getQuadrantsInfo());
+        return assembler.toModel(quadrantsInfoComponent.getQuadrantsInfo());
     }
 }

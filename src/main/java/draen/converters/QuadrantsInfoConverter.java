@@ -1,4 +1,4 @@
-package draen.config;
+package draen.converters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import draen.domain.quadrants.QuadrantsInfo;

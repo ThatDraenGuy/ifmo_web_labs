@@ -10,8 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserGetDto {
-    private Long id;
+public class UserPublicDto {
     private String username;
     private Set<UserRole> roles;
 }

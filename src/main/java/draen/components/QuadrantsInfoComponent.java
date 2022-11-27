@@ -1,4 +1,4 @@
-package draen.config;
+package draen.components;
 
 import draen.domain.quadrants.QuadrantsInfo;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "quadrants")
 @ReadingConverter
-public class QuadrantsInfoWrapper {
+public class QuadrantsInfoComponent {
     @Getter
     @Setter
     @Value("${quadrants.source}")

@@ -1,6 +1,6 @@
 package draen.config;
 
-import draen.config.QuadrantsInfoConverter;
+import draen.converters.QuadrantsInfoConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ConversionServiceFactoryBean;

@@ -1,5 +1,6 @@
-package draen.domain.users;
+package draen.storage;
 
+import draen.domain.users.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
