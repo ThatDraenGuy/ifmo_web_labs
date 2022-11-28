@@ -16,7 +16,7 @@ public class UserFactory {
     private final UserRepository repository;
 
     public User create(String username, String password) throws UsernameTakenException {
-        if (repository.existsUserByUsername(username)) throw new UsernameTakenException("Username "+username+" is already taken");
+        if (repository.existsByUsername(username)) throw new UsernameTakenException("Username "+username+" is already taken");
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         String encodedPassword = encoder.encode(password);
         return new User(null, username, encodedPassword, Set.of(UserRole.USER), UserData.create());

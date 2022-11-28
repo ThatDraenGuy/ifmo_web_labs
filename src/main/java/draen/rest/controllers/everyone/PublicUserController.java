@@ -5,7 +5,6 @@ import draen.dto.user.UserGetDto;
 import draen.dto.user.UserPostDto;
 import draen.dto.user.UserPublicDto;
 import draen.exceptions.DtoException;
-import draen.exceptions.UsernameTakenException;
 import draen.rest.controllers.UserControllerUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class PublicUserController {
 
     @GetMapping("/exists/{username}")
     public boolean usernameExists(@PathVariable String username) {
-        return utils.getRepository().existsUserByUsername(username);
+        return utils.getRepository().existsByUsername(username);
     }
 
 }

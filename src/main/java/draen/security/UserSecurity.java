@@ -15,7 +15,7 @@ public class UserSecurity {
     public boolean hasUserId(Authentication authentication, Long userId) {
         try {
             String name = authentication.getName();
-            Long id = userRepository.findUserByUsername(name).orElseThrow(() -> new UsernameNotFoundException("No such user")).getId();
+            Long id = userRepository.findByUsername(name).orElseThrow(() -> new UsernameNotFoundException("No such user")).getId();
             return id.equals(userId);
         } catch (UsernameNotFoundException e) {
             return false;

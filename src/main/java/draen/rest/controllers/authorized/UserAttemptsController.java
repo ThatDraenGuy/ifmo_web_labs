@@ -33,12 +33,12 @@ public class UserAttemptsController {
 
     @GetMapping
     public CollectionModel<EntityModel<UserAttemptInfoDto>> allAttempts(@PathVariable long userId) {
-        return wrapper.wrapAll(repository.findUserAttemptInfosByUserIdEquals(userId), UserAttemptInfoDto.class);
+        return wrapper.wrapAll(repository.findByUserIdEquals(userId), UserAttemptInfoDto.class);
     }
 
     @GetMapping("/{attemptId}")
     public EntityModel<UserAttemptInfoDto> oneAttempt(@PathVariable long userId, @PathVariable long attemptId) {
-        return wrapper.wrap(repository.findUserAttemptInfoByIdAndUserIdEquals(userId, attemptId)
+        return wrapper.wrap(repository.findByIdAndUserIdEquals(userId, attemptId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "attempt not found")),
                 UserAttemptInfoDto.class);
     }

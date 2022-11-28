@@ -2,9 +2,6 @@ package draen.rest.controllers;
 
 import draen.domain.users.User;
 import draen.rest.Wrapper;
-import draen.dto.user.UserGetDto;
-import draen.dto.user.UserPostDto;
-import draen.dto.user.UserPublicDto;
 import draen.storage.UserRepository;
 import draen.exceptions.UserIdNotFoundException;
 import lombok.AllArgsConstructor;
@@ -40,6 +37,6 @@ public class UserControllerUtils {
         return repository.findById(userId).orElseThrow(() -> new UserIdNotFoundException("No such user"));
     }
     public User getUser(String username) throws UsernameNotFoundException {
-        return repository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("No such user"));
+        return repository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("No such user"));
     }
 }

@@ -46,6 +46,6 @@ public class AdminUserController {
 
     @GetMapping("/exists/{username}")
     public boolean usernameExists(@PathVariable String username) {
-        return utils.getRepository().existsUserByUsername(username);
+        return utils.getRepository().existsByUsername(username);
     }
 }
