@@ -1,9 +1,9 @@
 package draen.rest.controllers.admin;
 
 import draen.domain.users.User;
-import draen.dto.UserGetDto;
-import draen.dto.UserPostDto;
-import draen.exceptions.UsernameTakenException;
+import draen.dto.user.UserGetDto;
+import draen.dto.user.UserPostDto;
+import draen.exceptions.DtoException;
 import draen.rest.controllers.UserControllerUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +19,27 @@ import org.springframework.web.server.ResponseStatusException;
 public class AdminUserController {
     private final UserControllerUtils utils;
 
+
     @GetMapping("/id/{userId}")
     public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        return utils.wrapToUserGetDto(userId);
+        return utils.getWrapper().wrap(utils.getUserOr(userId), UserGetDto.class);
     }
     @GetMapping("/{username}")
     public EntityModel<UserGetDto> userByUsername(@PathVariable String username) {
-        return utils.wrapToUserGetDto(username);
+        return utils.getWrapper().wrap(utils.getUserOr(username), UserGetDto.class);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<UserGetDto>> all() {
-        return utils.allToUserGetDtos();
+        return utils.getWrapper().wrapAll(utils.getRepository().findAll(), UserGetDto.class);
     }
 
     @PostMapping
     public EntityModel<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
         try {
-            User user = utils.getRepository().save(utils.getDtoMapper().toUser(userPostDto));
-            return utils.wrapToUserGetDto(user);
-        } catch (UsernameTakenException e) {
+            User user = utils.getRepository().save(utils.getWrapper().unwrap(userPostDto, User.class));
+            return utils.getWrapper().wrap(user, UserGetDto.class);
+        } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
         }
     }

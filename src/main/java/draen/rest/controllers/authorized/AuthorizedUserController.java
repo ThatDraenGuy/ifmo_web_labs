@@ -1,6 +1,6 @@
 package draen.rest.controllers.authorized;
 
-import draen.dto.UserGetDto;
+import draen.dto.user.UserGetDto;
 import draen.rest.controllers.UserControllerUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,6 @@ public class AuthorizedUserController {
     private final UserControllerUtils utils;
     @GetMapping("/id/{userId}")
     public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        return utils.wrapToUserGetDto(userId);
+        return utils.getWrapper().wrap(utils.getUserOr(userId), UserGetDto.class);
     }
 }

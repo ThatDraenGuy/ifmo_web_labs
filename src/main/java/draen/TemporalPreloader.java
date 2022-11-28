@@ -1,6 +1,8 @@
 package draen;
 
+import draen.domain.users.User;
 import draen.domain.users.UserFactory;
+import draen.domain.users.UserRole;
 import draen.storage.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,5 @@ public class TemporalPreloader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        User user = userRepository.save(userFactory.create("test2", "thing"));
-//        user.getData().getAttempts().add(AttemptInfo.fromHit(CoordInfo.create(1,1,1), ShotInfo.create(true, "b", Instant.now()), user));
     }
 }

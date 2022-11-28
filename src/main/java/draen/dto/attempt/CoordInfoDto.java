@@ -1,6 +1,7 @@
-package draen.dto;
+package draen.dto.attempt;
 
 import draen.domain.attempts.CoordInfo;
+import draen.dto.Dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

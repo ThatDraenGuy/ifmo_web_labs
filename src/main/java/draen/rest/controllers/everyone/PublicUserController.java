@@ -1,9 +1,10 @@
 package draen.rest.controllers.everyone;
 
 import draen.domain.users.User;
-import draen.dto.UserGetDto;
-import draen.dto.UserPostDto;
-import draen.dto.UserPublicDto;
+import draen.dto.user.UserGetDto;
+import draen.dto.user.UserPostDto;
+import draen.dto.user.UserPublicDto;
+import draen.exceptions.DtoException;
 import draen.exceptions.UsernameTakenException;
 import draen.rest.controllers.UserControllerUtils;
 import lombok.AllArgsConstructor;
@@ -22,20 +23,20 @@ public class PublicUserController {
 
     @GetMapping("/{username}")
     public EntityModel<UserPublicDto> userByUsername(@PathVariable String username) {
-        return utils.wrapToUserPublicDto(username);
+        return utils.getWrapper().wrap(utils.getUserOr(username), UserPublicDto.class);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<UserPublicDto>> all() {
-        return utils.allToUserPublicDtos();
+        return utils.getWrapper().wrapAll(utils.getRepository().findAll(), UserPublicDto.class);
     }
 
     @PostMapping
     public EntityModel<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
         try {
-            User user = utils.getRepository().save(utils.getDtoMapper().toUser(userPostDto));
-            return utils.getUserGetDtoModelAssembler().toModel(utils.getDtoMapper().toUserGetDto(user));
-        } catch (UsernameTakenException e) {
+            User user = utils.getRepository().save(utils.getWrapper().unwrap(userPostDto, User.class));
+            return utils.getWrapper().wrap(user, UserGetDto.class);
+        } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
         }
     }

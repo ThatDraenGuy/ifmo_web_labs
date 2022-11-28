@@ -3,7 +3,7 @@ package draen.rest.modelassemblers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
-import draen.dto.UserGetDto;
+import draen.dto.user.UserGetDto;
 import draen.rest.controllers.authorized.UserAttemptsController;
 import draen.rest.controllers.authorized.AuthorizedUserController;
 import draen.rest.controllers.everyone.PublicUserController;
@@ -13,7 +13,7 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserGetDtoModelAssembler implements RepresentationModelAssembler<UserGetDto, EntityModel<UserGetDto>> {
+public class UserGetDtoModelAssembler implements DtoModelAssembler<UserGetDto> {
     @Override
     public @NonNull EntityModel<UserGetDto> toModel(@NonNull UserGetDto entity) {
         return EntityModel.of(entity,

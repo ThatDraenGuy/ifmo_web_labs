@@ -32,7 +32,7 @@ public class UserAttemptInfo {
     public static UserAttemptInfo create(AttemptInfo attemptInfo, User user) {
         List<UserAttemptInfo> userAttempts = user.getData().getAttempts();
         UserAttemptInfo userAttemptInfo = new UserAttemptInfo(null, userAttempts.size(), attemptInfo, user);
-        userAttempts.add(userAttemptInfo);
+//        userAttempts.add(userAttemptInfo);
         return userAttemptInfo;
     }
 }

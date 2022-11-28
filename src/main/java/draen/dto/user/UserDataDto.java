@@ -1,8 +1,9 @@
-package draen.dto;
+package draen.dto.user;
 
 
 import draen.domain.users.UserAttemptInfo;
 import draen.domain.users.UserData;
+import draen.dto.Dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

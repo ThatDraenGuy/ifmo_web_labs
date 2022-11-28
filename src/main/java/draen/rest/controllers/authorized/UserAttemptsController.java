@@ -1,17 +1,16 @@
 package draen.rest.controllers.authorized;
 
-import static draen.rest.controllers.ControllerUtils.*;
 
 import draen.components.AreaShooterComponent;
 import draen.domain.attempts.CoordInfo;
 import draen.domain.users.User;
 import draen.domain.users.UserAttemptInfo;
-import draen.dto.UserAttemptInfoDto;
-import draen.dto.CoordInfoDto;
-import draen.dto.DtoMapper;
+import draen.rest.Wrapper;
+import draen.dto.attempt.UserAttemptInfoDto;
+import draen.dto.attempt.CoordInfoDto;
+import draen.exceptions.DtoException;
 import draen.exceptions.UserIdNotFoundException;
 import draen.rest.controllers.UserControllerUtils;
-import draen.rest.modelassemblers.UserAttemptInfoDtoModelAssembler;
 import draen.storage.UserAttemptInfoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,35 +27,30 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserAttemptsController {
     private final AreaShooterComponent areaShooterComponent;
     private final UserAttemptInfoRepository repository;
-    private final UserAttemptInfoDtoModelAssembler assembler;
-    private final DtoMapper dtoMapper;
-    private final UserControllerUtils userUtils;
-
+    private final UserControllerUtils utils;
+    private final Wrapper wrapper;
 
 
     @GetMapping
     public CollectionModel<EntityModel<UserAttemptInfoDto>> allAttempts(@PathVariable long userId) {
-        return wrap(repository.findUserAttemptInfosByUserIdEquals(userId), dtoMapper::toUserAttemptInfoDtos, assembler::toCollectionModel);
+        return wrapper.wrapAll(repository.findUserAttemptInfosByUserIdEquals(userId), UserAttemptInfoDto.class);
     }
 
     @GetMapping("/{attemptId}")
     public EntityModel<UserAttemptInfoDto> oneAttempt(@PathVariable long userId, @PathVariable long attemptId) {
-        return wrap(
-                repository.findUserAttemptInfoByIdAndUserIdEquals(attemptId,userId)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "attempt not found")),
-                dtoMapper::toUserAttemptInfoDto, assembler::toModel
-                );
-
+        return wrapper.wrap(repository.findUserAttemptInfoByIdAndUserIdEquals(userId, attemptId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "attempt not found")),
+                UserAttemptInfoDto.class);
     }
 
     @PostMapping("/shoot")
     public EntityModel<UserAttemptInfoDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @PathVariable long userId) {
         try {
-            User user = userUtils.getUser(userId);
-            CoordInfo coordInfo = unwrap(coordInfoDto, dtoMapper::toCoordInfo);
+            User user = utils.getUser(userId);
+            CoordInfo coordInfo = wrapper.unwrap(coordInfoDto, CoordInfo.class);
             UserAttemptInfo attemptInfo = areaShooterComponent.shoot(coordInfo, user);
-            return wrap(attemptInfo, dtoMapper::toUserAttemptInfoDto, assembler::toModel);
-        } catch (UserIdNotFoundException e) {
+            return wrapper.wrap(attemptInfo, UserAttemptInfoDto.class);
+        } catch (UserIdNotFoundException | DtoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
