@@ -1,12 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 
+export const Header: FC<any> = () => {
+    return (
+        <div>
 
-export default class Header extends React.Component<any, any> {
-    render() {
-        return (
-            <div>
-
-            </div>
-        )
-    }
+        </div>
+    )
 }

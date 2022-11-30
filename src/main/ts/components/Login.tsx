@@ -30,7 +30,7 @@ type LoginData = {
 //     }
 // }
 
-export const Login: FC<any> = (props) => {
+export const Login: FC<any> = () => {
     const [loginPost, {}] = useLoginMutation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

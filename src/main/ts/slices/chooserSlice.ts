@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 export interface ChooserState {
@@ -9,19 +9,25 @@ export interface ChooserState {
 const initialState: ChooserState = {
     x: undefined,
     y: undefined,
-    r: 3
+    r: undefined
 }
 
 export const chooserSlice = createSlice({
     name: 'chooser',
     initialState,
     reducers: {
+        setX: ((state, action: PayloadAction<number>) => {
+            state.x = action.payload
+        }),
+        setY: ((state, action: PayloadAction<number>) => {
+            state.y = action.payload
+        }),
         setR: ((state, action: PayloadAction<number>) => {
             state.r = action.payload
         })
     }
 })
 
-export const {setR} = chooserSlice.actions
+export const {setX, setY, setR} = chooserSlice.actions
 
 export default  chooserSlice.reducer
