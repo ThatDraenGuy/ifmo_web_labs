@@ -1,7 +1,6 @@
 package draen.dto.user;
 
 import draen.domain.users.User;
-import draen.dto.DtoMapperDetails;
 import draen.dto.ToDtoMapper;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;

@@ -1,34 +1,20 @@
 import React from "react";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Login} from "./components/Login";
+import {Home} from "./components/Home"
+import Header from "./components/Header";
 
-type MyProps = {
-    message: string
-}
-
-type AppState = {
-
-}
-
-export default class App extends React.Component<MyProps, any> {
-
-    onSubmit = (e: React.FormEvent<HTMLFormElement>) : void => {
-        e.preventDefault();
-        const data = {
-            "x": 1,
-            "y": 1,
-            "r": 1
-        };
-        fetch("/areacheck/shoot", {method: 'POST', headers: {"Content-Type": "application/json"}, body: JSON.stringify(data)})
-    }
+export default class App extends React.Component<any, any> {
     render() {
+
         return (
-            <div>
-                {this.props.message} yooo
-                <form action="/areacheck/shoot" onSubmit={this.onSubmit}>
-                    <input type="submit"/>
-                </form>
-                huh?
-                huh2
-            </div>
+            <BrowserRouter>
+                <Header/>
+                <Routes>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/" element={<Home/>}/>
+                </Routes>
+            </BrowserRouter>
         )
     }
 }

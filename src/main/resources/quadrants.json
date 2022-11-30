@@ -2,7 +2,7 @@
 {
   "quadrants":[
     {
-      "type":"circle",
+      "type":"square",
       "xMul":1,
       "yMul":1
     },{
@@ -10,13 +10,13 @@
       "xMul":1,
       "yMul":-1
     },{
-      "type":"square",
-      "xMul":-1,
-      "yMul":-1
-    },{
       "type":"triangle",
-      "xMul":-1,
-      "yMul":1
+      "xMul":-0.5,
+      "yMul":-0.5
+    },{
+      "type":"circle",
+      "xMul":-0.5,
+      "yMul":0.5
     }
   ]
 }

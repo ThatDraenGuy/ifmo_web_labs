@@ -13,6 +13,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src/main/ts"
+    "src/main/ts/"
   ]
 }
