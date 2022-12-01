@@ -1,5 +1,5 @@
 import {FC, useEffect, useRef} from "react";
-import {QuadrantsInfo, useQuadrantsQuery} from "../../services/quadrants";
+import {mapQuadrantsInfo, QuadrantsInfo, useQuadrantsQuery} from "../../services/quadrants";
 import {Graph, GraphDrawer, GraphParams, GraphStyle} from "../../logic/GraphDrawer";
 import {useAppSelector} from "../../hooks";
 import * as styles from './graph.module.css';
@@ -18,7 +18,7 @@ export const GraphHolder: FC<GraphHolderParams> = ({graphDrawer, graphParams, gr
     useEffect(() => {
         if (isSuccess) {
             const graph: Graph = {canvas: canvas.current.getContext("2d"), ...graphParams, r: radius}
-            graphDrawer.draw(graph, graphStyle, quadrants)
+            graphDrawer.draw(graph, graphStyle, mapQuadrantsInfo(quadrants))
         }
     }, [isSuccess, radius])
 

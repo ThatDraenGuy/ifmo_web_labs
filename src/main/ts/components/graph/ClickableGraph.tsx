@@ -2,7 +2,6 @@ import React, {FC, useEffect, useRef} from "react";
 import {useAppSelector} from "../../hooks";
 import {Graph, GraphParams, GraphStyle} from "../../logic/GraphDrawer";
 import {useShootMutation} from "../../services/attempts";
-import {inspect} from "util";
 import * as styles from './graph.module.css';
 
 interface CLickPosition {

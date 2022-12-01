@@ -18,11 +18,11 @@ export const CheckboxChooser: FC<CheckboxChooserParams> = ({getValue, setValue, 
     }
     return (
         <div>
-            <Form.Control type="hidden" value={selected} isValid={selected!=undefined} isInvalid={selected==undefined} required/>
+            {/*<Form.Control type="hidden" value={selected} isValid={selected!=undefined} isInvalid={selected==undefined} required/>*/}
             {options.map(option => <OneCheckbox option={option} checkboxChosen={checkboxChosen} getValue={getValue} key={option}/>)}
-            <Form.Control.Feedback type="invalid">
-                This value is required
-            </Form.Control.Feedback>
+            {/*<Form.Control.Feedback type="invalid">*/}
+            {/*    This value is required*/}
+            {/*</Form.Control.Feedback>*/}
         </div>
     )
 }

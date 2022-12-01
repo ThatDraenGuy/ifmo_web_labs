@@ -42,7 +42,6 @@ module.exports = {
         clean: false,
     },
     module: {
-        strictExportPresence: true,
         rules: [
             {
                 test: /\.(ts|tsx)$/,

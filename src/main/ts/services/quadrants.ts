@@ -87,19 +87,11 @@ export const mapQuadrantsInfo = (quadrantsInfoDto: QuadrantsInfoDto): QuadrantsI
     }
     return quadrantsInfo;
 }
-
 const quadrantsApi = api.injectEndpoints({
     endpoints: build => ({
-        quadrants: build.query<QuadrantsInfo, void>({
+        quadrants: build.query<QuadrantsInfoDto, void>({
             query: () => ({
                 url: "/quadrants",
-                responseHandler: (response) => {
-                    return response.text().then((value) => {
-                        const dto: QuadrantsInfoDto = JSON.parse(value);
-                        const quadrants = mapQuadrantsInfo(dto);
-                        return quadrants;
-                    })
-                }
             })
         })
     })
