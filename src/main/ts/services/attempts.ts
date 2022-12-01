@@ -6,7 +6,12 @@ export interface UserAttemptInfo {
     id: bigint,
     number: number,
     attemptInfo: AttemptInfo,
-    userId: bigint
+    userId: bigint,
+    _links: {
+        self: {
+            "href": string
+        }
+    }
 }
 
 export interface AttemptInfo {

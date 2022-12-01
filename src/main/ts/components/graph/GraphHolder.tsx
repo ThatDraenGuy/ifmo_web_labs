@@ -2,6 +2,7 @@ import {FC, useEffect, useRef} from "react";
 import {QuadrantsInfo, useQuadrantsQuery} from "../../services/quadrants";
 import {Graph, GraphDrawer, GraphParams, GraphStyle} from "../../logic/GraphDrawer";
 import {useAppSelector} from "../../hooks";
+import * as styles from './graph.module.css';
 
 export interface GraphHolderParams {
     graphDrawer: GraphDrawer<QuadrantsInfo>,
@@ -22,7 +23,6 @@ export const GraphHolder: FC<GraphHolderParams> = ({graphDrawer, graphParams, gr
     }, [isSuccess, radius])
 
     return (
-        <div>
-            <canvas ref={canvas} width={graphParams.width} height={graphParams.height}/>
-        </div>)
+        <canvas ref={canvas} width={graphParams.width} height={graphParams.height} className={styles.layer2}/>
+    )
 }

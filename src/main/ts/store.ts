@@ -7,7 +7,8 @@ export const store = configureStore({
     reducer: combineReducers({
         chooser: chooserReducer,
         [api.reducerPath]: api.reducer
-    })
+    }),
+    middleware: (getDefaultMiddleware => getDefaultMiddleware().concat(api.middleware))
 })
 
 

@@ -2,7 +2,8 @@ import {FC} from "react";
 import {UserAttemptInfo} from "../../services/attempts";
 
 export interface AttemptRowProps {
-    userAttempt: UserAttemptInfo
+    userAttempt: UserAttemptInfo,
+    key: string
 }
 
 export const AttemptRow: FC<AttemptRowProps> = ({userAttempt}) => {

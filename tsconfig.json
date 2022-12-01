@@ -5,6 +5,13 @@
       "dom.iterable",
       "esnext"
     ],
+    "plugins": [{
+      "name": "typescript-plugin-css-modules",
+      "options": {
+        "customTemplate": ".src/main/ts/customCssTemplate.js"
+      }
+    }
+    ],
     "esModuleInterop": true,
     "declaration": true,
     "noEmitOnError": true,

@@ -1,0 +1,10 @@
+.graph-stacker {
+    display: grid;
+}
+.layer1, .layer2 {
+    grid-column: 1;
+    grid-row: 1;
+}
+.layer1 {
+    z-index: 2;
+}

@@ -1,6 +1,7 @@
 import React, {FC} from "react";
 import {RootState} from "../../store";
 import {ActionCreatorWithOptionalPayload} from "@reduxjs/toolkit";
+import {Col, Form, Row} from "react-bootstrap";
 
 export interface ChooserWrapperProps {
     chooserName: string,
@@ -14,11 +15,11 @@ export interface ChooserParams {
 
 export const ChooserWrapper: FC<ChooserWrapperProps> = ({chooserName, children}) => {
     return (
-        <table>
-            <tr>
-                <td>{chooserName}</td>
-                <td>{children}</td>
-            </tr>
-        </table>
+        <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm={2}>{chooserName}</Form.Label>
+            <Col sm={10}>
+                {children}
+            </Col>
+        </Form.Group>
     )
 }

@@ -6,6 +6,7 @@ import {TextChooser} from "./chooser/TextChooser";
 import {useShootMutation} from "../services/attempts";
 import {useAppSelector} from "../hooks";
 import {store} from "../store";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 
 export const ShooterForm: FC<any> = () => {
@@ -18,7 +19,7 @@ export const ShooterForm: FC<any> = () => {
 
     return (
         <div>
-            <form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit}>
                 <ChooserWrapper chooserName={"X"}>
                     <CheckboxChooser getValue={state => state.chooser.x} setValue={setX} options={[-4,-3,-2,-1,0,1,2,3,4]}/>
                 </ChooserWrapper>
@@ -28,8 +29,12 @@ export const ShooterForm: FC<any> = () => {
                 <ChooserWrapper chooserName={"R"}>
                     <CheckboxChooser getValue={state => state.chooser.r} setValue={setR} options={[-4,-3,-2,-1,0,1,2,3,4]}/>
                 </ChooserWrapper>
-                <input type="submit"/>
-            </form>
+                <Form.Group as={Row} className="mb-3">
+                    <Col sm={{ span: 10, offset: 2 }}>
+                        <Button type="submit">Shoot!</Button>
+                    </Col>
+                </Form.Group>
+            </Form>
         </div>
     )
 }
