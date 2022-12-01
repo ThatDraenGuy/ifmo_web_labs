@@ -21,7 +21,7 @@ public class WebSecurityConfig {
                 .antMatchers(PUBLIC_URLS).permitAll()
                 .antMatchers(NON_AUTH_ONLY_URLS).not().authenticated()
                 .antMatchers(ADMIN_URLS).hasAuthority("ADMIN")
-                .antMatchers("/users/id/{userId}/**").access("@userSecurity.hasUserId(authentication,#userId) or hasAuthority('ADMIN')")
+//                .antMatchers("/users/id/{userId}/**").access("@userSecurity.hasUserId(authentication,#userId) or hasAuthority('ADMIN')")
 //                .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")

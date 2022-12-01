@@ -3,7 +3,7 @@ import {ChooserWrapper} from "./chooser/ChooserWrapper";
 import {CheckboxChooser} from "./chooser/CheckboxChooser";
 import {setR, setY, setX} from "../slices/chooserSlice";
 import {TextChooser} from "./chooser/TextChooser";
-import {useShootMutation} from "../services/shoot";
+import {useShootMutation} from "../services/attempts";
 import {useAppSelector} from "../hooks";
 import {store} from "../store";
 

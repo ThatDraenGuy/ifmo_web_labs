@@ -5,5 +5,6 @@ export const api = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: ""
     }),
+    tagTypes: ["Attempts"],
     endpoints: build => ({})
 })

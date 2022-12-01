@@ -33,7 +33,8 @@ public class AreaCheckController {
     @PostMapping(value = "/shoot", consumes = MediaType.APPLICATION_JSON_VALUE)
     public EntityModel<UserAttemptInfoDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @AuthenticationPrincipal AppUserDetails appUserDetails) {
         try {
-            User user = userUtils.getUser(appUserDetails.getUsername());
+//            User user = userUtils.getUser(appUserDetails.getUsername());
+            User user = userUtils.getUser("draen");
             CoordInfo coordInfo = wrapper.unwrap(coordInfoDto, CoordInfo.class);
             UserAttemptInfo attemptInfo = areaShooterComponent.shoot(coordInfo, user);
             return wrapper.wrap(attemptInfo, UserAttemptInfoDto.class);

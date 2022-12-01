@@ -15,7 +15,8 @@ export interface GraphStyle {
     background: string,
     figure: string,
     text: string,
-    axis: string
+    axis: string,
+    point: string
 }
 
 export const createGraphParams = (width: number, height: number, offset: number) => {
@@ -34,6 +35,7 @@ export interface GraphDrawer<T> {
 
 export abstract class BaseGraphDrawer<T> implements GraphDrawer<T> {
     drawBackground(graph: Graph, style: GraphStyle): void {
+        graph.canvas.clearRect(0,0,graph.width,graph.height);
         graph.canvas.fillStyle = style.background;
         graph.canvas.fillRect(0, 0, graph.width, graph.height);
     }
@@ -72,7 +74,7 @@ export abstract class BaseGraphDrawer<T> implements GraphDrawer<T> {
             ctx.font = "24px serif";
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            ctx.fillText("Radius not set!", graph.startX, graph.maxY+20);
+            ctx.fillText("Radius not set!", graph.startX, graph.minY+20);
             return;
         }
         const labels: Array<number|string> = [-r, -r/2, '', r/2, r];
@@ -80,7 +82,7 @@ export abstract class BaseGraphDrawer<T> implements GraphDrawer<T> {
         ctx.fillStyle = style.text;
         ctx.font = "18px serif";
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'bottom';
+        ctx.textBaseline = 'middle';
         for (let i = 0; i < labels.length; i++) {
             const text = labels[i].toString();
             const factor = labels.length - 1;

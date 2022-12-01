@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 @Setter
 @AllArgsConstructor
 public class AttemptInfoDto implements Dto<AttemptInfo> {
-    private CoordInfo coords;
-    private ShotInfo shot;
+    private CoordInfoDto coords;
+    private ShotInfoDto shot;
     private ZonedDateTime currTime;
 }

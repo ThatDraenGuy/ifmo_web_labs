@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {ShotInfoDtoMapper.class, CoordInfoDtoMapper.class},
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
-@Component
+//@Component
 public abstract class ToAttemptInfoDtoMapper implements ToDtoMapper<AttemptInfo, AttemptInfoDto> {
 }

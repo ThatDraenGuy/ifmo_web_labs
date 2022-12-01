@@ -14,5 +14,5 @@ import java.time.Duration;
 public class ShotInfoDto implements Dto<ShotInfo> {
     private boolean res;
     private String message;
-    private Duration execTime;
+    private long execTime;
 }

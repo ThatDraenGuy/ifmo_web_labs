@@ -1,12 +1,13 @@
 import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {RootState} from "../store";
 
 
-export interface ChooserState {
+export interface CoordInfo {
     x: number,
     y: number,
     r: number
 }
-const initialState: ChooserState = {
+const initialState: CoordInfo = {
     x: undefined,
     y: undefined,
     r: undefined
@@ -27,6 +28,8 @@ export const chooserSlice = createSlice({
         })
     }
 })
+
+export const selectIsRadiusSet = createSelector((state: CoordInfo) => state.r, item => (item==undefined || item==0));
 
 export const {setX, setY, setR} = chooserSlice.actions
 

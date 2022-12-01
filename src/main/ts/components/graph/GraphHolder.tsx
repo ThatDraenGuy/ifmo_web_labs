@@ -11,15 +11,15 @@ export interface GraphHolderParams {
 
 export const GraphHolder: FC<GraphHolderParams> = ({graphDrawer, graphParams, graphStyle}) => {
     const {data: quadrants, isFetching, isSuccess} = useQuadrantsQuery();
-    const chooser = useAppSelector(state => state.chooser)
+    const radius = useAppSelector(state => state.chooser.r)
     const canvas = useRef<HTMLCanvasElement>();
 
     useEffect(() => {
         if (isSuccess) {
-            const graph: Graph = {canvas: canvas.current.getContext("2d"), ...graphParams, r: chooser.r}
+            const graph: Graph = {canvas: canvas.current.getContext("2d"), ...graphParams, r: radius}
             graphDrawer.draw(graph, graphStyle, quadrants)
         }
-    }, [isSuccess])
+    }, [isSuccess, radius])
 
     return (
         <div>

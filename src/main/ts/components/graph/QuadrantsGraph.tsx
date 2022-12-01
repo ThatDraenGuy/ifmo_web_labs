@@ -13,10 +13,11 @@ import {
     GRAPH_BACK_COLOR,
     GRAPH_COLOR,
     GRAPH_HEIGHT,
-    GRAPH_OFFSET,
+    GRAPH_OFFSET, GRAPH_POINT_COLOR,
     GRAPH_TEXT_COLOR,
     GRAPH_WIDTH
 } from "../../constants/constants";
+import {ClickableGraph} from "./ClickableGraph";
 
 
 export class QuadrantsDrawer extends BaseGraphDrawer<QuadrantsInfo> {
@@ -31,6 +32,12 @@ export class QuadrantsDrawer extends BaseGraphDrawer<QuadrantsInfo> {
 
 export const QuadrantsGraph: FC<any> = () => {
     const graphDrawer: GraphDrawer<QuadrantsInfo> = new QuadrantsDrawer();
-    return (<GraphHolder graphDrawer={graphDrawer} graphParams={createGraphParams(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_OFFSET)}
-                         graphStyle={{background: GRAPH_BACK_COLOR, figure: GRAPH_COLOR, text: GRAPH_TEXT_COLOR, axis: GRAPH_AXIS_COLOR}}/>)
+    const graphParams = createGraphParams(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_OFFSET);
+    const graphStyle = {background: GRAPH_BACK_COLOR, figure: GRAPH_COLOR, text: GRAPH_TEXT_COLOR, axis: GRAPH_AXIS_COLOR, point: GRAPH_POINT_COLOR};
+    return (
+        <div>
+            <GraphHolder graphDrawer={graphDrawer} graphParams={graphParams} graphStyle={graphStyle}/>
+            <ClickableGraph graphParams={graphParams} graphStyle={graphStyle}/>
+        </div>
+    )
 }
