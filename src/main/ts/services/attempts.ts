@@ -28,6 +28,13 @@ interface UserAttemptInfoDtoList {
         userAttemptInfoDtoList: Array<UserAttemptInfo>
     }
 }
+
+export interface PageOfUserAttemptInfo {
+    totalLength: bigint,
+    pagesAmount: number,
+    attempts: Array<UserAttemptInfo>,
+}
+
 const attemptApi = api.injectEndpoints({
     endpoints: build => ({
         shoot: build.mutation<UserAttemptInfo, CoordInfo>({
@@ -35,6 +42,13 @@ const attemptApi = api.injectEndpoints({
                 url: "/areacheck/shoot",
                 method: "POST",
                 body: choice,
+            }),
+            invalidatesTags: ["Attempts"]
+        }),
+        clear: build.mutation<any,void>({
+            query: () => ({
+                url: "/users/id/44/attempts/clear",
+                method: "POST"
             }),
             invalidatesTags: ["Attempts"]
         }),
@@ -49,8 +63,22 @@ const attemptApi = api.injectEndpoints({
                 }
             }),
             providesTags: ["Attempts"]
+        }),
+        attemptsPage: build.query<PageOfUserAttemptInfo, {page: number, size: number}>({
+            query: ({page, size}) => ({
+                url: `/users/id/44/attempts/page/${page}/${size}`
+                // responseHandler: (response) => {
+                //     return response.text().then((value) => {
+                //         console.log(value);
+                //         return null;
+                //         // const dto: UserAttemptInfoDtoList = JSON.parse(value);
+                //         // return dto._embedded.userAttemptInfoDtoList;
+                //     })
+                // }
+            }),
+            providesTags: ["Attempts"]
         })
     })
 })
 
-export const {useShootMutation, useAttemptsQuery} = attemptApi
+export const {useShootMutation, useClearMutation, useAttemptsQuery, useAttemptsPageQuery} = attemptApi

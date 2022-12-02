@@ -1,29 +1,34 @@
 import {FC, useEffect} from "react";
-import {useAttemptsQuery} from "../../services/attempts";
+import {useAttemptsQuery, useClearMutation, UserAttemptInfo} from "../../services/attempts";
 import {AttemptRow} from "./AttemptRow";
-import {Spinner, Table} from "react-bootstrap";
+import {Button, Spinner, Table} from "react-bootstrap";
 
+export interface AttemptsTableProps {
+    attempts: Array<UserAttemptInfo>,
+    isLoading: boolean
+}
 
-export const AttemptsTable: FC<any> = () => {
-    const {data: attempts, isLoading} = useAttemptsQuery();
+export const AttemptsTable: FC<AttemptsTableProps> = ({attempts, isLoading}) => {
 
     if (isLoading) return (<Spinner animation="border"/>)
     return (
-        <Table>
-            <thead>
-                <tr>
-                    <td>Attempt №</td>
-                    <td>X</td>
-                    <td>Y</td>
-                    <td>R</td>
-                    <td>Result</td>
-                    <td>Execution time</td>
-                    <td>Attempt time</td>
-                </tr>
-            </thead>
-            <tbody>
-                    {attempts!=undefined ? attempts.map(attempt => <AttemptRow userAttempt={attempt} key={attempt._links.self.href}/>) : ''}
-            </tbody>
-        </Table>
+        <div>
+            <Table>
+                <thead>
+                    <tr>
+                        <td>Attempt №</td>
+                        <td>X</td>
+                        <td>Y</td>
+                        <td>R</td>
+                        <td>Result</td>
+                        <td>Execution time</td>
+                        <td>Attempt time</td>
+                    </tr>
+                </thead>
+                <tbody>
+                        {attempts!=undefined ? attempts.map(attempt => <AttemptRow userAttempt={attempt} key={attempt.number.toString()}/>) : ''}
+                </tbody>
+            </Table>
+        </div>
     )
 }

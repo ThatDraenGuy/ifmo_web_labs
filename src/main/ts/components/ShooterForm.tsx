@@ -17,8 +17,10 @@ export const ShooterForm: FC<any> = () => {
         e.preventDefault();
         if (e.currentTarget.checkValidity()) {
             shootPost(store.getState().chooser);
+            setValidated(false);
+        } else {
+            setValidated(true);
         }
-        setValidated(true);
     }
 
     return (

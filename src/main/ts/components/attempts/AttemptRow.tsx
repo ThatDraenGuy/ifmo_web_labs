@@ -11,7 +11,7 @@ export const AttemptRow: FC<AttemptRowProps> = ({userAttempt}) => {
 
     return (
         <tr>
-            <td>{userAttempt.number}</td>
+            <td>{userAttempt.number+1}</td>
             <td>{attempt.coords.x.toFixed(2)}</td>
             <td>{attempt.coords.y.toFixed(2)}</td>
             <td>{attempt.coords.r.toFixed(2)}</td>
