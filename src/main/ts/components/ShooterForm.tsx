@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {ChooserWrapper} from "./chooser/ChooserWrapper";
 import {CheckboxChooser} from "./chooser/CheckboxChooser";
 import {setR, setY, setX} from "../slices/chooserSlice";
@@ -11,15 +11,19 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 
 export const ShooterForm: FC<any> = () => {
     const [shootPost, {}] = useShootMutation();
+    const [validated, setValidated] = useState(false);
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        shootPost(store.getState().chooser);
+        if (e.currentTarget.checkValidity()) {
+            shootPost(store.getState().chooser);
+        }
+        setValidated(true);
     }
 
     return (
         <div>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit} noValidate validated={validated}>
                 <ChooserWrapper chooserName={"X"}>
                     <CheckboxChooser getValue={state => state.chooser.x} setValue={setX} options={[-4,-3,-2,-1,0,1,2,3,4]}/>
                 </ChooserWrapper>

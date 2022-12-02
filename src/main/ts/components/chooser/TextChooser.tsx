@@ -13,7 +13,7 @@ export interface TextChooserParams extends ChooserParams {
 
 export const TextChooser : FC<TextChooserParams> = ({getValue, setValue, minValue, maxValue}) => {
     const dispatch = useAppDispatch()
-    const [value, setLocal] = useState('');
+    const [localValue, setLocal] = useState('');
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLocal(e.target.value);
@@ -35,7 +35,7 @@ export const TextChooser : FC<TextChooserParams> = ({getValue, setValue, minValu
 
     return (
         <div>
-            <Form.Control type="text" value={value} required isValid={isValid(value)} isInvalid={isInvalid(value)} onChange={onInputChange}/>
+            <Form.Control type="text" value={localValue} required isValid={isValid(localValue)} isInvalid={isInvalid(localValue)} onChange={onInputChange}/>
             <Form.Control.Feedback type="invalid">
                 Value should be a number from {minValue} to {maxValue}
             </Form.Control.Feedback>
