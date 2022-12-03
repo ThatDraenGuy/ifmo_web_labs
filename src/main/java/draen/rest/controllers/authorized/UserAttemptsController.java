@@ -45,7 +45,7 @@ public class UserAttemptsController {
 
     @GetMapping("/page/{page}/{size}")
     public EntityModel<AttemptsPageDto> pageOfAttempts(@PathVariable int page, @PathVariable int size, @PathVariable long userId) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("number").ascending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("number").descending());
         Page<UserAttempt> attemptsPage = repository.findAllByUserIdEquals(userId, pageable);
         return wrapper.wrap(new PageOfUserAttemptInfo(attemptsPage, userId), AttemptsPageDto.class);
     }

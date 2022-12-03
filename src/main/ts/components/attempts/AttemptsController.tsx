@@ -30,7 +30,8 @@ export const AttemptsController: FC<AttemptsControllerProps> = ({}) => {
                 <AttemptsTable attempts={attemptsPage.attempts} isLoading={isLoading}/>
             </Row>
             <Row>
-                <TableFooter itemsCount={attemptsPage.totalLength} itemsPerPage={itemsPerPage} setItemsPerPage={dispatchItemsPerPage} currentPage={currentPage} setCurrentPage={dispatchCurrentPage}/>
+                <TableFooter itemsCount={attemptsPage.totalLength} itemsPerPage={itemsPerPage} setItemsPerPage={dispatchItemsPerPage}
+                             showedItems={attemptsPage.attempts.map(attempt => attempt.number)}/>
             </Row>
         </Container>
     )

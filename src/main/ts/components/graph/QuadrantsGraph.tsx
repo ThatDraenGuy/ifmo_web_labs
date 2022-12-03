@@ -46,7 +46,7 @@ export class PointsDrawer implements GraphDrawer<Array<UserAttempt>> {
             const isValid = attempt.coords.r == graph.r;
             ctx.fillStyle = attempt.shot.res ? (isValid ? style.hit : style.invalidHit) : (isValid ? style.miss : style.invalidMiss);
             ctx.beginPath();
-            ctx.arc(x,y,7,0,2*Math.PI);
+            ctx.arc(x,y,6,0,2*Math.PI);
             ctx.fill();
         }
     }

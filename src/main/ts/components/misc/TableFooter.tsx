@@ -7,15 +7,14 @@ export interface TableFooterProps {
     itemsCount: bigint,
     itemsPerPage: number,
     setItemsPerPage: (itemsPerPage: number) => void,
-    currentPage: number,
-    setCurrentPage: (currentPage: number) => void
+    showedItems: Array<number>
 }
 
-export const TableFooter: FC<TableFooterProps> = ({itemsCount, itemsPerPage, setItemsPerPage, currentPage, setCurrentPage}) => {
+export const TableFooter: FC<TableFooterProps> = ({itemsCount, itemsPerPage, setItemsPerPage, showedItems}) => {
     return (
         <ButtonToolbar>
             <div>
-                Showing {(currentPage-1)*itemsPerPage + 1} - {currentPage*itemsPerPage} of {itemsCount.toString()}
+                Showing {showedItems.at(0)+1} - {showedItems.at(showedItems.length-1)+1} of {itemsCount.toString()}
             </div>
             <DropdownMenuItem itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage}/>
         </ButtonToolbar>
