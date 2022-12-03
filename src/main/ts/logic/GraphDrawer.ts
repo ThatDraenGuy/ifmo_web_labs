@@ -16,7 +16,11 @@ export interface GraphStyle {
     figure: string,
     text: string,
     axis: string,
-    point: string
+    point: string,
+    hit: string,
+    invalidHit: string,
+    miss: string,
+    invalidMiss: string
 }
 
 export const createGraphParams = (width: number, height: number, offset: number) => {
