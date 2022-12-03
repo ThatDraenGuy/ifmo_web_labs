@@ -3,12 +3,9 @@ package draen.domain.attempts;
 
 import javax.persistence.*;
 
-import draen.domain.users.User;
-import draen.domain.users.UserData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.*;
 
@@ -18,7 +15,7 @@ import java.time.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class AttemptInfo {
+public class Attempt {
 //    @Setter
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -37,8 +34,8 @@ public class AttemptInfo {
 //    private User user;
 
 
-    public static AttemptInfo fromHit(CoordInfo coordInfo, ShotInfo shotInfo) {
-        return new AttemptInfo(coordInfo, shotInfo, ZonedDateTime.now());
+    public static Attempt fromHit(CoordInfo coordInfo, ShotInfo shotInfo) {
+        return new Attempt(coordInfo, shotInfo, ZonedDateTime.now());
     }
 
     @Override

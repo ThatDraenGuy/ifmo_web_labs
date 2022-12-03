@@ -1,8 +1,6 @@
 package draen.dto.attempt;
 
-import draen.domain.attempts.AttemptInfo;
-import draen.domain.attempts.CoordInfo;
-import draen.domain.attempts.ShotInfo;
+import draen.domain.attempts.Attempt;
 import draen.dto.Dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +10,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AttemptInfoDto implements Dto<AttemptInfo> {
+public class AttemptDto implements Dto<Attempt> {
     private CoordInfoDto coords;
     private ShotInfoDto shot;
     private ZonedDateTime currTime;

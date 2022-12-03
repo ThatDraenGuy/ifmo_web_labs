@@ -1,11 +1,10 @@
 import {api} from "./api";
 import {CoordInfo} from "../slices/chooserSlice";
-import {mapQuadrantsInfo} from "./quadrants";
 
-export interface UserAttemptInfo {
+export interface UserAttempt {
     id: bigint,
     number: number,
-    attemptInfo: AttemptInfo,
+    attempt: Attempt,
     userId: bigint,
     _links: {
         self: {
@@ -14,7 +13,7 @@ export interface UserAttemptInfo {
     }
 }
 
-export interface AttemptInfo {
+export interface Attempt {
     shot: {
         res: boolean,
         message: string,
@@ -23,21 +22,21 @@ export interface AttemptInfo {
     coords: CoordInfo,
     currTime: string
 }
-interface UserAttemptInfoDtoList {
+interface UserAttemptDtoList {
     _embedded: {
-        userAttemptInfoDtoList: Array<UserAttemptInfo>
+        userAttemptDtoList: Array<UserAttempt>
     }
 }
 
-export interface PageOfUserAttemptInfo {
+export interface AttemptsPage {
     totalLength: bigint,
     pagesAmount: number,
-    attempts: Array<UserAttemptInfo>,
+    attempts: Array<UserAttempt>,
 }
 
 const attemptApi = api.injectEndpoints({
     endpoints: build => ({
-        shoot: build.mutation<UserAttemptInfo, CoordInfo>({
+        shoot: build.mutation<UserAttempt, CoordInfo>({
             query: (choice) => ({
                 url: "/areacheck/shoot",
                 method: "POST",
@@ -52,19 +51,19 @@ const attemptApi = api.injectEndpoints({
             }),
             invalidatesTags: ["Attempts"]
         }),
-        attempts: build.query<Array<UserAttemptInfo>, void>({
+        attempts: build.query<Array<UserAttempt>, void>({
             query: () => ({
                 url: "/users/id/44/attempts",
                 responseHandler: (response) => {
                     return response.text().then((value) => {
-                        const dto: UserAttemptInfoDtoList = JSON.parse(value);
-                        return dto._embedded.userAttemptInfoDtoList;
+                        const dto: UserAttemptDtoList = JSON.parse(value);
+                        return dto._embedded.userAttemptDtoList;
                     })
                 }
             }),
             providesTags: ["Attempts"]
         }),
-        attemptsPage: build.query<PageOfUserAttemptInfo, {page: number, size: number}>({
+        attemptsPage: build.query<AttemptsPage, {page: number, size: number}>({
             query: ({page, size}) => ({
                 url: `/users/id/44/attempts/page/${page}/${size}`
                 // responseHandler: (response) => {

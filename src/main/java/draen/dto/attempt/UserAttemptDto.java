@@ -1,6 +1,6 @@
 package draen.dto.attempt;
 
-import draen.domain.users.UserAttemptInfo;
+import draen.domain.users.UserAttempt;
 import draen.dto.Dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserAttemptInfoDto implements Dto<UserAttemptInfo> {
+public class UserAttemptDto implements Dto<UserAttempt> {
     private Long id;
     private int number;
-    private AttemptInfoDto attemptInfo;
+    private AttemptDto attempt;
     private Long userId;
 }

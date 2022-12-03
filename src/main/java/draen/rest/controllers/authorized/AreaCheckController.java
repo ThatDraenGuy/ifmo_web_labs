@@ -3,9 +3,9 @@ package draen.rest.controllers.authorized;
 import draen.components.AreaShooterComponent;
 import draen.domain.attempts.CoordInfo;
 import draen.domain.users.User;
-import draen.domain.users.UserAttemptInfo;
+import draen.domain.users.UserAttempt;
 import draen.rest.Wrapper;
-import draen.dto.attempt.UserAttemptInfoDto;
+import draen.dto.attempt.UserAttemptDto;
 import draen.dto.attempt.CoordInfoDto;
 import draen.exceptions.DtoException;
 import draen.rest.controllers.UserControllerUtils;
@@ -31,13 +31,13 @@ public class AreaCheckController {
     private final Wrapper wrapper;
 
     @PostMapping(value = "/shoot", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public EntityModel<UserAttemptInfoDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @AuthenticationPrincipal AppUserDetails appUserDetails) {
+    public EntityModel<UserAttemptDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @AuthenticationPrincipal AppUserDetails appUserDetails) {
         try {
 //            User user = userUtils.getUser(appUserDetails.getUsername());
             User user = userUtils.getUser("draen");
             CoordInfo coordInfo = wrapper.unwrap(coordInfoDto, CoordInfo.class);
-            UserAttemptInfo attemptInfo = areaShooterComponent.shoot(coordInfo, user);
-            return wrapper.wrap(attemptInfo, UserAttemptInfoDto.class);
+            UserAttempt attemptInfo = areaShooterComponent.shoot(coordInfo, user);
+            return wrapper.wrap(attemptInfo, UserAttemptDto.class);
         } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

@@ -1,9 +1,8 @@
 package draen.dto.attempt;
 
-import draen.domain.users.UserAttemptInfo;
+import draen.domain.users.UserAttempt;
 import draen.dto.ToDtoMapper;
 import draen.storage.PageOfUserAttemptInfo;
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -17,26 +16,26 @@ import java.util.List;
 
 @Mapper (
         componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = ToUserAttemptInfoDtoMapper.class,
+        uses = ToUserAttemptDtoMapper.class,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 @Component
-public abstract class ToPageOfUserAttemptInfoDtoMapper implements ToDtoMapper<PageOfUserAttemptInfo, PageOfUserAttemptInfoDto> {
+public abstract class ToAttemptsPageDtoMapper implements ToDtoMapper<PageOfUserAttemptInfo, AttemptsPageDto> {
     @Autowired
     @Setter
-    private ToUserAttemptInfoDtoMapper attemptInfoDtoMapper;
+    private ToUserAttemptDtoMapper attemptInfoDtoMapper;
     @Override
     @Mapping(target = "totalLength", source = "page")
     @Mapping(target = "pagesAmount", source = "page")
     @Mapping(target = "attempts", source = "page")
-    public abstract PageOfUserAttemptInfoDto toDto(PageOfUserAttemptInfo item);
+    public abstract AttemptsPageDto toDto(PageOfUserAttemptInfo item);
 
-    public long mapTotalLength(Page<UserAttemptInfo> page) {
+    public long mapTotalLength(Page<UserAttempt> page) {
         return page.getTotalElements();
     }
-    public int mapPagesAmount(Page<UserAttemptInfo> page) {
+    public int mapPagesAmount(Page<UserAttempt> page) {
         return page.getTotalPages();
     }
-    public List<UserAttemptInfoDto> mapAttempts(Page<UserAttemptInfo> page) {
+    public List<UserAttemptDto> mapAttempts(Page<UserAttempt> page) {
         return page.stream().map(attemptInfoDtoMapper::toDto).toList();
     }
 }

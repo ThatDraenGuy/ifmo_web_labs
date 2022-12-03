@@ -1,6 +1,6 @@
 package draen.storage;
 
-import draen.domain.users.UserAttemptInfo;
+import draen.domain.users.UserAttempt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,6 @@ import org.springframework.data.domain.Page;
 @Setter
 @AllArgsConstructor
 public class PageOfUserAttemptInfo {
-    private Page<UserAttemptInfo> page;
+    private Page<UserAttempt> page;
     private long userId;
 }

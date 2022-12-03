@@ -1,10 +1,10 @@
 import {FC, useEffect} from "react";
-import {useAttemptsQuery, useClearMutation, UserAttemptInfo} from "../../services/attempts";
+import {useAttemptsQuery, useClearMutation, UserAttempt} from "../../services/attempts";
 import {AttemptRow} from "./AttemptRow";
 import {Button, Spinner, Table} from "react-bootstrap";
 
 export interface AttemptsTableProps {
-    attempts: Array<UserAttemptInfo>,
+    attempts: Array<UserAttempt>,
     isLoading: boolean
 }
 

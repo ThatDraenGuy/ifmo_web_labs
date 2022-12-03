@@ -1,7 +1,7 @@
 package draen.dto.attempt;
 
 import draen.domain.users.User;
-import draen.domain.users.UserAttemptInfo;
+import draen.domain.users.UserAttempt;
 import draen.dto.ToDtoMapper;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -10,16 +10,16 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = ToAttemptInfoDtoMapper.class,
+        uses = ToAttemptMapper.class,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
-public abstract class ToUserAttemptInfoDtoMapper implements ToDtoMapper<UserAttemptInfo, UserAttemptInfoDto> {
+public abstract class ToUserAttemptDtoMapper implements ToDtoMapper<UserAttempt, UserAttemptDto> {
     @Override
     @Mapping(target = "userId", source = "user")
-    public abstract UserAttemptInfoDto toDto(UserAttemptInfo item);
+    public abstract UserAttemptDto toDto(UserAttempt item);
 
     @Override
     @Mapping(target = "userId", source = "user")
-    public abstract Iterable<UserAttemptInfoDto> toDtos(Iterable<UserAttemptInfo> items);
+    public abstract Iterable<UserAttemptDto> toDtos(Iterable<UserAttempt> items);
 
     public Long userMapper(User user) {
         return user.getId();

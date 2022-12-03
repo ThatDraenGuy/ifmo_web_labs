@@ -1,6 +1,6 @@
 package draen.domain.users;
 
-import draen.domain.attempts.AttemptInfo;
+import draen.domain.attempts.Attempt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserAttemptInfo {
+public class UserAttempt {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,16 +23,16 @@ public class UserAttemptInfo {
     private int number;
 
     @Embedded
-    private AttemptInfo attemptInfo;
+    private Attempt attempt;
 
     @ManyToOne
     @JoinColumn(name="UserId")
     private User user;
 
-    public static UserAttemptInfo create(AttemptInfo attemptInfo, User user) {
-        List<UserAttemptInfo> userAttempts = user.getData().getAttempts();
-        UserAttemptInfo userAttemptInfo = new UserAttemptInfo(null, userAttempts.size(), attemptInfo, user);
+    public static UserAttempt create(Attempt attempt, User user) {
+        List<UserAttempt> userAttempts = user.getData().getAttempts();
+        UserAttempt userAttempt = new UserAttempt(null, userAttempts.size(), attempt, user);
 //        userAttempts.add(userAttemptInfo);
-        return userAttemptInfo;
+        return userAttempt;
     }
 }

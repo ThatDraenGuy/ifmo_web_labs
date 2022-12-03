@@ -11,9 +11,9 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PageOfUserAttemptInfoDto implements Dto<PageOfUserAttemptInfo> {
+public class AttemptsPageDto implements Dto<PageOfUserAttemptInfo> {
     private long totalLength;
     private int pagesAmount;
-    private List<UserAttemptInfoDto> attempts;
+    private List<UserAttemptDto> attempts;
     private long userId;
 }

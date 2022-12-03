@@ -1,6 +1,5 @@
 package draen.domain.users;
 
-import draen.domain.attempts.AttemptInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.List;
 public class UserData {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<UserAttemptInfo> attempts;
+    private List<UserAttempt> attempts;
 
 
     public static UserData create() {

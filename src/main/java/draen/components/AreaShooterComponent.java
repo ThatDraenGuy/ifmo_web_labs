@@ -5,7 +5,7 @@ import draen.domain.arealogic.QuadrantsAreaChecker;
 import draen.domain.arealogic.QuadrantsAreaShooter;
 import draen.domain.attempts.CoordInfo;
 import draen.domain.users.User;
-import draen.domain.users.UserAttemptInfo;
+import draen.domain.users.UserAttempt;
 import draen.storage.UserAttemptInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,9 +21,9 @@ public class AreaShooterComponent {
         this.attemptInfoRepository = attemptInfoRepository;
     }
 
-    public UserAttemptInfo shoot(CoordInfo coordInfo, User user) {
-        UserAttemptInfo userAttemptInfo = areaShooter.shoot(coordInfo,user);
-        UserAttemptInfo saved = attemptInfoRepository.save(userAttemptInfo);
+    public UserAttempt shoot(CoordInfo coordInfo, User user) {
+        UserAttempt userAttempt = areaShooter.shoot(coordInfo,user);
+        UserAttempt saved = attemptInfoRepository.save(userAttempt);
         user.getData().getAttempts().add(saved);
         return saved;
     }

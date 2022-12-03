@@ -2,8 +2,8 @@ package draen.domain.arealogic;
 
 import draen.domain.attempts.CoordInfo;
 import draen.domain.users.User;
-import draen.domain.users.UserAttemptInfo;
+import draen.domain.users.UserAttempt;
 
 public interface AreaShooter {
-    UserAttemptInfo shoot(CoordInfo coordInfo, User user);
+    UserAttempt shoot(CoordInfo coordInfo, User user);
 }

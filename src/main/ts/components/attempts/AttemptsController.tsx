@@ -1,6 +1,6 @@
 import React, {FC, useState} from "react";
 import {Button, ButtonToolbar, Container, Pagination, Row} from "react-bootstrap";
-import {useAttemptsPageQuery, useAttemptsQuery, useClearMutation} from "../../services/attempts";
+import {useAttemptsPageQuery, useAttemptsQuery, useClearMutation, useShootMutation} from "../../services/attempts";
 import {TableHeader} from "../misc/TableHeader";
 import {AttemptsTable} from "./AttemptsTable";
 import {TableFooter} from "../misc/TableFooter";
