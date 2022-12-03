@@ -1,7 +1,10 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {useAppDispatch} from "../hooks";
 import {useDispatch} from "react-redux";
 import {useLoginMutation} from "../services/auth";
+import {Form} from "react-bootstrap";
+import {setAuth} from "../slices/authSlice";
+import {Link} from "react-router-dom";
 
 type LoginData = {
     username: string,
@@ -31,9 +34,16 @@ type LoginData = {
 // }
 
 export const Login: FC<any> = () => {
-    const [loginPost, {}] = useLoginMutation();
+    const [loginPost, {data, isSuccess}] = useLoginMutation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(setAuth(data))
+        }
+    }, [isSuccess])
 
     const submitForm = (e: React.FormEvent<HTMLFormElement>) =>  {
         e.preventDefault();
@@ -48,15 +58,12 @@ export const Login: FC<any> = () => {
     }
     return (
         <div>
-            <form onSubmit={submitForm}>
-                <label>Username:
-                    <input type={"text"} onChange={onUsernameChanged} value={username} required={true}/>
-                </label>
-                <label>Password:
-                    <input type={"password"} onChange={onPasswordChanged} value={password} required={true}/>
-                </label>
-                <input type={"submit"}/>
-            </form>
+            <Form onSubmit={submitForm}>
+                <Form.Control type="text" required onChange={onUsernameChanged} value={username}/>
+                <Form.Control type="password" required onChange={onPasswordChanged} value={password}/>
+                <Form.Control type="submit"/>
+            </Form>
+            <Link to="/">link</Link>
         </div>
     )
 }

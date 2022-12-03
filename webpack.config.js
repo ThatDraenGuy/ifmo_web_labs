@@ -38,7 +38,7 @@ module.exports = {
     mode: "development",
     entry: "./src/main/ts/default.tsx",
     output: {
-        path: path.join(__dirname, "./build/resources/main/static"),
+        path: path.join(__dirname, "./build/resources/main/static/public"),
         clean: false,
     },
     module: {

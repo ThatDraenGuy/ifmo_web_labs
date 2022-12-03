@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -23,14 +22,16 @@ public class Wrapper {
     private final List<FromDtoMapper<?,?>> fromMappers;
     private final List<DtoModelAssembler<?>> assemblers;
 
-    public<T, V extends Dto<T>> EntityModel<V> wrap(T item, Class<V> targetClass) {
+    public<T, V extends Dto<T>> V wrap(T item, Class<V> targetClass) {
+        return toMapper(item.getClass(), targetClass).toDto(item);
+    }
 
-        V dto = toMapper(item.getClass(), targetClass).toDto(item);
-
+    public<T, V extends Dto<T>> EntityModel<V> assemble(T item, Class<V> targetClass) {
+        V dto = wrap(item, targetClass);
         return assembler(targetClass).toModel(dto);
     }
 
-    public<T, V extends Dto<T>> CollectionModel<EntityModel<V>> wrapAll(Iterable<T> items, Class<V> targetClass) {
+    public<T, V extends Dto<T>> CollectionModel<EntityModel<V>> assembleAll(Iterable<T> items, Class<V> targetClass) {
         if (!items.iterator().hasNext()) return assembler(targetClass).toCollectionModel(new ArrayList<>());
         Iterable<V> dtos = toMapper(items.iterator().next().getClass(), targetClass).toDtos(items);
         return assembler(targetClass).toCollectionModel(dtos);

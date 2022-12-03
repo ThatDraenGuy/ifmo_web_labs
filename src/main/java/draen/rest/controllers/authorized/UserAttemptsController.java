@@ -40,19 +40,19 @@ public class UserAttemptsController {
 
     @GetMapping
     public CollectionModel<EntityModel<UserAttemptDto>> allAttempts(@PathVariable long userId) {
-        return wrapper.wrapAll(repository.findByUserIdEquals(userId), UserAttemptDto.class);
+        return wrapper.assembleAll(repository.findByUserIdEquals(userId), UserAttemptDto.class);
     }
 
     @GetMapping("/page/{page}/{size}")
     public EntityModel<AttemptsPageDto> pageOfAttempts(@PathVariable int page, @PathVariable int size, @PathVariable long userId) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("number").descending());
         Page<UserAttempt> attemptsPage = repository.findAllByUserIdEquals(userId, pageable);
-        return wrapper.wrap(new PageOfUserAttemptInfo(attemptsPage, userId), AttemptsPageDto.class);
+        return wrapper.assemble(new PageOfUserAttemptInfo(attemptsPage, userId), AttemptsPageDto.class);
     }
 
     @GetMapping("/{attemptId}")
     public EntityModel<UserAttemptDto> oneAttempt(@PathVariable long userId, @PathVariable long attemptId) {
-        return wrapper.wrap(repository.findByIdAndUserIdEquals(userId, attemptId)
+        return wrapper.assemble(repository.findByIdAndUserIdEquals(userId, attemptId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "attempt not found")),
                 UserAttemptDto.class);
     }
@@ -63,7 +63,7 @@ public class UserAttemptsController {
             User user = utils.getUser(userId);
             CoordInfo coordInfo = wrapper.unwrap(coordInfoDto, CoordInfo.class);
             UserAttempt attemptInfo = areaShooterComponent.shoot(coordInfo, user);
-            return wrapper.wrap(attemptInfo, UserAttemptDto.class);
+            return wrapper.assemble(attemptInfo, UserAttemptDto.class);
         } catch (UserIdNotFoundException | DtoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

@@ -14,6 +14,6 @@ public class AuthorizedUserController {
     private final UserControllerUtils utils;
     @GetMapping("/id/{userId}")
     public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        return utils.getWrapper().wrap(utils.getUserOr(userId), UserGetDto.class);
+        return utils.getWrapper().assemble(utils.getUserOr(userId), UserGetDto.class);
     }
 }

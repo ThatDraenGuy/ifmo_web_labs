@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PageController {
     @GetMapping({"/", "/login"})
     public String reroute() {
-        return "index.html";
+        return "public/index.html";
     }
 }

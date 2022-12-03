@@ -37,7 +37,7 @@ public class AreaCheckController {
             User user = userUtils.getUser("draen");
             CoordInfo coordInfo = wrapper.unwrap(coordInfoDto, CoordInfo.class);
             UserAttempt attemptInfo = areaShooterComponent.shoot(coordInfo, user);
-            return wrapper.wrap(attemptInfo, UserAttemptDto.class);
+            return wrapper.assemble(attemptInfo, UserAttemptDto.class);
         } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

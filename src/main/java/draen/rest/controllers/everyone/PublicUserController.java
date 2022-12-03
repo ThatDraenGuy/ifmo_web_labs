@@ -22,19 +22,19 @@ public class PublicUserController {
 
     @GetMapping("/{username}")
     public EntityModel<UserPublicDto> userByUsername(@PathVariable String username) {
-        return utils.getWrapper().wrap(utils.getUserOr(username), UserPublicDto.class);
+        return utils.getWrapper().assemble(utils.getUserOr(username), UserPublicDto.class);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<UserPublicDto>> all() {
-        return utils.getWrapper().wrapAll(utils.getRepository().findAll(), UserPublicDto.class);
+        return utils.getWrapper().assembleAll(utils.getRepository().findAll(), UserPublicDto.class);
     }
 
     @PostMapping
     public EntityModel<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
         try {
             User user = utils.getRepository().save(utils.getWrapper().unwrap(userPostDto, User.class));
-            return utils.getWrapper().wrap(user, UserGetDto.class);
+            return utils.getWrapper().assemble(user, UserGetDto.class);
         } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
         }

@@ -22,23 +22,23 @@ public class AdminUserController {
 
     @GetMapping("/id/{userId}")
     public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        return utils.getWrapper().wrap(utils.getUserOr(userId), UserGetDto.class);
+        return utils.getWrapper().assemble(utils.getUserOr(userId), UserGetDto.class);
     }
     @GetMapping("/{username}")
     public EntityModel<UserGetDto> userByUsername(@PathVariable String username) {
-        return utils.getWrapper().wrap(utils.getUserOr(username), UserGetDto.class);
+        return utils.getWrapper().assemble(utils.getUserOr(username), UserGetDto.class);
     }
 
     @GetMapping
     public CollectionModel<EntityModel<UserGetDto>> all() {
-        return utils.getWrapper().wrapAll(utils.getRepository().findAll(), UserGetDto.class);
+        return utils.getWrapper().assembleAll(utils.getRepository().findAll(), UserGetDto.class);
     }
 
     @PostMapping
     public EntityModel<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
         try {
             User user = utils.getRepository().save(utils.getWrapper().unwrap(userPostDto, User.class));
-            return utils.getWrapper().wrap(user, UserGetDto.class);
+            return utils.getWrapper().assemble(user, UserGetDto.class);
         } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
         }

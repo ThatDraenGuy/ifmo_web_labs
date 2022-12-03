@@ -2,15 +2,14 @@ import {api} from "./api";
 
 
 export interface User {
+    id: number,
     username: string,
-    _links: {
-        self: string,
-        attempts: string
-    }
+    roles: Array<string>
 }
 
-export interface UserResponse {
-
+export interface LoginResponse {
+    token: string,
+    user: User
 }
 
 export interface LoginRequest {
@@ -18,13 +17,19 @@ export interface LoginRequest {
     password: string
 }
 
-const authApi = api.injectEndpoints({
+export const authApi = api.injectEndpoints({
     endpoints: build => ({
-        login: build.mutation<UserResponse, LoginRequest>({
+        login: build.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
-                url: "/auth/login/process",
+                url: "/auth/login",
                 method: "POST",
                 body: credentials
+                // responseHandler: (response) => {
+                //     return response.text().then(value => {
+                //         console.log(value)
+                //         return value;
+                //     });
+                // }
             })
         })
     })
