@@ -1,4 +1,7 @@
 import {api} from "./api";
+import {logout} from "../slices/authSlice";
+import {useAppDispatch} from "../hooks";
+import {store} from "../store";
 
 
 export interface User {
@@ -24,15 +27,19 @@ export const authApi = api.injectEndpoints({
                 url: "/auth/login",
                 method: "POST",
                 body: credentials
-                // responseHandler: (response) => {
-                //     return response.text().then(value => {
-                //         console.log(value)
-                //         return value;
-                //     });
-                // }
             })
+        }),
+        logout: build.mutation<any,number>({
+            query: (userId) => ({
+                url: `/users/id/${userId}/logout`,
+                method: "POST"
+            }),
+            transformResponse: (response) => {
+                store.dispatch(logout())
+                return response;
+            }
         })
     })
 })
 
-export const {useLoginMutation} = authApi
+export const {useLoginMutation, useLogoutMutation} = authApi

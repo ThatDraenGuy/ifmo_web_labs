@@ -2,6 +2,7 @@ import {FC} from "react";
 import {Button, ButtonToolbar} from "react-bootstrap";
 import {PaginationMenuItem} from "./PaginationMenuItem";
 import {DropdownMenuItem} from "./DropdownMenuItem";
+import {useAppSelector} from "../../hooks";
 
 export interface TableHeaderProps {
     itemsCount: bigint,
@@ -9,13 +10,14 @@ export interface TableHeaderProps {
     setItemsPerPage: (itemsPerPage: number) => void,
     currentPage: number,
     setCurrentPage: (currentPage: number) => void,
-    clearPost: () => void
+    clearPost: (id: number) => void
 }
 
 export const TableHeader: FC<TableHeaderProps> = ({itemsCount, itemsPerPage, setItemsPerPage, currentPage, setCurrentPage, clearPost}) => {
+    const id = useAppSelector(state => state.auth.user.id);
     return (
         <ButtonToolbar>
-            <Button onClick={() => clearPost()}>Clear</Button>
+            <Button onClick={() => clearPost(id)}>Clear</Button>
             <PaginationMenuItem itemsCount={itemsCount} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
             <DropdownMenuItem itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage}/>
         </ButtonToolbar>

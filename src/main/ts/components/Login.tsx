@@ -12,27 +12,6 @@ type LoginData = {
 }
 
 
-// export default class Login extends React.Component<any, LoginData> {
-//     submitForm = (username: string, password: string) => (e: React.FormEvent<HTMLFormElement>) => {
-//         e.preventDefault();
-//     }
-//     render() {
-//         return (
-//             <div>
-//                 <form onSubmit={this.submitForm(this.state.username, this.state.password)}>
-//                     <label>Username:
-//                         <input type={"text"} value={this.state.username} required={true}/>
-//                     </label>
-//                     <label>Password:
-//                         <input type={"password"} value={this.state.password} required={true}/>
-//                     </label>
-//                     <input type={"submit"}/>
-//                 </form>
-//             </div>
-//         )
-//     }
-// }
-
 export const Login: FC<any> = () => {
     const [loginPost, {data, isSuccess}] = useLoginMutation();
     const [username, setUsername] = useState("");
@@ -63,7 +42,6 @@ export const Login: FC<any> = () => {
                 <Form.Control type="password" required onChange={onPasswordChanged} value={password}/>
                 <Form.Control type="submit"/>
             </Form>
-            <Link to="/">link</Link>
         </div>
     )
 }

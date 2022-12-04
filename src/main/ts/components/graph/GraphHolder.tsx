@@ -17,7 +17,8 @@ export const GraphHolder: FC<GraphHolderParams> = ({graphDrawer, pointsDrawer, g
     const radius = useAppSelector(state => state.chooser.r);
     const currentPage = useAppSelector(state => state.pagination.currentPage);
     const itemsPerPage = useAppSelector(state => state.pagination.itemsPerPage);
-    const {data: attemptsPage, isSuccess: isPointsLoadingSuccess} = useAttemptsPageQuery({page: currentPage-1, size: itemsPerPage});
+    const id = useAppSelector(state => state.auth.user.id);
+    const {data: attemptsPage, isSuccess: isPointsLoadingSuccess} = useAttemptsPageQuery({userId: id, page: currentPage-1, size: itemsPerPage});
     const canvas = useRef<HTMLCanvasElement>();
 
     useEffect(() => {

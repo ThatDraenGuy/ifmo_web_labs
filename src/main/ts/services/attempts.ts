@@ -44,16 +44,16 @@ export const attemptApi = api.injectEndpoints({
             }),
             invalidatesTags: ["Attempts"]
         }),
-        clear: build.mutation<any,void>({
-            query: () => ({
-                url: "/users/id/44/attempts/clear",
+        clear: build.mutation<any,number>({
+            query: (userId) => ({
+                url: `/users/id/${userId}/attempts/clear`,
                 method: "POST"
             }),
             invalidatesTags: ["Attempts"]
         }),
-        attempts: build.query<Array<UserAttempt>, void>({
-            query: () => ({
-                url: "/users/id/44/attempts",
+        attempts: build.query<Array<UserAttempt>, number>({
+            query: (userId) => ({
+                url: `/users/id/${userId}/attempts`,
                 responseHandler: (response) => {
                     return response.text().then((value) => {
                         const dto: UserAttemptDtoList = JSON.parse(value);
@@ -63,17 +63,9 @@ export const attemptApi = api.injectEndpoints({
             }),
             providesTags: ["Attempts"]
         }),
-        attemptsPage: build.query<AttemptsPage, {page: number, size: number}>({
-            query: ({page, size}) => ({
-                url: `/users/id/44/attempts/page/${page}/${size}`
-                // responseHandler: (response) => {
-                //     return response.text().then((value) => {
-                //         console.log(value);
-                //         return null;
-                //         // const dto: UserAttemptInfoDtoList = JSON.parse(value);
-                //         // return dto._embedded.userAttemptInfoDtoList;
-                //     })
-                // }
+        attemptsPage: build.query<AttemptsPage, {userId: number, page: number, size: number}>({
+            query: ({userId, page, size}) => ({
+                url: `/users/id/${userId}/attempts/page/${page}/${size}`
             }),
             providesTags: ["Attempts"]
         })

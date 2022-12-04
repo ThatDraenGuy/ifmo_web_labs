@@ -13,13 +13,12 @@ export interface AttemptsControllerProps {
 export const AttemptsController: FC<AttemptsControllerProps> = ({}) => {
     const dispatch = useAppDispatch();
     const [clearPost, {}] = useClearMutation();
-    // const [itemsPerPage, setItemsPerPage] = useState(5);
-    // const [currentPage, setCurrentPage] = useState(1);
     const currentPage = useAppSelector(state => state.pagination.currentPage);
     const dispatchCurrentPage = (currentPage: number) => dispatch(setCurrentPage(currentPage))
     const itemsPerPage = useAppSelector(state => state.pagination.itemsPerPage);
     const dispatchItemsPerPage = (itemsPerPage: number) => dispatch(setItemsPerPage(itemsPerPage))
-    const {data: attemptsPage, isLoading} = useAttemptsPageQuery({page: currentPage-1, size: itemsPerPage});
+    const id = useAppSelector(state => state.auth.user.id)
+    const {data: attemptsPage, isLoading} = useAttemptsPageQuery({userId: id, page: currentPage-1, size: itemsPerPage});
     if (isLoading) return (<></>)
     return (
         <Container>

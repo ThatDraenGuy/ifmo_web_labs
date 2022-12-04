@@ -36,6 +36,7 @@ export interface ClickableGraphProps {
 
 export const ClickableGraph: FC<ClickableGraphProps> = ({graphParams, graphStyle}) => {
     const drawer = new ClickGraphDrawer();
+    const canvas = useRef<HTMLCanvasElement>();
     const isRadiusInvalid = (radius: number) => radius==undefined || radius==0;
     const getOffsets = (e: React.MouseEvent<HTMLCanvasElement>) => {
         return {
@@ -52,7 +53,6 @@ export const ClickableGraph: FC<ClickableGraphProps> = ({graphParams, graphStyle
     const radius = useAppSelector(state => state.chooser.r)
     const [shootPost, {}] = useShootMutation();
 
-    const canvas = useRef<HTMLCanvasElement>();
 
     const graph: Graph = canvas.current==undefined ? undefined : {canvas: canvas.current.getContext('2d'), ...graphParams, r: radius};
 
