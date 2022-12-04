@@ -6,13 +6,13 @@ import authReducer from "./slices/authSlice"
 
 
 export const store = configureStore({
-    reducer: combineReducers({
+    reducer: {
+        [api.reducerPath]: api.reducer,
         chooser: chooserReducer,
         pagination: paginationReducer,
         auth: authReducer,
-        [api.reducerPath]: api.reducer
-    }),
-    middleware: (getDefaultMiddleware => getDefaultMiddleware().concat(api.middleware))
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware)
 })
 
 

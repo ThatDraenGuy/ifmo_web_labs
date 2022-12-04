@@ -1,7 +1,6 @@
 import React, {FC} from "react";
 import {QuadrantsGraph} from "./graph/QuadrantsGraph";
 import {ShooterForm} from "./ShooterForm";
-import {AttemptsTable} from "./attempts/AttemptsTable";
 import {Col, Container, Row} from "react-bootstrap";
 import {AttemptsController} from "./attempts/AttemptsController";
 

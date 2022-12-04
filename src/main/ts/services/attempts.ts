@@ -34,7 +34,7 @@ export interface AttemptsPage {
     attempts: Array<UserAttempt>,
 }
 
-const attemptApi = api.injectEndpoints({
+export const attemptApi = api.injectEndpoints({
     endpoints: build => ({
         shoot: build.mutation<UserAttempt, CoordInfo>({
             query: (choice) => ({

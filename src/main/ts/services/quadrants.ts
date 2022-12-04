@@ -64,7 +64,7 @@ interface QuadrantDto {
     yMul: number
 }
 
-interface QuadrantsInfoDto {
+export interface QuadrantsInfoDto {
     quadrants: Array<QuadrantDto>
 }
 
@@ -87,7 +87,7 @@ export const mapQuadrantsInfo = (quadrantsInfoDto: QuadrantsInfoDto): QuadrantsI
     }
     return quadrantsInfo;
 }
-const quadrantsApi = api.injectEndpoints({
+export const quadrantsApi = api.injectEndpoints({
     endpoints: build => ({
         quadrants: build.query<QuadrantsInfoDto, void>({
             query: () => ({
