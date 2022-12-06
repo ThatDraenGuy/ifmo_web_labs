@@ -4,7 +4,6 @@ import draen.dto.user.UserGetDto;
 import draen.rest.controllers.UserControllerUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class AuthorizedUserController {
     private final UserControllerUtils utils;
     @GetMapping("/id/{userId}")
-    public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        return utils.getWrapper().assemble(utils.getUserOr(userId), UserGetDto.class);
+    public ResponseEntity<UserGetDto> userById(@PathVariable long userId) {
+        return utils.getWrapper().wrapOk(utils.getUserOr(userId), UserGetDto.class);
     }
 
     @PostMapping("/id/{userId}/logout")

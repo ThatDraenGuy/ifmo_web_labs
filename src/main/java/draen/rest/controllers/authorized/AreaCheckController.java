@@ -12,9 +12,9 @@ import draen.rest.controllers.UserControllerUtils;
 import draen.security.AppUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,13 +31,13 @@ public class AreaCheckController {
     private final Wrapper wrapper;
 
     @PostMapping(value = "/shoot", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public EntityModel<UserAttemptDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @AuthenticationPrincipal AppUserDetails appUserDetails) {
+    public ResponseEntity<UserAttemptDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @AuthenticationPrincipal AppUserDetails appUserDetails) {
         try {
             User user = userUtils.getUser(appUserDetails.getUsername());
 //            User user = userUtils.getUser("draen");
             CoordInfo coordInfo = wrapper.unwrap(coordInfoDto, CoordInfo.class);
             UserAttempt attemptInfo = areaShooterComponent.shoot(coordInfo, user);
-            return wrapper.assemble(attemptInfo, UserAttemptDto.class);
+            return wrapper.wrapOk(attemptInfo, UserAttemptDto.class);
         } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

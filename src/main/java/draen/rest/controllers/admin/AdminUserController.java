@@ -7,9 +7,8 @@ import draen.exceptions.DtoException;
 import draen.rest.controllers.UserControllerUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,24 +20,24 @@ public class AdminUserController {
 
 
     @GetMapping("/id/{userId}")
-    public EntityModel<UserGetDto> userById(@PathVariable long userId) {
-        return utils.getWrapper().assemble(utils.getUserOr(userId), UserGetDto.class);
+    public ResponseEntity<UserGetDto> userById(@PathVariable long userId) {
+        return utils.getWrapper().wrapOk(utils.getUserOr(userId), UserGetDto.class);
     }
     @GetMapping("/{username}")
-    public EntityModel<UserGetDto> userByUsername(@PathVariable String username) {
-        return utils.getWrapper().assemble(utils.getUserOr(username), UserGetDto.class);
+    public ResponseEntity<UserGetDto> userByUsername(@PathVariable String username) {
+        return utils.getWrapper().wrapOk(utils.getUserOr(username), UserGetDto.class);
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<UserGetDto>> all() {
-        return utils.getWrapper().assembleAll(utils.getRepository().findAll(), UserGetDto.class);
+    public ResponseEntity<Iterable<UserGetDto>> all() {
+        return utils.getWrapper().wrapAllOk(utils.getRepository().findAll(), UserGetDto.class);
     }
 
     @PostMapping
-    public EntityModel<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
+    public ResponseEntity<UserGetDto> add(@RequestBody UserPostDto userPostDto) {
         try {
             User user = utils.getRepository().save(utils.getWrapper().unwrap(userPostDto, User.class));
-            return utils.getWrapper().assemble(user, UserGetDto.class);
+            return utils.getWrapper().wrapOk(user, UserGetDto.class);
         } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
         }

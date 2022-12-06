@@ -4,12 +4,10 @@ import draen.dto.Dto;
 import draen.dto.FromDtoMapper;
 import draen.dto.ToDtoMapper;
 import draen.exceptions.DtoException;
-import draen.rest.modelassemblers.DtoModelAssembler;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,21 +18,20 @@ import java.util.List;
 public class Wrapper {
     private final List<ToDtoMapper<?,?>> toMappers;
     private final List<FromDtoMapper<?,?>> fromMappers;
-    private final List<DtoModelAssembler<?>> assemblers;
 
     public<T, V extends Dto<T>> V wrap(T item, Class<V> targetClass) {
         return toMapper(item.getClass(), targetClass).toDto(item);
     }
 
-    public<T, V extends Dto<T>> EntityModel<V> assemble(T item, Class<V> targetClass) {
+    public<T, V extends Dto<T>> ResponseEntity<V> wrapOk(T item, Class<V> targetClass) {
         V dto = wrap(item, targetClass);
-        return assembler(targetClass).toModel(dto);
+        return ResponseEntity.ok(wrap(item, targetClass));
     }
 
-    public<T, V extends Dto<T>> CollectionModel<EntityModel<V>> assembleAll(Iterable<T> items, Class<V> targetClass) {
-        if (!items.iterator().hasNext()) return assembler(targetClass).toCollectionModel(new ArrayList<>());
+    public<T, V extends Dto<T>> ResponseEntity<Iterable<V>> wrapAllOk(Iterable<T> items, Class<V> targetClass) {
+        if (!items.iterator().hasNext()) return ResponseEntity.ok(null);
         Iterable<V> dtos = toMapper(items.iterator().next().getClass(), targetClass).toDtos(items);
-        return assembler(targetClass).toCollectionModel(dtos);
+        return ResponseEntity.ok(dtos);
     }
 
     public<T, V extends Dto<T>> T unwrap(V dto, Class<T> itemClass) throws DtoException {
@@ -48,9 +45,5 @@ public class Wrapper {
     private<T, V extends Dto<T>> FromDtoMapper<T,V> fromMapper(Class<T> itemClass, Class<?> dtoClass) {
         ResolvableType mapperType = ResolvableType.forClassWithGenerics(FromDtoMapper.class, itemClass, dtoClass);
         return (FromDtoMapper<T, V>) fromMappers.stream().filter(mapperType::isInstance).findFirst().get();
-    }
-    private<T, V extends Dto<T>> DtoModelAssembler<V> assembler(Class<V> targetClass) {
-        ResolvableType assemblerType = ResolvableType.forClassWithGenerics(DtoModelAssembler.class, targetClass);
-        return (DtoModelAssembler<V>) assemblers.stream().filter(assemblerType::isInstance).findFirst().get();
     }
 }
