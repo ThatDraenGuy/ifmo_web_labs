@@ -1,9 +1,9 @@
 import React, {FC, useEffect, useState} from "react";
-import {useAppDispatch} from "../hooks";
+import {useAppDispatch} from "../../hooks";
 import {useDispatch} from "react-redux";
-import {useLoginMutation} from "../services/auth";
+import {useLoginMutation} from "../../services/auth";
 import {Form} from "react-bootstrap";
-import {setAuth} from "../slices/authSlice";
+import {setAuth} from "../../slices/authSlice";
 import {Link} from "react-router-dom";
 
 type LoginData = {

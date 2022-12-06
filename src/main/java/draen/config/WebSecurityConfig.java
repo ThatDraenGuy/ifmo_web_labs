@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    private final String[] PUBLIC_URLS = new String[]{"/public/**", "/users", "/users/{username}", "/login", "/"};
+    private final String[] PUBLIC_URLS = new String[]{"/public/**", "/users", "/users/{username}", "/users/exists/{username}", "/login", "/"};
     private final String[] NON_AUTH_ONLY_URLS = new String[]{"/auth/**"};
     private final String[] ADMIN_URLS = new String[]{"/admin/**"};
 

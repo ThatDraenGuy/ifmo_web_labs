@@ -20,6 +20,12 @@ export interface LoginRequest {
     password: string
 }
 
+export interface RegisterResponse {}
+export interface RegisterRequest {
+    username: string,
+    password: string
+}
+
 export const authApi = api.injectEndpoints({
     endpoints: build => ({
         login: build.mutation<LoginResponse, LoginRequest>({
@@ -27,6 +33,13 @@ export const authApi = api.injectEndpoints({
                 url: "/auth/login",
                 method: "POST",
                 body: credentials
+            })
+        }),
+        register: build.mutation<RegisterResponse, RegisterRequest>({
+            query: (request) => ({
+                url: "/auth/register",
+                method: "POST",
+                body: request
             })
         }),
         logout: build.mutation<any,number>({
@@ -38,8 +51,13 @@ export const authApi = api.injectEndpoints({
                 store.dispatch(logout())
                 return response;
             }
+        }),
+        usernameExists: build.query<boolean, string>({
+            query: (username) => ({
+                url: `/users/exists/${username}`
+            })
         })
     })
 })
 
-export const {useLoginMutation, useLogoutMutation} = authApi
+export const {useLoginMutation, useRegisterMutation, useLogoutMutation, useUsernameExistsQuery} = authApi
