@@ -1,7 +1,9 @@
-package draen.dto.attempt;
+package draen.dtomappers.attempt;
 
 import draen.domain.users.UserAttempt;
-import draen.dto.ToDtoMapper;
+import draen.dto.attempt.AttemptsPageDto;
+import draen.dto.attempt.UserAttemptDto;
+import draen.dtomappers.ToDtoMapper;
 import draen.storage.PageOfUserAttemptInfo;
 import lombok.Setter;
 import org.mapstruct.InjectionStrategy;

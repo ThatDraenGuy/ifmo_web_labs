@@ -1,7 +1,8 @@
-package draen.dto.attempt;
+package draen.dtomappers.attempt;
 
 import draen.domain.attempts.CoordInfo;
-import draen.dto.FullDtoMapper;
+import draen.dto.attempt.CoordInfoDto;
+import draen.dtomappers.FullDtoMapper;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

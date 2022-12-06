@@ -1,7 +1,8 @@
-package draen.dto.user;
+package draen.dtomappers.user;
 
 import draen.domain.users.UserData;
-import draen.dto.FullDtoMapper;
+import draen.dtomappers.FullDtoMapper;
+import draen.dto.user.UserDataDto;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

@@ -1,8 +1,9 @@
-package draen.dto.user;
+package draen.dtomappers.user;
 
 import draen.domain.users.User;
 import draen.domain.users.UserFactory;
-import draen.dto.FromDtoMapper;
+import draen.dtomappers.FromDtoMapper;
+import draen.dto.user.UserPostDto;
 import draen.exceptions.UsernameTakenException;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;

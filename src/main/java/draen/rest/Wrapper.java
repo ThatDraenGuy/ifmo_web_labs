@@ -1,8 +1,8 @@
 package draen.rest;
 
 import draen.dto.Dto;
-import draen.dto.FromDtoMapper;
-import draen.dto.ToDtoMapper;
+import draen.dtomappers.FromDtoMapper;
+import draen.dtomappers.ToDtoMapper;
 import draen.exceptions.DtoException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.core.ResolvableType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
