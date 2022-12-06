@@ -12,11 +12,11 @@ export interface TableFooterProps {
 
 export const TableFooter: FC<TableFooterProps> = ({itemsCount, itemsPerPage, setItemsPerPage, showedItems}) => {
     return (
-        <ButtonToolbar>
+        <div className="d-flex justify-content-end">
             <div>
                 Showing {showedItems.at(0)+1} - {showedItems.at(showedItems.length-1)+1} of {itemsCount.toString()}
             </div>
             <DropdownMenuItem itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage}/>
-        </ButtonToolbar>
+        </div>
     )
 }

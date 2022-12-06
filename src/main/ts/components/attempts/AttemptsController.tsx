@@ -21,7 +21,7 @@ export const AttemptsController: FC<AttemptsControllerProps> = ({}) => {
     const {data: attemptsPage, isLoading} = useAttemptsPageQuery({userId: id, page: currentPage-1, size: itemsPerPage});
     if (isLoading) return (<></>)
     return (
-        <Container>
+        <Container className="shadow p-3 mb-5 bg-body rounded">
             <Row>
                 <TableHeader itemsCount={attemptsPage.totalLength} itemsPerPage={itemsPerPage} setItemsPerPage={dispatchItemsPerPage} currentPage={currentPage} setCurrentPage={dispatchCurrentPage} clearPost={clearPost}/>
             </Row>

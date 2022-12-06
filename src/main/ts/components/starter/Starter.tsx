@@ -1,21 +1,33 @@
 import {FC} from "react";
-import {Container, Tab, Tabs} from "react-bootstrap";
+import {Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import {Login} from "./Login";
 import {Register} from "./Register";
-
+import * as styles from "../misc/center.module.css";
 
 export const Starter: FC<any> = () => {
 
     return (
-        <Container>
-            <Tabs defaultActiveKey="login">
-                <Tab eventKey="login" title="Login">
-                    <Login/>
-                </Tab>
-                <Tab eventKey="register" title="Register">
-                    <Register/>
-                </Tab>
-            </Tabs>
+        <Container >
+            <Row className={styles.verticalHolder}>
+                <Col/>
+                <Col className={styles.verticalCenter}>
+                    <div  className="shadow p-3 mb-5 bg-body rounded">
+                        <Tabs defaultActiveKey="login">
+                            <Tab eventKey="login" title="Login">
+                                <div className="pt-1">
+                                    <Login/>
+                                </div>
+                            </Tab>
+                            <Tab eventKey="register" title="Register">
+                                <div className="pt-1">
+                                    <Register/>
+                                </div>
+                            </Tab>
+                        </Tabs>
+                    </div>
+                </Col>
+                <Col/>
+            </Row>
         </Container>
     )
 }

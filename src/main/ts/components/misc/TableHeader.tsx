@@ -16,10 +16,10 @@ export interface TableHeaderProps {
 export const TableHeader: FC<TableHeaderProps> = ({itemsCount, itemsPerPage, setItemsPerPage, currentPage, setCurrentPage, clearPost}) => {
     const id = useAppSelector(state => state.auth.user.id);
     return (
-        <ButtonToolbar>
-            <Button onClick={() => clearPost(id)}>Clear</Button>
+        <div className="d-flex justify-content-between">
+            <Button className="h-auto d-inline-block" onClick={() => clearPost(id)}>Clear</Button>
             <PaginationMenuItem itemsCount={itemsCount} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
             <DropdownMenuItem itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage}/>
-        </ButtonToolbar>
+        </div>
     )
 }

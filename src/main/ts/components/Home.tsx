@@ -7,18 +7,20 @@ import {SideMenu} from "./sideMenu/SideMenu";
 
 export const Home: FC<any> = ({}) => {
     return(
-        <Container>
+        <Container className="pt-5">
             <SideMenu/>
             <Row>
                 <Col>
-                    <QuadrantsGraph/>
+                    <Row>
+                        <QuadrantsGraph/>
+                    </Row>
                 </Col>
                 <Col>
                     <ShooterForm/>
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col className="pt-5">
                     <AttemptsController/>
                 </Col>
             </Row>

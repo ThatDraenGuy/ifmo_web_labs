@@ -57,19 +57,19 @@ tasks.register('deploy') {
     }
 }
 
+//
+//task compileTypeScript(type: NodeTask, dependsOn: [npmInstall]) {
+//    script = file('node_modules/typescript/lib/tsc.js')
+//    args = ['--outDir', 'build/typescript']
+//    inputs.dir 'src/main/ts/'
+//    outputs.dir 'build/typescript'
+//}
+//task cleanTypeScript(type: Delete) { delete 'build/typescript' }
+//clean.dependsOn cleanTypeScript
 
-task compileTypeScript(type: NodeTask, dependsOn: [npmInstall]) {
-    script = file('node_modules/typescript/lib/tsc.js')
-    args = ['--outDir', 'build/typescript']
-    inputs.dir 'src/main/ts/'
-    outputs.dir 'build/typescript'
-}
-task cleanTypeScript(type: Delete) { delete 'build/typescript' }
-clean.dependsOn cleanTypeScript
-
-task webpack(type: NodeTask, dependsOn: [npmInstall, compileTypeScript]) {
+task webpack(type: NodeTask, dependsOn: [npmInstall]) {
     script = file('node_modules/webpack/bin/webpack.js')
-    inputs.dir 'build/typescript/'
+    inputs.dir 'src/main/ts'
     outputs.dir 'build/resources/main/static'
 }
 task webpackClean(type: Delete) { delete 'build/webpack' }

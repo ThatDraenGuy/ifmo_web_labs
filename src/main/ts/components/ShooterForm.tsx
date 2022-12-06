@@ -24,7 +24,7 @@ export const ShooterForm: FC<any> = () => {
     }
 
     return (
-        <div>
+        <div className="shadow p-3 mb-5 bg-body rounded">
             <Form onSubmit={onSubmit} noValidate validated={validated}>
                 <ChooserWrapper chooserName={"X"}>
                     <CheckboxChooser getValue={state => state.chooser.x} setValue={setX} options={[-4,-3,-2,-1,0,1,2,3,4]}/>
