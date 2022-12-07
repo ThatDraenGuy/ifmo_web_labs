@@ -34,7 +34,6 @@ public class AreaCheckController {
     public ResponseEntity<UserAttemptDto> shoot(@RequestBody CoordInfoDto coordInfoDto, @AuthenticationPrincipal AppUserDetails appUserDetails) {
         try {
             User user = userUtils.getUser(appUserDetails.getUsername());
-//            User user = userUtils.getUser("draen");
             CoordInfo coordInfo = wrapper.unwrap(coordInfoDto, CoordInfo.class);
             UserAttempt attemptInfo = areaShooterComponent.shoot(coordInfo, user);
             return wrapper.wrapOk(attemptInfo, UserAttemptDto.class);

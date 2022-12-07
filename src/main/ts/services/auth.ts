@@ -54,7 +54,7 @@ export const authApi = api.injectEndpoints({
         }),
         usernameExists: build.query<boolean, string>({
             query: (username) => ({
-                url: `/users/exists/${username}`
+                url: `/auth/exists/${username}`
             })
         })
     })
