@@ -1,9 +1,9 @@
 
-.vertical-center {
+.vertical-holder > .vertical-center, .vertical-center {
     margin-top: auto;
     margin-bottom: auto;
 }
 
 .vertical-holder {
-    height: 80vh;
+    height: 70vh;
 }

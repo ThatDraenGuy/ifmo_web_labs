@@ -54,7 +54,7 @@ export const Register: FC<any> = () => {
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3">
-                <Button type="submit">Register</Button>
+                <Button type="submit" disabled={!validateUsername() || !validatePassword()}>Register</Button>
             </Form.Group>
         </Form>
     )

@@ -2,26 +2,23 @@ import {FC, useState} from "react";
 import {Button, Offcanvas} from "react-bootstrap";
 import {UserDisplay} from "./UserDisplay";
 
+export interface SideMenuProps {
+    isShown: boolean,
+    setIsShown: (set: boolean) => void
+}
 
-export const SideMenu: FC<any> = () => {
-    const [isShown, setIsShown] = useState(false);
+export const SideMenu: FC<SideMenuProps> = ({isShown, setIsShown}) => {
 
     return(
         <>
-            <Button onClick={() => setIsShown(true)} variant="secondary" className="position-absolute top-0 start-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                     className="bi bi-list" viewBox="0 0 16 16">
-                    <path fillRule="evenodd"
-                          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                </svg>
-            </Button>
+
 
             <Offcanvas show={isShown} onHide={() => setIsShown(false)}>
                 <Offcanvas.Header closeButton>
                     Menu
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <UserDisplay/>
+                    <UserDisplay onLogoutClick={() => setIsShown(false)}/>
                 </Offcanvas.Body>
             </Offcanvas>
         </>

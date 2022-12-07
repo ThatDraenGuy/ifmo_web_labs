@@ -1,16 +1,19 @@
 import {FC} from "react";
 import {useAppSelector} from "../../hooks";
 import {LogoutButton} from "./LogoutButton";
-import {Header} from "../Header";
 
+export interface UserDisplayProps {
+    onLogoutClick: () => void
+}
 
-export const UserDisplay: FC<any> = () => {
+export const UserDisplay: FC<UserDisplayProps> = ({onLogoutClick}) => {
     const user = useAppSelector(state => state.auth.user);
+    if (!user) return (<></>)
     return (
         <div>
             <h1>Current User:</h1>
             <h2>{user.username}</h2>
-            <LogoutButton/>
+            <LogoutButton onClick={onLogoutClick}/>
         </div>
     )
 }

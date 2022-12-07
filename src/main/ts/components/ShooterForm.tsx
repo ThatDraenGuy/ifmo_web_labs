@@ -33,7 +33,7 @@ export const ShooterForm: FC<any> = () => {
                     <TextChooser     getValue={state => state.chooser.y} setValue={setY} minValue={-3} maxValue={3} />
                 </ChooserWrapper>
                 <ChooserWrapper chooserName={"R"}>
-                    <CheckboxChooser getValue={state => state.chooser.r} setValue={setR} options={[-4,-3,-2,-1,0,1,2,3,4]}/>
+                    <CheckboxChooser getValue={state => state.chooser.r} setValue={setR} options={[1,2,3,4]}/>
                 </ChooserWrapper>
                 <Form.Group as={Row} className="mb-3">
                     <Col sm={{ span: 10, offset: 2 }}>

@@ -3,6 +3,7 @@ import {App} from "./App";
 import {createRoot} from "react-dom/client";
 import {Provider} from "react-redux";
 import {store} from "./store";
+import "./settings.scss"
 
 createRoot(document.getElementById("react")).render(
     <Provider store={store}>

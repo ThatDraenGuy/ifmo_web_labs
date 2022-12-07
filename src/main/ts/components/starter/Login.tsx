@@ -27,7 +27,7 @@ export const Login: FC<any> = () => {
 
     const submitForm = (e: React.FormEvent<HTMLFormElement>) =>  {
         e.preventDefault();
-        loginPost({username, password});
+        if (e.currentTarget.checkValidity()) loginPost({username, password});
     }
 
     const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +38,7 @@ export const Login: FC<any> = () => {
     }
     return (
         <div>
-            <Form onSubmit={submitForm}>
+            <Form noValidate onSubmit={submitForm}>
                 <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" placeholder="Enter username" required onChange={onUsernameChanged} value={username}/>
@@ -48,7 +48,7 @@ export const Login: FC<any> = () => {
                     <Form.Control type="password" placeholder="Enter password" required onChange={onPasswordChanged} value={password}/>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Button type="submit">Log in</Button>
+                    <Button type="submit" disabled={username=='' || password==''}>Log in</Button>
                 </Form.Group>
             </Form>
         </div>

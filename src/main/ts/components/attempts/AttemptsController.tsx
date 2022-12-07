@@ -22,16 +22,23 @@ export const AttemptsController: FC<AttemptsControllerProps> = ({}) => {
     if (isLoading) return (<></>)
     return (
         <Container className="shadow p-3 mb-5 bg-body rounded">
-            <Row>
-                <TableHeader itemsCount={attemptsPage.totalLength} itemsPerPage={itemsPerPage} setItemsPerPage={dispatchItemsPerPage} currentPage={currentPage} setCurrentPage={dispatchCurrentPage} clearPost={clearPost}/>
-            </Row>
-            <Row>
-                <AttemptsTable attempts={attemptsPage.attempts} isLoading={isLoading}/>
-            </Row>
-            <Row>
-                <TableFooter itemsCount={attemptsPage.totalLength} itemsPerPage={itemsPerPage} setItemsPerPage={dispatchItemsPerPage}
-                             showedItems={attemptsPage.attempts.map(attempt => attempt.number)}/>
-            </Row>
+            {attemptsPage.totalLength==BigInt(0) ?
+                <Row className="text-center">
+                    <h1>No attempts found - try choosing a radius and then filling form or clicking on a graph!</h1>
+                </Row> :
+                <>
+                    <Row>
+                        <TableHeader itemsCount={attemptsPage.totalLength} itemsPerPage={itemsPerPage} setItemsPerPage={dispatchItemsPerPage} currentPage={currentPage} setCurrentPage={dispatchCurrentPage} clearPost={clearPost}/>
+                    </Row>
+                    <Row>
+                        <AttemptsTable attempts={attemptsPage.attempts} isLoading={isLoading}/>
+                    </Row>
+                    <Row>
+                        <TableFooter itemsCount={attemptsPage.totalLength} itemsPerPage={itemsPerPage} setItemsPerPage={dispatchItemsPerPage}
+                                     showedItems={attemptsPage.attempts.map(attempt => attempt.number)}/>
+                    </Row>
+                </>
+            }
         </Container>
     )
 }

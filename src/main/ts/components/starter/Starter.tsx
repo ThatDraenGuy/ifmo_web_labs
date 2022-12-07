@@ -10,7 +10,7 @@ export const Starter: FC<any> = () => {
         <Container >
             <Row className={styles.verticalHolder}>
                 <Col/>
-                <Col className={styles.verticalCenter}>
+                <Col className={styles.verticalCenter} sm={8} md={8} lg={6}>
                     <div  className="shadow p-3 mb-5 bg-body rounded">
                         <Tabs defaultActiveKey="login">
                             <Tab eventKey="login" title="Login">
