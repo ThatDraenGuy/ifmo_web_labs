@@ -28,7 +28,7 @@ export interface RegisterRequest {
 
 export const authApi = api.injectEndpoints({
     endpoints: build => ({
-        login: build.mutation<LoginResponse, LoginRequest>({
+        login: build.mutation<User, LoginRequest>({
             query: (credentials) => ({
                 url: "/auth/login",
                 method: "POST",
@@ -56,8 +56,16 @@ export const authApi = api.injectEndpoints({
             query: (username) => ({
                 url: `/auth/exists/${username}`
             })
+        }),
+        getCurrent: build.query<User,void>({
+            query: () => {
+                console.log("fetching")
+                return {
+                url: '/users/current',
+                validateStatus: (response, result) => response.status==200
+            }}
         })
     })
 })
 
-export const {useLoginMutation, useRegisterMutation, useLogoutMutation, useUsernameExistsQuery} = authApi
+export const {useLoginMutation, useRegisterMutation, useLogoutMutation, useUsernameExistsQuery, useGetCurrentQuery} = authApi
