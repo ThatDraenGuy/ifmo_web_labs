@@ -1,29 +1,25 @@
 import React, {FC, useEffect, useState} from "react";
 import {useAppDispatch} from "../../hooks";
-import {useDispatch} from "react-redux";
 import {useLoginMutation} from "../../services/auth";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Alert, Button, Col, Form, Row} from "react-bootstrap";
 import {setAuth} from "../../slices/authSlice";
-import {Link} from "react-router-dom";
-import {ChooserWrapper} from "../chooser/ChooserWrapper";
-
-type LoginData = {
-    username: string,
-    password: string
-}
+import {StarterTabProps} from "./Starter";
 
 
-export const Login: FC<any> = () => {
-    const [loginPost, {data, isSuccess}] = useLoginMutation();
+export const Login: FC<StarterTabProps> = ({alert}) => {
+    const [loginPost, {data, isSuccess, isError}] = useLoginMutation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useAppDispatch();
-
     useEffect(() => {
         if (isSuccess) {
             dispatch(setAuth(data))
         }
     }, [isSuccess])
+
+    useEffect(() => {
+        if (isError) alert('danger', 'Incorrect username/password');
+    }, [isError])
 
     const submitForm = (e: React.FormEvent<HTMLFormElement>) =>  {
         e.preventDefault();
@@ -31,10 +27,12 @@ export const Login: FC<any> = () => {
     }
 
     const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value)
+        setUsername(e.target.value);
+        alert('primary', '')
     }
     const onPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value)
+        setPassword(e.target.value);
+        alert('primary', '')
     }
     return (
         <div>

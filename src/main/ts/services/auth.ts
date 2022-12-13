@@ -58,12 +58,10 @@ export const authApi = api.injectEndpoints({
             })
         }),
         getCurrent: build.query<User,void>({
-            query: () => {
-                console.log("fetching")
-                return {
+            query: () => ({
                 url: '/users/current',
                 validateStatus: (response, result) => response.status==200
-            }}
+            })
         })
     })
 })

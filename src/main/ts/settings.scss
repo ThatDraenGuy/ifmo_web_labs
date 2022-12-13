@@ -2,7 +2,8 @@
 @import "~bootstrap/scss/functions";
 
 $grid-breakpoints: (
-        sm: 0,
+        xs: 0,
+        sm: 70px,
         md: 850px,
         lg: 1153px
 );

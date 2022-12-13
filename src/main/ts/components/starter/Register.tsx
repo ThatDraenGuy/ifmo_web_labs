@@ -1,22 +1,30 @@
-import React, {FC, useState} from "react";
-import {Button, Form} from "react-bootstrap";
+import React, {FC, useEffect, useState} from "react";
+import {Alert, Button, Form, Spinner} from "react-bootstrap";
 import {useRegisterMutation, useUsernameExistsQuery} from "../../services/auth";
 import {PASSWORD_REGEX} from "../../constants/constants";
+import {StarterTabProps} from "./Starter";
 
 
-export const Register: FC<any> = () => {
+
+export const Register: FC<StarterTabProps> = ({alert}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [validated, setValidated] = useState(false);
-    const [registerPost, {error, isError}] = useRegisterMutation();
-    const {data, isLoading} = useUsernameExistsQuery(username);
+    const [registerPost, {error, isError, isSuccess}] = useRegisterMutation();
+    const {data: isUsernameTaken, isLoading: isUsernameChecking} = useUsernameExistsQuery(username);
+
+    useEffect(() => {
+        if (isSuccess) alert("success", "Successfully registered new user");
+        if (isError) alert("warning", "Unknown error occurred");
+    }, [isSuccess, isError])
 
     const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
+        alert('primary', '')
     }
 
     const validateUsername = () => {
-
+        if (!isUsernameChecking) return !isUsernameTaken && username.length >= 4;
         return username.length >= 4
     }
 
@@ -26,6 +34,7 @@ export const Register: FC<any> = () => {
 
     const onPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
+        alert('primary', '')
     }
 
     const submitForm = (e: React.FormEvent<HTMLFormElement>) =>  {
@@ -43,7 +52,7 @@ export const Register: FC<any> = () => {
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" placeholder="Enter username" required onChange={onUsernameChanged} isValid={validateUsername()} isInvalid={username!='' && ! validateUsername()} value={username}/>
                 <Form.Control.Feedback type="invalid">
-                    Username should be at least 4 symbols long
+                    {isUsernameTaken ? 'This username is taken!' : 'Username should be at least 4 symbols long'}
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3">

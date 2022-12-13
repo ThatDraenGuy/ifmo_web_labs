@@ -11,12 +11,13 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 
 export const ShooterForm: FC<any> = () => {
     const [shootPost, {}] = useShootMutation();
+    const chooserState = useAppSelector(state => state.chooser);
     const [validated, setValidated] = useState(false);
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (e.currentTarget.checkValidity()) {
-            shootPost(store.getState().chooser);
+            shootPost(chooserState);
             setValidated(false);
         } else {
             setValidated(true);
@@ -37,7 +38,7 @@ export const ShooterForm: FC<any> = () => {
                 </ChooserWrapper>
                 <Form.Group as={Row} className="mb-3">
                     <Col sm={{ span: 10, offset: 2 }}>
-                        <Button type="submit">Shoot!</Button>
+                        <Button type="submit" disabled={!chooserState.x || !chooserState.y || !chooserState.r}>Shoot!</Button>
                     </Col>
                 </Form.Group>
             </Form>
