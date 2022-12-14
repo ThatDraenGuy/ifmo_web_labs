@@ -1,6 +1,9 @@
 package draen.config;
 
+import draen.security.jwt.AuthEntryPoint;
 import draen.security.jwt.AuthJwtFilter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +22,9 @@ public class WebSecurityConfig {
     private final String[] PUBLIC_URLS = new String[]{"/public/**", "/login", "/"};
     private final String[] NON_AUTH_ONLY_URLS = new String[]{"/api/auth/**"};
     private final String[] ADMIN_URLS = new String[]{"/api/admin/**"};
+
+    @Setter(onMethod = @__(@Autowired))
+    private AuthEntryPoint authEntryPoint;
 
     @Bean
     public AuthJwtFilter authJwtFilter() {
@@ -39,7 +45,8 @@ public class WebSecurityConfig {
                 .antMatchers("/users/id/{userId}/**").access("@userSecurity.hasUserId(authentication,#userId) or hasAuthority('ADMIN')")
                 .anyRequest().authenticated();
 
-        http.addFilterBefore(authJwtFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authJwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint);
 
         return http.build();
     }

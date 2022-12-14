@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PageOfUserAttemptInfo {
+public class UserAttemptsPage {
     private Page<UserAttempt> page;
     private long userId;
 }

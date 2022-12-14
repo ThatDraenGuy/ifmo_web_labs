@@ -4,7 +4,7 @@ import draen.domain.users.UserAttempt;
 import draen.dto.attempt.AttemptsPageDto;
 import draen.dto.attempt.UserAttemptDto;
 import draen.dtomappers.ToDtoMapper;
-import draen.storage.PageOfUserAttemptInfo;
+import draen.storage.UserAttemptsPage;
 import lombok.Setter;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -21,7 +21,7 @@ import java.util.List;
         uses = ToUserAttemptDtoMapper.class,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 @Component
-public abstract class ToAttemptsPageDtoMapper implements ToDtoMapper<PageOfUserAttemptInfo, AttemptsPageDto> {
+public abstract class ToAttemptsPageDtoMapper implements ToDtoMapper<UserAttemptsPage, AttemptsPageDto> {
     @Autowired
     @Setter
     private ToUserAttemptDtoMapper attemptInfoDtoMapper;
@@ -29,7 +29,7 @@ public abstract class ToAttemptsPageDtoMapper implements ToDtoMapper<PageOfUserA
     @Mapping(target = "totalLength", source = "page")
     @Mapping(target = "pagesAmount", source = "page")
     @Mapping(target = "attempts", source = "page")
-    public abstract AttemptsPageDto toDto(PageOfUserAttemptInfo item);
+    public abstract AttemptsPageDto toDto(UserAttemptsPage item);
 
     public long mapTotalLength(Page<UserAttempt> page) {
         return page.getTotalElements();

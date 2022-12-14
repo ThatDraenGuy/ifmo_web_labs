@@ -1,4 +1,4 @@
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {Navigate} from "react-router";
 import {useGetCurrentQuery} from "../services/auth";
@@ -15,6 +15,9 @@ export const AuthOnly: FC<AuthOnlyProps> = ({elseUrl, inverse, children}) => {
     const {currentData, isSuccess, isError, isLoading} = useGetCurrentQuery();
     const user = useAppSelector(state => state.auth.user);
 
+    useEffect(() => {
+        if (isSuccess) dispatch(setAuth(currentData));
+    }, [isSuccess])
 
     if (user) {
         if (!inverse) return (<>{children}</>)
@@ -23,9 +26,10 @@ export const AuthOnly: FC<AuthOnlyProps> = ({elseUrl, inverse, children}) => {
 
     if (isLoading) return (<></>)//TODO
 
-    if (isSuccess) {
-        dispatch(setAuth(currentData));
-    }
+    // if (isSuccess) {
+    //     dispatch(setAuth(currentData));
+    // }
+
 
     if ((!inverse && isError) || (inverse && !isError)) return (<Navigate to={elseUrl}/>)
     return (<div>{children}</div>)

@@ -12,7 +12,7 @@ import draen.dto.attempt.CoordInfoDto;
 import draen.exceptions.DtoException;
 import draen.exceptions.UserIdNotFoundException;
 import draen.rest.controllers.UserControllerUtils;
-import draen.storage.PageOfUserAttemptInfo;
+import draen.storage.UserAttemptsPage;
 import draen.storage.UserAttemptInfoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class UserAttemptsController {
     public ResponseEntity<AttemptsPageDto> pageOfAttempts(@PathVariable int page, @PathVariable int size, @PathVariable long userId) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("number").descending());
         Page<UserAttempt> attemptsPage = repository.findAllByUserIdEquals(userId, pageable);
-        return wrapper.wrapOk(new PageOfUserAttemptInfo(attemptsPage, userId), AttemptsPageDto.class);
+        return wrapper.wrapOk(new UserAttemptsPage(attemptsPage, userId), AttemptsPageDto.class);
     }
 
     @GetMapping("/{attemptId}")
