@@ -1,8 +1,10 @@
 package draen.rest.controllers.everyone;
 
+import draen.components.CredentialsVerifier;
 import draen.domain.users.User;
 import draen.dto.user.UserGetDto;
 import draen.dto.user.UserPostDto;
+import draen.exceptions.CredentialsException;
 import draen.exceptions.DtoException;
 import draen.rest.Wrapper;
 import draen.rest.controllers.UserControllerUtils;
@@ -29,6 +31,7 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private final UserControllerUtils utils;
     private final Wrapper wrapper;
+    private final CredentialsVerifier credentialsVerifier;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserPostDto userPostDto) {
@@ -45,10 +48,13 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserPostDto userPostDto) {
         try {
+            credentialsVerifier.verify(userPostDto);
             User user = utils.getRepository().save(wrapper.unwrap(userPostDto, User.class));
             return ResponseEntity.ok(null);
         } catch (DtoException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists", e);
+        } catch (CredentialsException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
 
