@@ -10,8 +10,9 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [validated, setValidated] = useState(false);
+    const [shouldCheckUsername, setShouldCheckUsername] = useState(false);
     const [registerPost, {error, isError, isSuccess}] = useRegisterMutation();
-    const {data: isUsernameTaken, isLoading: isUsernameChecking} = useUsernameExistsQuery(username);
+    const {data: isUsernameTaken, isLoading: isUsernameChecking} = useUsernameExistsQuery(username, {skip: !shouldCheckUsername});
 
     useEffect(() => {
         if (isSuccess) alert("success", "Successfully registered new user");
@@ -21,6 +22,7 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
     const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
         alert('primary', '')
+        setShouldCheckUsername(e.target.value.length >= 4);
     }
 
     const validateUsername = () => {
@@ -63,7 +65,7 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3">
-                <Button type="submit" disabled={!validateUsername() || !validatePassword()}>Register</Button>
+                <Button type="submit" disabled={!validateUsername() || !validatePassword() || isUsernameChecking}>Register</Button>
             </Form.Group>
         </Form>
     )
