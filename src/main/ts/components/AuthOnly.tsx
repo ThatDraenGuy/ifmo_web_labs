@@ -11,7 +11,7 @@ export interface AuthOnlyProps {
 export const AuthOnly: FC<AuthOnlyProps> = ({elseUrl, inverse, children}) => {
     const {isError, isLoading} = useGetCurrentUserQuery();
 
-    if (isLoading) return (<></>)//TODO
+    if (isLoading) return (<></>)
 
 
     if ((!inverse && isError) || (inverse && !isError)) return (<Navigate to={elseUrl}/>)

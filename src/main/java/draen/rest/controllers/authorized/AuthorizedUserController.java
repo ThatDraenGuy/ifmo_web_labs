@@ -6,10 +6,12 @@ import draen.security.AppUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -30,6 +32,7 @@ public class AuthorizedUserController {
 
     @GetMapping("/current")
     public ResponseEntity<?> getCurrent(@AuthenticationPrincipal AppUserDetails appUserDetails) {
-        return utils.getWrapper().wrapOk(utils.getUserOr(appUserDetails.getUsername()), UserGetDto.class);
+        if (appUserDetails!=null) return utils.getWrapper().wrapOk(utils.getUserOr(appUserDetails.getUsername()), UserGetDto.class);
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not logged in");
     }
 }
