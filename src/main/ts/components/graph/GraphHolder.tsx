@@ -4,6 +4,7 @@ import {Graph, GraphDrawer, GraphParams, GraphStyle} from "../../logic/GraphDraw
 import {useAppSelector} from "../../hooks";
 import * as styles from './graph.module.css';
 import {useAttemptsPageQuery, UserAttempt} from "../../services/attempts";
+import {useGetCurrentUserQuery} from "../../services/auth";
 
 export interface GraphHolderParams {
     graphDrawer: GraphDrawer<QuadrantsInfo>,
@@ -17,8 +18,8 @@ export const GraphHolder: FC<GraphHolderParams> = ({graphDrawer, pointsDrawer, g
     const radius = useAppSelector(state => state.chooser.r);
     const currentPage = useAppSelector(state => state.pagination.currentPage);
     const itemsPerPage = useAppSelector(state => state.pagination.itemsPerPage);
-    const id = useAppSelector(state => state.auth.user.id);
-    const {data: attemptsPage, isSuccess: isPointsLoadingSuccess} = useAttemptsPageQuery({userId: id, page: currentPage-1, size: itemsPerPage});
+    const {currentData: user} = useGetCurrentUserQuery();
+    const {data: attemptsPage, isSuccess: isPointsLoadingSuccess} = useAttemptsPageQuery({userId: user.id, page: currentPage-1, size: itemsPerPage});
     const canvas = useRef<HTMLCanvasElement>();
 
     useEffect(() => {

@@ -2,11 +2,11 @@ import React, {FC, useState} from "react";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {AUTHOR_LINK, SOURCE_LINK} from "../constants/constants";
 import {SideMenu} from "./sideMenu/SideMenu";
-import {useAppSelector} from "../hooks";
+import {useGetCurrentUserQuery} from "../services/auth";
 
 export const Header: FC<any> = () => {
     const [isShown, setIsShown] = useState(false);
-    const user = useAppSelector(state => state.auth.user)
+    const {currentData: user, isSuccess: isUserSet} = useGetCurrentUserQuery();
 
     return (
         <>
@@ -14,7 +14,7 @@ export const Header: FC<any> = () => {
             <Container fluid className="bg-primary text-white sticky-top">
                 <Row>
                     <Col xs={1} className="position-relative">
-                        {user==undefined ? '' :
+                        {!isUserSet ? '' :
                             <Button onClick={() => setIsShown(true)} variant="light" className="position-absolute top-50 start-50 translate-middle">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      className="bi bi-list" viewBox="0 0 16 16">

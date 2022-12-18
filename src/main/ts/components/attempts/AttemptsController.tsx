@@ -6,6 +6,7 @@ import {AttemptsTable} from "./AttemptsTable";
 import {TableFooter} from "../misc/TableFooter";
 import {setCurrentPage, setItemsPerPage} from "../../slices/paginationSlice";
 import {useAppDispatch, useAppSelector} from "../../hooks";
+import {useGetCurrentUserQuery} from "../../services/auth";
 
 export interface AttemptsControllerProps {
 }
@@ -17,8 +18,8 @@ export const AttemptsController: FC<AttemptsControllerProps> = ({}) => {
     const dispatchCurrentPage = (currentPage: number) => dispatch(setCurrentPage(currentPage))
     const itemsPerPage = useAppSelector(state => state.pagination.itemsPerPage);
     const dispatchItemsPerPage = (itemsPerPage: number) => dispatch(setItemsPerPage(itemsPerPage))
-    const id = useAppSelector(state => state.auth.user.id)
-    const {data: attemptsPage, isLoading} = useAttemptsPageQuery({userId: id, page: currentPage-1, size: itemsPerPage});
+    const {currentData: user} = useGetCurrentUserQuery();
+    const {data: attemptsPage, isLoading} = useAttemptsPageQuery({userId: user.id, page: currentPage-1, size: itemsPerPage});
     if (isLoading) return (<></>)
     return (
         <Container className="shadow p-3 mb-5 bg-body rounded">

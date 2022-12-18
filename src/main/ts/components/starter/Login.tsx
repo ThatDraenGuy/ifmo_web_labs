@@ -1,8 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
-import {useAppDispatch} from "../../hooks";
 import {useLoginMutation} from "../../services/auth";
 import {Alert, Button, Col, Form, Row} from "react-bootstrap";
-import {setAuth} from "../../slices/authSlice";
 import {StarterTabProps} from "./Starter";
 
 
@@ -10,12 +8,6 @@ export const Login: FC<StarterTabProps> = ({alert}) => {
     const [loginPost, {data, isSuccess, isError}] = useLoginMutation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        if (isSuccess) {
-            dispatch(setAuth(data))
-        }
-    }, [isSuccess])
 
     useEffect(() => {
         if (isError) alert('danger', 'Incorrect username/password');

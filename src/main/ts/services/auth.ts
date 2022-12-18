@@ -1,18 +1,10 @@
 import {api} from "./api";
-import {logout} from "../slices/authSlice";
-import {useAppDispatch} from "../hooks";
-import {store} from "../store";
 
 
 export interface User {
     id: number,
     username: string,
     roles: Array<string>
-}
-
-export interface LoginResponse {
-    token: string,
-    user: User
 }
 
 export interface LoginRequest {
@@ -33,7 +25,8 @@ export const authApi = api.injectEndpoints({
                 url: "/auth/login",
                 method: "POST",
                 body: credentials
-            })
+            }),
+            invalidatesTags: ["Auth"]
         }),
         register: build.mutation<RegisterResponse, RegisterRequest>({
             query: (request) => ({
@@ -47,23 +40,21 @@ export const authApi = api.injectEndpoints({
                 url: `/users/id/${userId}/logout`,
                 method: "POST"
             }),
-            transformResponse: (response) => {
-                store.dispatch(logout())
-                return response;
-            }
+            invalidatesTags: ["Auth"]
         }),
         usernameExists: build.query<boolean, string>({
             query: (username) => ({
                 url: `/auth/exists/${username}`
             })
         }),
-        getCurrent: build.query<User,void>({
+        getCurrentUser: build.query<User,void>({
             query: () => ({
                 url: '/users/current',
                 validateStatus: (response, result) => response.status==200
-            })
+            }),
+            providesTags: ["Auth"]
         })
     })
 })
 
-export const {useLoginMutation, useRegisterMutation, useLogoutMutation, useUsernameExistsQuery, useGetCurrentQuery} = authApi
+export const {useLoginMutation, useRegisterMutation, useLogoutMutation, useUsernameExistsQuery, useGetCurrentUserQuery} = authApi

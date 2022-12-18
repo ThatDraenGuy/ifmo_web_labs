@@ -2,7 +2,6 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {api} from "./services/api";
 import chooserReducer from "./slices/chooserSlice";
 import paginationReducer from "./slices/paginationSlice";
-import authReducer from "./slices/authSlice"
 
 
 export const store = configureStore({
@@ -10,7 +9,6 @@ export const store = configureStore({
         [api.reducerPath]: api.reducer,
         chooser: chooserReducer,
         pagination: paginationReducer,
-        auth: authReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware)
 })

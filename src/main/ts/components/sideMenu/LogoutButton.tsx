@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {Button} from "react-bootstrap";
-import {useLogoutMutation} from "../../services/auth";
+import {useGetCurrentUserQuery, useLogoutMutation} from "../../services/auth";
 import {useAppSelector} from "../../hooks";
 
 export interface LogoutButtonProps {
@@ -9,11 +9,11 @@ export interface LogoutButtonProps {
 
 export const LogoutButton: FC<LogoutButtonProps> = ({onClick}) => {
     const [logoutPost, {}] = useLogoutMutation();
-    const userId = useAppSelector(state => state.auth.user.id)
+    const {currentData: user} = useGetCurrentUserQuery();
     return (
         <Button onClick={
             () => {
-                logoutPost(userId);
+                logoutPost(user.id);
                 onClick()
             }
         }>Logout</Button>

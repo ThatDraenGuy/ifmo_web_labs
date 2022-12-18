@@ -2,7 +2,7 @@ import {FC} from "react";
 import {Button, ButtonToolbar} from "react-bootstrap";
 import {PaginationMenuItem} from "./PaginationMenuItem";
 import {DropdownMenuItem} from "./DropdownMenuItem";
-import {useAppSelector} from "../../hooks";
+import {useGetCurrentUserQuery} from "../../services/auth";
 
 export interface TableHeaderProps {
     itemsCount: bigint,
@@ -14,10 +14,10 @@ export interface TableHeaderProps {
 }
 
 export const TableHeader: FC<TableHeaderProps> = ({itemsCount, itemsPerPage, setItemsPerPage, currentPage, setCurrentPage, clearPost}) => {
-    const id = useAppSelector(state => state.auth.user.id);
+    const {currentData: user} = useGetCurrentUserQuery();
     return (
         <div className="d-flex justify-content-between">
-            <Button className="h-auto d-inline-block" onClick={() => clearPost(id)}>Clear</Button>
+            <Button className="h-auto d-inline-block" onClick={() => clearPost(user.id)}>Clear</Button>
             <PaginationMenuItem itemsCount={itemsCount} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
             <DropdownMenuItem itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage}/>
         </div>
