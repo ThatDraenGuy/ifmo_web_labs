@@ -19,8 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    private final String[] PUBLIC_URLS = new String[]{"/public/**", "/api/users/current", "/login", "/"};
+    private final String[] PUBLIC_URLS = new String[]{"/public/**", "/api/users/current"};
     private final String[] NON_AUTH_ONLY_URLS = new String[]{"/api/auth/**"};
+    private final String[] AUTH_ONLY_URLS = new String[]{"/api/**"};
     private final String[] ADMIN_URLS = new String[]{"/api/admin/**"};
 
     @Setter(onMethod = @__(@Autowired))
@@ -41,9 +42,10 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers(PUBLIC_URLS).permitAll()
                 .antMatchers(NON_AUTH_ONLY_URLS).not().authenticated()
+                .antMatchers(AUTH_ONLY_URLS).authenticated()
                 .antMatchers(ADMIN_URLS).hasAuthority("ADMIN")
                 .antMatchers("/users/id/{userId}/**").access("@userSecurity.hasUserId(authentication,#userId) or hasAuthority('ADMIN')")
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
 
         http.addFilterBefore(authJwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint);
