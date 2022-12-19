@@ -2,6 +2,7 @@ import React, {FC, useEffect, useState} from "react";
 import {useLoginMutation} from "../../services/auth";
 import {Alert, Button, Col, Form, Row} from "react-bootstrap";
 import {StarterTabProps} from "./Starter";
+import {PasswordInput} from "./PasswordInput";
 
 
 export const Login: FC<StarterTabProps> = ({alert}) => {
@@ -35,7 +36,8 @@ export const Login: FC<StarterTabProps> = ({alert}) => {
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter password" required onChange={onPasswordChanged} value={password}/>
+                    {/*<Form.Control type="password" placeholder="Enter password" required onChange={onPasswordChanged} value={password}/>*/}
+                    <PasswordInput onChanged={onPasswordChanged} isValid={false} isInvalid={false} value={password}/>
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Button type="submit" disabled={username=='' || password==''}>Log in</Button>

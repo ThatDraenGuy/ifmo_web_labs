@@ -3,6 +3,7 @@ import {Alert, Button, Form, Spinner} from "react-bootstrap";
 import {useRegisterMutation, useUsernameExistsQuery} from "../../services/auth";
 import {PASSWORD_REGEX} from "../../constants/constants";
 import {StarterTabProps} from "./Starter";
+import {PasswordInput} from "./PasswordInput";
 
 
 
@@ -59,10 +60,16 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter password" required onChange={onPasswordChanged} isValid={validatePassword()} isInvalid={password!='' && ! validatePassword()} value={password}/>
-                <Form.Control.Feedback type="invalid">
-                    Password should be at least 8 characters long and contain at least 1 letter and 1 number
-                </Form.Control.Feedback>
+                {/*<Form.Control type="password" placeholder="Enter password" required onChange={onPasswordChanged} isValid={validatePassword()} isInvalid={password!='' && ! validatePassword()} value={password}/>*/}
+                <PasswordInput onChanged={onPasswordChanged} isValid={validatePassword()} isInvalid={password!='' && ! validatePassword()} value={password}
+                feedback={
+                    <Form.Control.Feedback type="invalid">
+                        Password should be at least 8 characters long and contain at least 1 letter and 1 number
+                    </Form.Control.Feedback>
+                }/>
+                {/*<Form.Control.Feedback type="invalid">*/}
+                {/*    Password should be at least 8 characters long and contain at least 1 letter and 1 number*/}
+                {/*</Form.Control.Feedback>*/}
             </Form.Group>
             <Form.Group className="mb-3">
                 <Button type="submit" disabled={!validateUsername() || !validatePassword() || isUsernameChecking}>Register</Button>
