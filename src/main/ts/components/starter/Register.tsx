@@ -4,6 +4,7 @@ import {useRegisterMutation, useUsernameExistsQuery} from "../../services/auth";
 import {PASSWORD_REGEX} from "../../constants/constants";
 import {StarterTabProps} from "./Starter";
 import {PasswordInput} from "./PasswordInput";
+import {LoginWithPolling} from "./LoginWithPollingInput";
 
 
 
@@ -13,7 +14,7 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
     const [validated, setValidated] = useState(false);
     const [shouldCheckUsername, setShouldCheckUsername] = useState(false);
     const [registerPost, {error, isError, isSuccess}] = useRegisterMutation();
-    const {data: isUsernameTaken, isLoading: isUsernameChecking} = useUsernameExistsQuery(username, {skip: !shouldCheckUsername});
+    const {data: isUsernameTaken, isLoading: isUsernameChecking, isSuccess: isUsernameChecked} = useUsernameExistsQuery(username, {skip: !shouldCheckUsername});
 
     useEffect(() => {
         if (isSuccess) alert("success", "Successfully registered new user");
@@ -23,12 +24,15 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
     const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
         alert('primary', '')
-        setShouldCheckUsername(e.target.value.length >= 4);
+    }
+
+    const isUsernameValid = (username: string) => {
+        return username.length >= 4
     }
 
     const validateUsername = () => {
-        if (!isUsernameChecking) return !isUsernameTaken && username.length >= 4;
-        return username.length >= 4
+        if (!isUsernameChecking) return !isUsernameTaken && isUsernameValid(username)
+        return isUsernameValid(username);
     }
 
     const validatePassword = () => {
@@ -53,10 +57,16 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
         <Form onSubmit={submitForm} noValidate validated={validated}>
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Enter username" required onChange={onUsernameChanged} isValid={validateUsername()} isInvalid={username!='' && ! validateUsername()} value={username}/>
-                <Form.Control.Feedback type="invalid">
-                    {isUsernameTaken ? 'This username is taken!' : 'Username should be at least 4 symbols long'}
-                </Form.Control.Feedback>
+                {/*<Form.Control type="text" placeholder="Enter username" required onChange={onUsernameChanged} isValid={validateUsername()} isInvalid={username!='' && ! validateUsername()} value={username}/>*/}
+                {/*<Form.Control.Feedback type="invalid">*/}
+                {/*    {isUsernameTaken ? 'This username is taken!' : 'Username should be at least 4 symbols long'}*/}
+                {/*</Form.Control.Feedback>*/}
+                <LoginWithPolling onChanged={onUsernameChanged} isValid={validateUsername()} isInvalid={username!='' && ! validateUsername()} value={username} validateUsername={isUsernameValid}
+                                  initiateCheck={setShouldCheckUsername} isChecked={isUsernameChecked} feedback={
+                    <Form.Control.Feedback type="invalid">
+                        {isUsernameTaken ? 'This username is taken!' : 'Username should be at least 4 symbols long'}
+                    </Form.Control.Feedback>
+                }/>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
@@ -72,7 +82,7 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
                 {/*</Form.Control.Feedback>*/}
             </Form.Group>
             <Form.Group className="mb-3">
-                <Button type="submit" disabled={!validateUsername() || !validatePassword() || isUsernameChecking}>Register</Button>
+                <Button type="submit" disabled={!validateUsername() || !validatePassword() || !isUsernameChecked}>Register</Button>
             </Form.Group>
         </Form>
     )

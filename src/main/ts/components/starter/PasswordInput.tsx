@@ -17,7 +17,7 @@ export const PasswordInput: FC<PasswordInputProps> = ({onChanged, isValid, isInv
     }
     return (
         <InputGroup>
-            <Form.Control type={isShown ? "text" : "password"} placeholder="Enter password" required
+            <Form.Control type={isShown ? "text" : "password"} placeholder="Enter password" required maxLength={15}
                           onChange={onChanged} isValid={isValid} isInvalid={isInvalid} value={value}/>
             <span className="input-group-text" onClick={toggleShown}>
                 <i className={isShown ? "bi bi-eye" : "bi bi-eye-slash"} aria-hidden="true"/>

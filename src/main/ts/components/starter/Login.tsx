@@ -32,7 +32,7 @@ export const Login: FC<StarterTabProps> = ({alert}) => {
             <Form noValidate onSubmit={submitForm}>
                 <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" placeholder="Enter username" required onChange={onUsernameChanged} value={username}/>
+                    <Form.Control type="text" placeholder="Enter username" required maxLength={15} onChange={onUsernameChanged} value={username}/>
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
