@@ -13,7 +13,7 @@ export const AttemptsTable: FC<AttemptsTableProps> = ({attempts, isLoading}) => 
     if (isLoading) return (<Spinner animation="border"/>)
     return (
         <div className="pt-3">
-            <Table bordered striped>
+            <Table bordered striped responsive>
                 <thead>
                     <tr>
                         <td>Attempt №</td>

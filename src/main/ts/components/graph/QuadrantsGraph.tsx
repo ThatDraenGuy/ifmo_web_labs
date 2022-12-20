@@ -62,9 +62,11 @@ export const QuadrantsGraph: FC<any> = () => {
         hit: GRAPH_HIT_COLOR, invalidHit: GRAPH_INVALID_HIT_COLOR, miss: GRAPH_MISS_COLOR, invalidMiss: GRAPH_INVALID_MISS_COLOR
     };
     return (
-        <div className={styles.graphStacker}>
-            <GraphHolder graphDrawer={graphDrawer} pointsDrawer={pointsDrawer} graphParams={graphParams} graphStyle={graphStyle}/>
-            <ClickableGraph graphParams={graphParams} graphStyle={graphStyle}/>
+        <div className="d-flex justify-content-center">
+            <div className={styles.graphStacker+" shadow p-3 mb-5 bg-body rounded"}>
+                <GraphHolder graphDrawer={graphDrawer} pointsDrawer={pointsDrawer} graphParams={graphParams} graphStyle={graphStyle}/>
+                <ClickableGraph graphParams={graphParams} graphStyle={graphStyle}/>
+            </div>
         </div>
     )
 }

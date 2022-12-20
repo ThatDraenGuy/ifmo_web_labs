@@ -10,9 +10,9 @@ export const Home: FC<any> = ({}) => {
         <Container className="pt-5">
             <Row>
                 <Col>
-                    <Row>
+                    {/*<Row>*/}
                         <QuadrantsGraph/>
-                    </Row>
+                    {/*</Row>*/}
                 </Col>
                 <Col className="d-none d-md-block">
                     <ShooterForm/>
