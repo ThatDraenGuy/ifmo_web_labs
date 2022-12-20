@@ -26,7 +26,7 @@ export const authApi = api.injectEndpoints({
                 method: "POST",
                 body: credentials
             }),
-            invalidatesTags: ["Auth"]
+            invalidatesTags: (result, error) => error ? [] : ["Auth"]
         }),
         register: build.mutation<RegisterResponse, RegisterRequest>({
             query: (request) => ({

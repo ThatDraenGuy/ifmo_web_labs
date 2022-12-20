@@ -36,7 +36,6 @@ export const Login: FC<StarterTabProps> = ({alert}) => {
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
-                    {/*<Form.Control type="password" placeholder="Enter password" required onChange={onPasswordChanged} value={password}/>*/}
                     <PasswordInput onChanged={onPasswordChanged} isValid={false} isInvalid={false} value={password}/>
                 </Form.Group>
                 <Form.Group className="mb-3">

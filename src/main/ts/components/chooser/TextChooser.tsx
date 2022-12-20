@@ -35,7 +35,7 @@ export const TextChooser : FC<TextChooserParams> = ({getValue, setValue, minValu
 
     return (
         <div>
-            <Form.Control type="text" value={localValue} required isInvalid={isInvalid(localValue)} onChange={onInputChange}/>
+            <Form.Control type="text" value={localValue} required maxLength={6} isInvalid={isInvalid(localValue)} onChange={onInputChange}/>
             <Form.Control.Feedback type="invalid">
                 Value should be a number from {minValue} to {maxValue}
             </Form.Control.Feedback>

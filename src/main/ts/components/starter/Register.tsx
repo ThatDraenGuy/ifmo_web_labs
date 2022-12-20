@@ -47,7 +47,10 @@ export const Register: FC<StarterTabProps> = ({alert}) => {
     const submitForm = (e: React.FormEvent<HTMLFormElement>) =>  {
         e.preventDefault();
         if (validateUsername() && validatePassword()) {
-            registerPost({username, password});
+            registerPost({username, password}).then(() => {
+                setUsername('');
+                setPassword('');
+            });
             setValidated(true);
         }
         setValidated(false);
