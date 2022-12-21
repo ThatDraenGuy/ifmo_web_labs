@@ -7,6 +7,7 @@ import {AuthOnly} from "./components/AuthOnly";
 import {Starter} from "./components/starter/Starter";
 import {Error} from "./components/Error";
 
+
 export const App: FC<any> = () => {
     return (
         <BrowserRouter>
