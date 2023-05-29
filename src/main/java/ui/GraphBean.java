@@ -1,12 +1,18 @@
 package ui;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import logic.AreaCheckBean;
+import monitoring.IntervalMBean;
+import monitoring.IntervalMBeanImpl;
 
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import java.io.Serializable;
+import java.lang.management.ManagementFactory;
 
 @Named("graphBean")
 @SessionScoped
@@ -16,7 +22,24 @@ public class GraphBean implements Serializable {
     @Inject
     ChooserBean chooserBean;
 
+    private IntervalMBean intervalMBean;
+
+    @PostConstruct
+    private void init() {
+        try {
+            MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+            ObjectName interval = new ObjectName("monitoring:type=basic,name=interval");
+            intervalMBean = new IntervalMBeanImpl();
+            mBeanServer.registerMBean(intervalMBean, interval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     public void handleClick(double base, double graphBase) {
+        intervalMBean.handleClick();
         double modifier = graphBase / base;
         Double r = chooserBean.getR();
 
