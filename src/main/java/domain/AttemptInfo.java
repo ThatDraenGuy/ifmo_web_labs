@@ -34,8 +34,8 @@ public class AttemptInfo {
 
 
     public static AttemptInfo fromHit(CoordInfo coordInfo, ShotInfo shotInfo) {
-        String timezone = CDI.current().select(TimeZoneBean.class).get().getTimezone();
-        return new AttemptInfo(null, coordInfo, shotInfo, ZonedDateTime.now(ZoneId.of(timezone)));
+//        String timezone = CDI.current().select(TimeZoneBean.class).get().getTimezone();
+        return new AttemptInfo(null, coordInfo, shotInfo, ZonedDateTime.now(ZoneId.of("America/New_York")));
     }
 
     @Override

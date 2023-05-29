@@ -11,6 +11,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ import java.util.List;
 @ApplicationScoped
 public class QuadrantsBean implements Serializable {
     @Getter
+    @Setter
     private List<Quadrant> quadrants;
 
     @PostConstruct
