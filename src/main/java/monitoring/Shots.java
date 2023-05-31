@@ -18,11 +18,9 @@ public class Shots extends NotificationBroadcasterSupport implements ShotsMBean 
                 missedShotNumber++;
         totalShotNumber++;
 
-        CoordInfo coords = attemptInfo.getCoords();
-        double border = 4.0/3.0 * Math.abs(coords.getR());
-        if (Math.abs(coords.getX()) > border || Math.abs(coords.getY()) > border) {
-            Notification notification = new Notification("coordsOutOfGraph", this, totalShotNumber,
-                    "Coords of shot are out of rendered graph");
+        if  (totalShotNumber % 10 == 0) {
+            Notification notification = new Notification("totalShotNumberDivisibleBy10", this, totalShotNumber,
+                    "Number of shots is divisible by 10");
             sendNotification(notification);
         }
     }
