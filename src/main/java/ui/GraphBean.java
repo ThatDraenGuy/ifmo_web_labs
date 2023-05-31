@@ -7,7 +7,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import logic.AreaCheckBean;
 import monitoring.IntervalMBean;
-import monitoring.IntervalMBeanImpl;
+import monitoring.Interval;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -28,8 +28,8 @@ public class GraphBean implements Serializable {
     private void init() {
         try {
             MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-            ObjectName interval = new ObjectName("monitoring:type=basic,name=interval");
-            intervalMBean = new IntervalMBeanImpl();
+            ObjectName interval = new ObjectName("monitoring:type=IntervalMBean");
+            intervalMBean = new Interval();
             mBeanServer.registerMBean(intervalMBean, interval);
         } catch (Exception e) {
             e.printStackTrace();

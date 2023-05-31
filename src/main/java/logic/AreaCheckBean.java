@@ -6,7 +6,7 @@ import domain.AttemptInfo;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import monitoring.ShotsMBeanImpl;
+import monitoring.Shots;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -26,9 +26,10 @@ public class AreaCheckBean implements Serializable {
     private void init() {
         try {
             MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-            ObjectName shots = new ObjectName("monitoring:type=basic,name=shots");
-            shotsMBean = new ShotsMBeanImpl();
+            ObjectName shots = new ObjectName("monitoring:type = ShotsMBean");
+            shotsMBean = new Shots();
             mBeanServer.registerMBean(shotsMBean, shots);
+            System.out.println("Success");
         } catch (Exception e) {
             e.printStackTrace();
         }
