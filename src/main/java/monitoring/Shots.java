@@ -7,7 +7,7 @@ import lombok.Getter;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 
-public class ShotsMBeanImpl extends NotificationBroadcasterSupport implements ShotsMBean {
+public class Shots extends NotificationBroadcasterSupport implements ShotsMBean {
     @Getter
     private int totalShotNumber;
     @Getter
